@@ -9,8 +9,8 @@ class AuthorController extends Controller
 {
     public function add_author(){
         $author = new Author();
-        $author->username = 'rahim';
-        $author->password = 'rahim12';
+        $author->username = 'Jamal';
+        $author->password = 'Jamal12';
 
         $author->save();
     }

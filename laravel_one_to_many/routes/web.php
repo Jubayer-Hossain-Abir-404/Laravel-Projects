@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthorController;
+use App\Http\Controllers\PostController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,3 +19,6 @@ Route::get('/', function () {
 });
 
 Route::get('add_author', [AuthorController::class, 'add_author']);
+
+Route::get('add_post/{id}', [PostController::class, 'add_post']);
+
