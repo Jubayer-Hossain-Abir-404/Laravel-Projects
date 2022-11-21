@@ -24,3 +24,5 @@ Route::get('add_post/{id}', [PostController::class, 'add_post']);
 
 Route::get('show_post/{id}', [PostController::class, 'show_post']);
 
+Route::get('show_author/{id}', [AuthorController::class, 'show_author']);
+
