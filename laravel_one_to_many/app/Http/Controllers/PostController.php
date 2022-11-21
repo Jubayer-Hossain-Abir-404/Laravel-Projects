@@ -15,4 +15,11 @@ class PostController extends Controller
         $post->cat = 'Cat 4';
         $author->post()->save($post);
     }
+
+    // get post based on Author ID
+
+    public function show_post($id){
+        $post = Author::find($id)->post;
+        return $post;
+    }
 }
