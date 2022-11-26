@@ -12,8 +12,14 @@ class PostController extends Controller
         $author = Author::find($id);
 //        var_dump($author);
         $post = new Post();
-        $post->title = 'Title 1';
+        $post->title = 'Title 3';
         $author->post()->save($post);
 
+    }
+
+    public function show_post($id){
+        $author = Author::find($id);
+        $post = $author->post;
+        return $post;
     }
 }
