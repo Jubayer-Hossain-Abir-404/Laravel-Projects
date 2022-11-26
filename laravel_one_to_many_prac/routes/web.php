@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\IndexController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,3 +25,6 @@ Route::get('add_post/{id}', [PostController::class, 'add_post']);
 
 Route::get('show_post/{id}', [PostController::class, 'show_post']);
 Route::get('show_author/{id}', [AuthorController::class, 'show_author']);
+
+Route::get('single_data/{id}',[IndexController::class, 'single_data']);
+Route::get('all_data', [IndexController::class, 'all_data']);
