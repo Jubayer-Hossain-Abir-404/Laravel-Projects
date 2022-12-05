@@ -34,8 +34,7 @@ class AuthorController extends Controller
      */
     public function store(Request $request)
     {
-
-        return Response::json(array('message' => 'Okay'));
+        return response()->json(array('message' => 'Okay'));
     }
 
     /**

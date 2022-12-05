@@ -1,11 +1,11 @@
 // js code will be written here
 const createAuthor = ()=>{
     var authorName = $("#authorName").val();
-    var authorPhoto = $("#aauthorPhoto").val();
+    var authorPhoto = $("#authorPhoto").val();
 
     $.ajax({
         type : 'POST',
-        url : "api/addAuthor",
+        url : "http://127.0.0.1:8000/api/addAuthor",
         headers: {
             'X-CSRF-TOKEN' : $('input[name="_token"]').val()
         },
@@ -14,7 +14,7 @@ const createAuthor = ()=>{
             authorPhoto: authorPhoto
         },
         success: function(data){
-            alert(data);
+            alert(data.message);
         }
 
 
