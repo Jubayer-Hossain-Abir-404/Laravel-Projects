@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class AuthorController extends Controller
 {
@@ -34,6 +35,14 @@ class AuthorController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = Validator::make($request->all(),[
+            'authorName' => 'required|max:255',
+            'authorPhoto' => 'required'
+        ]);
+
+        if($validator->fails()){
+            return response()->json($validator->errors(),400);
+        }
         return response()->json(array('message' => 'Okay'));
     }
 

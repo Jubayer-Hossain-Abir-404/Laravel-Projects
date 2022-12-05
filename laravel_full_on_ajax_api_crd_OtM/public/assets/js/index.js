@@ -14,7 +14,9 @@ const createAuthor = ()=>{
             authorPhoto: authorPhoto
         },
         success: function(data){
-            alert(data.message);
+            // alert(data.responseJSON);
+            //
+            // foreach()
         }
 
 
