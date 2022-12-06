@@ -17,8 +17,11 @@ const createAuthor = ()=>{
             // alert(data.responseJSON);
             //
             // foreach()
+            // console.log(data);
+        },
+
+        error: function (data){
+            alert(JSON.stringify(data));
         }
-
-
     });
 }
