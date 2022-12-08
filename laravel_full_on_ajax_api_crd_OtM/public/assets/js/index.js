@@ -1,7 +1,9 @@
 // js code will be written here
 const createAuthor = ()=>{
-    var authorName = $("#authorName").val();
-    var authorPhoto = $("#authorPhoto").val();
+    let authorName = $("#authorName").val();
+    let authorPhoto = $("#authorPhoto").val();
+
+
 
     $.ajax({
         type : 'POST',
@@ -22,19 +24,13 @@ const createAuthor = ()=>{
         },
 
         error: function (data){
-            var errors = data.responseJSON;
-            console.log(errors);
+            let errors = data.responseJSON;
+            // console.log(errors);
             $.each(errors, function( key, value ) {
-                $('#errorAuthorName').append('<div class="alert alert-danger">'+ value[0] +'</div');
+                // console.log(key);
+                // console.log(value[0]);
+                $("#" + key + "_error").append('<div class="alert alert-danger">'+ value[0] +'</div');
             });
-            // $.each(data, function(i, message) {
-            //     // console.log(message);
-            //     console.log(message.authorName);
-            //     // console.log(message);
-            //
-            //     $('#errorAuthorName').append('<div class="alert alert-danger">'+message.authorName+'</div');
-            // });
-            // // alert(JSON.stringify(data));
         }
     });
 }
