@@ -1,4 +1,9 @@
 // js code will be written here
+
+const clearErrorMessage = ()=>{
+    // Removing the laravel error messages once the text field is clicked
+}
+
 const createAuthor = ()=>{
     let authorName = $("#authorName").val();
     let authorPhoto = $("#authorPhoto").val();
