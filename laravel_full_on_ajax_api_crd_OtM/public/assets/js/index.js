@@ -1,7 +1,8 @@
 // js code will be written here
 
-const clearErrorMessage = ()=>{
+const clearErrorMessage = (id)=>{
     // Removing the laravel error messages once the text field is clicked
+    $(id).html('');
 }
 
 const createAuthor = ()=>{
@@ -31,6 +32,8 @@ const createAuthor = ()=>{
         error: function (data){
             let errors = data.responseJSON;
             // console.log(errors);
+            clearErrorMessage('#authorName_error');
+            clearErrorMessage('#authorPhoto_error');
             $.each(errors, function( key, value ) {
                 // console.log(key);
                 // console.log(value[0]);
