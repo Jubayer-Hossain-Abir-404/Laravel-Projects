@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Author;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -43,6 +44,22 @@ class AuthorController extends Controller
         if($validator->fails()){
             return response()->json($validator->errors(),400);
         }
+
+        $file = $request->file('authorPhoto');
+        // dd($file);
+        if($file!=null)
+        {
+            $file_name = rand(123456, 999999) . '.' . $file->getClientOriginalExtension();
+            $file_path = public_path('/files');
+            $file->move($file_path, $file_name);
+        }
+
+
+        $author = new Author();
+        $author->name = $request->name;
+        $file->file = $file_name;
+
+        $file->save();
         return response()->json(array('message' => 'Okay'));
     }
 

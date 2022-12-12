@@ -10,7 +10,6 @@ const createAuthor = ()=>{
     let authorPhoto = $("#authorPhoto").val();
 
 
-
     $.ajax({
         type : 'POST',
         url : "http://127.0.0.1:8000/api/addAuthor",
