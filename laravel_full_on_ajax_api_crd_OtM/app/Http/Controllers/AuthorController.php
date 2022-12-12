@@ -45,8 +45,10 @@ class AuthorController extends Controller
             return response()->json($validator->errors(),400);
         }
 
+
         $file = $request->file('authorPhoto');
         // dd($file);
+        $file_name = '';
         if($file!=null)
         {
             $file_name = rand(123456, 999999) . '.' . $file->getClientOriginalExtension();
@@ -54,13 +56,17 @@ class AuthorController extends Controller
             $file->move($file_path, $file_name);
         }
 
-
         $author = new Author();
-        $author->name = $request->name;
-        $file->file = $file_name;
+        $author->name = $request->authorName;
+        $author->photo = $file_name;
 
-        $file->save();
-        return response()->json(array('message' => 'Okay'));
+        if($author->save()){
+            return response()->json(array('message' => 'New Author has been created'));
+        }
+        else{
+            return response()->json(array('message' => 'Failed to create a new author'));
+        }
+
     }
 
     /**

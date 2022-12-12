@@ -9,7 +9,7 @@ const createAuthor = ()=>{
     let authorName = $("#authorName").val();
     let authorPhoto = $("#authorPhoto").val();
 
-
+    console.log(authorPhoto);
     $.ajax({
         type : 'POST',
         url : "http://127.0.0.1:8000/api/addAuthor",
@@ -25,17 +25,15 @@ const createAuthor = ()=>{
             // alert(data.responseJSON);
             //
             // foreach()
-            // console.log(data);
+            console.log(data);
         },
 
         error: function (data){
             let errors = data.responseJSON;
-            // console.log(errors);
+            console.log(errors);
             clearErrorMessage('#authorName_error');
             clearErrorMessage('#authorPhoto_error');
             $.each(errors, function( key, value ) {
-                // console.log(key);
-                // console.log(value[0]);
                 $("#" + key + "_error").append('<div class="alert alert-danger">'+ value[0] +'</div');
             });
         }
