@@ -47,14 +47,11 @@ class AuthorController extends Controller
 
 
         $file = $request->file('authorPhoto');
-        // dd($file);
-        $file_name = '';
-        if($file!=null)
-        {
-            $file_name = rand(123456, 999999) . '.' . $file->getClientOriginalExtension();
-            $file_path = public_path('/files');
-            $file->move($file_path, $file_name);
-        }
+
+        $file_name = rand(123456, 999999) . '.' . $file->getClientOriginalExtension();
+        $file_path = public_path('/files');
+        $file->move($file_path, $file_name);
+
 
         $author = new Author();
         $author->name = $request->authorName;
