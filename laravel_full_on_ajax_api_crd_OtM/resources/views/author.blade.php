@@ -20,6 +20,7 @@
                         <h5 class="modal-title" id="exampleModalLabel">Create Author</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
+                    <div  id="authorSuccessMessage"></div>
                     <div class="modal-body">
                         <form method="post" id="authorForm"  enctype="multipart/form-data">
                             @csrf
@@ -27,18 +28,12 @@
                                 <label for="authorName" class="form-label">Name</label>
                                 <input type="text" class="form-control" id="authorName" name="authorName" placeholder="Author Name" value="">
                             </div>
-                            <div id="authorName_error">
-
-                            </div>
+                            <div  id="authorName_error"></div>
                             <div class="mb-3">
                                 <label for="authorPhoto" class="form-label">Photo</label>
                                 <input type="file" class="form-control" name="authorPhoto" id="authorPhoto" >
                             </div>
-                            <div id="authorPhoto_error">
-
-                            </div>
-
-
+                            <div id="authorPhoto_error"></div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

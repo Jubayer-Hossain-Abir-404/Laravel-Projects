@@ -21,19 +21,21 @@ $(document).ready(function(){
             cache: false,
             processData: false,
             success: function(data){
-                // alert(data.responseJSON);
-                //
-                // foreach()
-                console.log(data);
+                $("#authorSuccessMessage").html('<div class="mt-2 alert alert-success">'+ data.message +'</div>');
+                $("#authorName").val('');
+                $("#authorPhoto").val('');
+                clearErrorMessage('#authorName_error');
+                clearErrorMessage('#authorPhoto_error');
             },
 
             error: function (data){
                 let errors = data.responseJSON;
-                console.log(errors);
+                // console.log(errors);
                 clearErrorMessage('#authorName_error');
                 clearErrorMessage('#authorPhoto_error');
+                $("#authorSuccessMessage").html('');
                 $.each(errors, function( key, value ) {
-                    $("#" + key + "_error").append('<div class="alert alert-danger">'+ value[0] +'</div');
+                    $("#" + key + "_error").html('<div class="alert alert-danger">'+ value[0] +'</div>');
                 });
             }
         })
