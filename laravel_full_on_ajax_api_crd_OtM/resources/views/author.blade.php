@@ -21,7 +21,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form id="authorForm" method="post" enctype="multipart/form-data">
+                        <form method="post" id="authorForm"  enctype="multipart/form-data">
                             @csrf
                             <div class="mb-3">
                                 <label for="authorName" class="form-label">Name</label>
@@ -42,13 +42,13 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" onclick="createAuthor()">Save</button>
+{{--                        <button type="button" class="btn btn-primary" >Save</button>--}}
+                        <input type="submit" name="authorSave" id="authorSave" class="btn btn-primary" value="Save">
                     </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-
 
 @endsection
