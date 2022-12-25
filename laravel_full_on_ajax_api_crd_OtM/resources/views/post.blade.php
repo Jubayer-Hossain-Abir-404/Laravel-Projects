@@ -7,7 +7,7 @@
         <!-- Button trigger modal -->
         <div class="d-flex align-items-end flex-column">
             <button type="button" class="btn btn-primary mt-5" data-bs-toggle="modal" data-bs-target="#authorModal">
-                Create Author
+                Create Post
             </button>
         </div>
 
