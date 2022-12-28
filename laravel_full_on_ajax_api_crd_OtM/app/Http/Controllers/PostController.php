@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Author;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -13,7 +15,13 @@ class PostController extends Controller
      */
     public function index()
     {
-        return view('post');
+        $categories = Category::latest('id')->get();
+        $authors = Author::latest('id')->get();
+
+        return view('post', compact(
+            'categories',
+            'authors'
+        ));
     }
 
     /**
@@ -23,7 +31,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**

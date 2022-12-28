@@ -16,21 +16,45 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Create Author</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Create Post</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div  id="authorSuccessMessage"></div>
                     <div class="modal-body">
-                        <form method="post" id="authorForm"  enctype="multipart/form-data">
+                        <form method="post" id="postForm" enctype="multipart/form-data">
                             @csrf
                             <div class="mb-3">
-                                <select class="form-select" aria-label="Default select example">
-                                    <option selected>Open this select menu</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
+                                <label for="postName" class="form-label">Name</label>
+                                <input type="text" class="form-control" id="postName" name="postName" placeholder="Post Name" value="">
+                            </div>
+                            <div  id="postName_error"></div>
+
+                            <div class="mb-3">
+                                <label for="postPhoto" class="form-label">Image</label>
+                                <input type="file" class="form-control" name="postPhoto" id="postPhoto" >
+                            </div>
+                            <div id="postPhoto_error"></div>
+
+                            <div class="mb-3">
+                                <label for="postType" class="form-label">Select Post Type</label>
+                                <select class="form-select" aria-label="Default select example" id="postType" name="postType">
+                                    <option selected>Select Post Type</option>
+                                    @foreach($categories as $category)
+                                        <option value="{{$category->id}}">{{$category->name}}</option>
+                                    @endforeach
                                 </select>
                             </div>
+
+                            <div class="mb-3">
+                                <label for="postAuthor" class="form-label">Select Post Author</label>
+                                <select class="form-select" aria-label="Default select example" id="postAuthor" name="postAuthor">
+                                    <option selected>Select Post Author</option>
+                                    @foreach($authors as $author)
+                                        <option value="{{$author->id}}">{{$author->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
                             <div class="mb-3">
                                 <label for="authorName" class="form-label">Name</label>
                                 <input type="text" class="form-control" id="authorName" name="authorName" placeholder="Author Name" value="">
