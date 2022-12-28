@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class CategoryController extends Controller
 {
@@ -34,7 +36,23 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(),[
+            'categoryName' => 'required|max:255',
+        ]);
+
+        if($validator->fails()){
+            return response()->json($validator->errors(),400);
+        }
+
+        $category = new Category();
+        $category->name = $request->categoryName;
+
+        if($category->save()){
+            return response()->json(array('message' => 'New Category has been created'));
+        }
+        else{
+            return response()->json(array('message' => 'Failed to create a new category'));
+        }
     }
 
     /**
