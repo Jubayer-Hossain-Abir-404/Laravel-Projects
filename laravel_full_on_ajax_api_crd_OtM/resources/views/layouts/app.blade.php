@@ -25,6 +25,9 @@
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="{{ route('post') }}">Post</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{{ route('category') }}">Category</a>
+                    </li>
                 </ul>
                 <div class="d-flex">
                     Log
