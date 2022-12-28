@@ -55,15 +55,13 @@
                                 </select>
                             </div>
 
-                            <div class="mb-3">
-                                <label for="authorName" class="form-label">Name</label>
-                                <input type="text" class="form-control" id="authorName" name="authorName" placeholder="Author Name" value="">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    Display Post
+                                </label>
                             </div>
-                            <div  id="authorName_error"></div>
-                            <div class="mb-3">
-                                <label for="authorPhoto" class="form-label">Photo</label>
-                                <input type="file" class="form-control" name="authorPhoto" id="authorPhoto" >
-                            </div>
+
                             <div id="authorPhoto_error"></div>
                     </div>
                     <div class="modal-footer">
