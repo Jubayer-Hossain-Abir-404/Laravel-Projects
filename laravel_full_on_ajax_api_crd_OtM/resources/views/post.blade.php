@@ -58,7 +58,7 @@
                             <div id="postAuthor_error"></div>
 
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="postApprove">
+                                <input class="form-check-input" type="checkbox" value="1" name="postApprove" id="postApprove">
                                 <label class="form-check-label" for="postApprove">
                                     Display Post
                                 </label>

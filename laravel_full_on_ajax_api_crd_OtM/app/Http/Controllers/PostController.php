@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Author;
 use App\Models\Category;
+use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -55,22 +56,30 @@ class PostController extends Controller
         }
 
 
-        $file = $request->file('authorPhoto');
+        $file = $request->file('postPhoto');
 
         $file_name = rand(123456, 999999) . '.' . $file->getClientOriginalExtension();
-        $file_path = public_path('/files');
+        $file_path = public_path('/post_files');
         $file->move($file_path, $file_name);
 
+        $post = new Post();
+        $post->title = $request->postName;
+        $post->image = $file_name;
+        $post->author_id = $request->postAuthor;
+//        query for fetching author name
+        $author = Author::find($post->author_id);
+        $post->written_by = $author->name;
+        $post->category_id = $request->postType;
+//        checking if postApprove has data
+        if($request->has('postApprove')) {
+            $post->approve = $request->postApprove;
+        }
 
-        $author = new Author();
-        $author->name = $request->authorName;
-        $author->photo = $file_name;
-
-        if($author->save()){
-            return response()->json(array('message' => 'New Author has been created'));
+        if($post->save()){
+            return response()->json(array('message' => 'New Post has been created'));
         }
         else{
-            return response()->json(array('message' => 'Failed to create a new author'));
+            return response()->json(array('message' => 'Failed to create a new post'));
         }
     }
 

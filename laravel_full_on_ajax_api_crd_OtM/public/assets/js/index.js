@@ -90,9 +90,19 @@ $(document).ready(function(){
             cache: false,
             processData: false,
             success: function(data){
-                $("#categorySuccessMessage").html('<div class="mt-2 alert alert-success">'+ data.message +'</div>');
-                $("#categoryName").val('');
-                clearErrorMessage('#categoryName_error');
+                $("#postSuccessMessage").html('<div class="mt-2 alert alert-success">'+ data.message +'</div>');
+                $("#postName").val('');
+                $("#postPhoto").val('');
+                $("#postType").val('');
+                $("#postAuthor").val('');
+                $('#postApprove').prop('checked', false);
+
+                $('[id]').each(function () {
+                    if(this.id.endsWith('_error')){
+                        let error = "#" + this.id;
+                        clearErrorMessage(error);
+                    }
+                });
             },
 
             error: function (data){
