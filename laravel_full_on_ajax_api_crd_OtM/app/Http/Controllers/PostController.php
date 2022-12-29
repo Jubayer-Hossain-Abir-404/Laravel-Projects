@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Author;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class PostController extends Controller
 {
@@ -42,7 +43,35 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(),[
+            'postName' => 'required|max:255',
+            'postPhoto' => 'required',
+            'postType' => 'required',
+            'postAuthor' => 'required'
+        ]);
+
+        if($validator->fails()){
+            return response()->json($validator->errors(),400);
+        }
+
+
+        $file = $request->file('authorPhoto');
+
+        $file_name = rand(123456, 999999) . '.' . $file->getClientOriginalExtension();
+        $file_path = public_path('/files');
+        $file->move($file_path, $file_name);
+
+
+        $author = new Author();
+        $author->name = $request->authorName;
+        $author->photo = $file_name;
+
+        if($author->save()){
+            return response()->json(array('message' => 'New Author has been created'));
+        }
+        else{
+            return response()->json(array('message' => 'Failed to create a new author'));
+        }
     }
 
     /**
