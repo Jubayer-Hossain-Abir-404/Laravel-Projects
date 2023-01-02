@@ -1,5 +1,9 @@
 @extends('backend.layouts.master')
 
+@section('title')
+    Dashboard Page ~ Admin Panel
+@endsection
+
 @section('admin-content')
 <div>
     <!-- page title area start -->
