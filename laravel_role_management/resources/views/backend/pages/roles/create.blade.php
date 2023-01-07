@@ -41,10 +41,17 @@
                                     <label for="name">Role Name</label>
                                     <input type="text" name="name" class="form-control" id="name"  placeholder="Enter a Role Name">
                                 </div>
-{{--                                <div class="form-check">--}}
-{{--                                    <input type="checkbox" class="form-check-input" id="exampleCheck1">--}}
-{{--                                    <label class="form-check-label" for="exampleCheck1">Check me out</label>--}}
-{{--                                </div>--}}
+
+                                <div class="form-group">
+                                    <label for="name">Permissions</label>
+                                    @foreach($permissions as $permission)
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input" id="exampleCheck1" value="{{ $permission->name }}">
+                                            <label class="form-check-label" for="exampleCheck1">{{$permission->name}}</label>
+                                        </div>
+                                    @endforeach
+                                </div>
+
                                 <button type="submit" class="btn btn-primary mt-4 pr-4 pl-4">Save Role</button>
                             </form>
                         </div>
