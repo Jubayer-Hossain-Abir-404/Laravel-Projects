@@ -35,7 +35,18 @@
                     <div class="card">
                         <div class="card-body">
                             <h4 class="header-title">Create New Role</h4>
-
+                            <form action="{{route('admin.roles.store')}}" method="POST">
+                                @csrf
+                                <div class="form-group">
+                                    <label for="name">Role Name</label>
+                                    <input type="text" name="name" class="form-control" id="name"  placeholder="Enter a Role Name">
+                                </div>
+{{--                                <div class="form-check">--}}
+{{--                                    <input type="checkbox" class="form-check-input" id="exampleCheck1">--}}
+{{--                                    <label class="form-check-label" for="exampleCheck1">Check me out</label>--}}
+{{--                                </div>--}}
+                                <button type="submit" class="btn btn-primary mt-4 pr-4 pl-4">Save Role</button>
+                            </form>
                         </div>
                     </div>
                 </div>
