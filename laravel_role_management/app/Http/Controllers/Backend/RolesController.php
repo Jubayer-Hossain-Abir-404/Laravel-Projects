@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
@@ -39,7 +40,13 @@ class RolesController extends Controller
      */
     public function store(Request $request)
     {
-        Role::create(['name' => $request->name]);
+        $role = Role::create(['name' => $request->name]);
+
+//        $role = DB::table('roles')->where('name', $request->name)->first();
+        $permissions = $request->input('permissions');
+        if(!empty($permissions)){
+            $role->syncPermissions($permissions);
+        }
         return back();
     }
 
