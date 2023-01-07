@@ -46,6 +46,14 @@
 
                                 <div class="form-group">
                                     <label for="name">Permissions</label>
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input"  id="checkPermissionAll" value="1">
+                                            <label class="form-check-label" for="checkPermissionAll">All</label>
+                                        </div>
+                                </div>
+                                <hr>
+
+                                <div class="form-group">
                                     @foreach($permissions as $permission)
                                         <div class="form-check">
                                             <input type="checkbox" class="form-check-input" name="permissions[]" id="checkPermission{{ $permission->id }}" value="{{ $permission->name }}">
@@ -68,6 +76,14 @@
 
 @section('scripts')
     <script>
-
+        $("#checkPermissionAll").click(function (){
+            if($(this).is(':checked')){
+                // check all the checkboxes
+                $('input[type=checkbox]').prop('checked', true);
+            }else{
+                // un check all the checkbox
+                $('input[type=checkbox]').prop('checked', false);
+            }
+        })
     </script>
 @endsection
