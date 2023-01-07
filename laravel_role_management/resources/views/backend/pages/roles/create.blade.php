@@ -35,6 +35,8 @@
                     <div class="card">
                         <div class="card-body">
                             <h4 class="header-title">Create New Role</h4>
+                            @include('backend.layouts.partials.messages')
+
                             <form action="{{route('admin.roles.store')}}" method="POST">
                                 @csrf
                                 <div class="form-group">
