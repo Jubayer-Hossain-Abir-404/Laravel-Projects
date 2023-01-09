@@ -60,18 +60,18 @@
                                 @php $i=1; @endphp
                                 @foreach($permission_groups as $group)
                                     <div class="row">
+                                        @php
+                                            $permissions = \App\Models\User::getPermissionByGroupName($group->name);
+                                            $j=1;
+                                        @endphp
                                         <div class="col-3">
                                             <div class="form-check">
-                                                <input type="checkbox" class="form-check-input"  id="{{ $i }}Management" value="{{ $group->name }}" onclick="checkPermissionByGroup('role-{{$i}}-management-checkbox', this)">
+                                                <input type="checkbox" class="form-check-input"  id="{{ $i }}Management" value="{{ $group->name }}" onclick="checkPermissionByGroup('role-{{$i}}-management-checkbox', this)" {{\App\Models\User::roleHasPermissions($role, $permissions) ? 'checked' : ''}}>
                                                 <label class="form-check-label" for="checkPermission">{{$group->name}}</label>
                                             </div>
                                         </div>
                                         <div class="col-9 role-{{$i}}-management-checkbox">
                                             <div class="form-group">
-                                                @php
-                                                    $permissions = \App\Models\User::getPermissionByGroupName($group->name);
-                                                    $j=1;
-                                                @endphp
                                                 @foreach($permissions as $permission)
                                                     <div class="form-check">
                                                         <input type="checkbox" class="form-check-input" name="permissions[]" {{$role->hasPermissionTo($permission->name) ? 'checked' : '' }} id="checkPermission{{ $permission->id }}" value="{{ $permission->name }}">
