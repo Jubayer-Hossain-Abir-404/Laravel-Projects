@@ -43,6 +43,7 @@
                             @include('backend.layouts.partials.messages')
 
                             <form action="{{route('admin.roles.update', $role->id)}}" method="POST">
+                                @method('PUT')
                                 @csrf
                                 <div class="form-group">
                                     <label for="name">Role Name</label>
