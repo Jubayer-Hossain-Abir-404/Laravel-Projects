@@ -75,7 +75,7 @@
                                             <div class="form-group">
                                                 @foreach($permissions as $permission)
                                                     <div class="form-check">
-                                                        <input type="checkbox" class="form-check-input" name="permissions[]" {{$role->hasPermissionTo($permission->name) ? 'checked' : '' }} id="checkPermission{{ $permission->id }}" value="{{ $permission->name }}">
+                                                        <input type="checkbox" class="form-check-input" onclick="checkSinglePermission('role-{{$i}}-management-checkbox', '{{ $i }}Management', {{count($permissions)}})" name="permissions[]" {{$role->hasPermissionTo($permission->name) ? 'checked' : '' }} id="checkPermission{{ $permission->id }}" value="{{ $permission->name }}">
                                                         <label class="form-check-label" for="checkPermission{{ $permission->id }}">{{$permission->name}}</label>
                                                     </div>
                                                     @php
@@ -89,7 +89,7 @@
                                     @php $i++; @endphp
                                 @endforeach
 
-                                <button type="submit" class="btn btn-primary mt-4 pr-4 pl-4">Save Role</button>
+                                <button type="submit" class="btn btn-primary mt-4 pr-4 pl-4">Update Role</button>
                             </form>
                         </div>
                     </div>
