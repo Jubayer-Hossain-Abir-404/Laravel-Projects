@@ -54,7 +54,8 @@
                                             <td>{{ $loop->index+1 }}</td>
                                             <td>{{ $role->name }}</td>
                                             <td>
-                                                -
+                                                <a class="btn btn-success text-white" href="{{ route('admin.roles.edit', $role->id) }}">Edit</a>
+                                                <a class="btn btn-danger text-white" onclick="">Delete</a>
                                             </td>
                                         </tr>
                                     @endforeach
