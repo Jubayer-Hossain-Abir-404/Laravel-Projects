@@ -19,7 +19,7 @@
             <div class="row align-items-center">
                 <div class="col-sm-6">
                     <div class="breadcrumbs-area clearfix">
-                        <h4 class="page-title pull-left">Role Create</h4>
+                        <h4 class="page-title pull-left">Role Edit - {{$role->name}}</h4>
                         <ul class="breadcrumbs pull-left">
                             <li><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
                             <li><a href="{{ route('admin.roles.index') }}">All Roles</a></li>
@@ -74,7 +74,7 @@
                                                 @endphp
                                                 @foreach($permissions as $permission)
                                                     <div class="form-check">
-                                                        <input type="checkbox" class="form-check-input" name="permissions[]" id="checkPermission{{ $permission->id }}" value="{{ $permission->name }}">
+                                                        <input type="checkbox" class="form-check-input" name="permissions[]" {{$role->hasPermissionTo($permission->name) ? 'checked' : '' }} id="checkPermission{{ $permission->id }}" value="{{ $permission->name }}">
                                                         <label class="form-check-label" for="checkPermission{{ $permission->id }}">{{$permission->name}}</label>
                                                     </div>
                                                     @php
@@ -101,26 +101,5 @@
 @endsection
 
 @section('scripts')
-    <script>
-        $("#checkPermissionAll").click(function (){
-            if($(this).is(':checked')){
-                // check all the checkboxes
-                $('input[type=checkbox]').prop('checked', true);
-            }else{
-                // un check all the checkbox
-                $('input[type=checkbox]').prop('checked', false);
-            }
-        });
-
-        function checkPermissionByGroup(className, checkThis){
-            const groupIdName = $("#"+checkThis.id);
-            const classCheckBox = $('.'+className+' input');
-
-            if(groupIdName.is(':checked')){
-                classCheckBox.prop('checked', true);
-            }else{
-                classCheckBox.prop('checked', false);
-            }
-        }
-    </script>
+    @include('backend.pages.roles.partials.scripts')
 @endsection
