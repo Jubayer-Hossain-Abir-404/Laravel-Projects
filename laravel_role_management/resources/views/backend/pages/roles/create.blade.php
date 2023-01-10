@@ -22,7 +22,8 @@
                         <h4 class="page-title pull-left">Role Create</h4>
                         <ul class="breadcrumbs pull-left">
                             <li><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                            <li><span>All Roles</span></li>
+                            <li><a href="{{ route('admin.roles.index') }}">All Roles</a></li>
+                            <li><span>Create Role</span></li>
                         </ul>
                     </div>
                 </div>
@@ -51,7 +52,7 @@
                                 <div class="form-group">
                                     <label for="name">Permissions</label>
                                         <div class="form-check">
-                                            <input type="checkbox" class="form-check-input"  id="checkPermissionAll" value="1">
+                                            <input type="checkbox" class="form-check-input"  id="checkPermissionAll" value="1" >
                                             <label class="form-check-label" for="checkPermissionAll">All</label>
                                         </div>
                                 </div>
@@ -73,7 +74,7 @@
                                                 @endphp
                                                 @foreach($permissions as $permission)
                                                     <div class="form-check">
-                                                        <input type="checkbox" class="form-check-input" name="permissions[]" id="checkPermission{{ $permission->id }}" value="{{ $permission->name }}">
+                                                        <input type="checkbox" class="form-check-input" name="permissions[]" id="checkPermission{{ $permission->id }}" value="{{ $permission->name }}" onclick="checkSinglePermission('role-{{$i}}-management-checkbox', '{{ $i }}Management', {{count($permissions)}})">
                                                         <label class="form-check-label" for="checkPermission{{ $permission->id }}">{{$permission->name}}</label>
                                                     </div>
                                                     @php
