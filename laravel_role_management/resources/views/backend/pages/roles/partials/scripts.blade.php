@@ -18,6 +18,7 @@
         }else{
             classCheckBox.prop('checked', false);
         }
+        implementAllChecked();
     }
 
     function checkSinglePermission(groupClassName, groupId, countTotalPermission){
@@ -29,6 +30,19 @@
         }
         else{
             groupIDCheckBox.prop('checked', false);
+        }
+        implementAllChecked();
+    }
+
+    function implementAllChecked(){
+       const  countPermissions = {{ count($all_permissions) }};
+       const  countPermissionGroups = {{ count($permission_groups) }};
+
+        if($('input[type="checkbox"]:checked').length >= (countPermissions + countPermissionGroups)){
+            $("#checkPermissionAll").prop('checked', true);
+        }
+        else{
+            $("#checkPermissionAll").prop('checked', false);
         }
     }
 </script>
