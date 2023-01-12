@@ -49,6 +49,7 @@
                                 <tr>
                                     <th>Sl</th>
                                     <th>Name</th>
+                                    <th width="200px">Permissions</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
@@ -57,6 +58,13 @@
                                         <tr>
                                             <td>{{ $loop->index+1 }}</td>
                                             <td>{{ $role->name }}</td>
+                                            <td>
+                                                @foreach($role->permissions as $perm)
+                                                    <span class="badge badge-info mr-1">
+                                                        {{$perm->name}}
+                                                    </span>
+                                                @endforeach
+                                            </td>
                                             <td>
                                                 <a class="btn btn-success text-white" href="{{ route('admin.roles.edit', $role->id) }}">Edit</a>
                                                 <a class="btn btn-danger text-white" onclick="">Delete</a>
