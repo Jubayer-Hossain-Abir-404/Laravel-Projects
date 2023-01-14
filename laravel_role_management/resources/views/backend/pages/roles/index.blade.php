@@ -47,10 +47,10 @@
                             <table id="dataTable" class="text-center">
                                 <thead class="bg-light text-capitalize">
                                 <tr>
-                                    <th>Sl</th>
-                                    <th>Name</th>
-                                    <th width="200px">Permissions</th>
-                                    <th>Action</th>
+                                    <th width="5%">Sl</th>
+                                    <th width="10%">Name</th>
+                                    <th width="60%">Permissions</th>
+                                    <th width="15%">Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -67,7 +67,17 @@
                                             </td>
                                             <td>
                                                 <a class="btn btn-success text-white" href="{{ route('admin.roles.edit', $role->id) }}">Edit</a>
-                                                <a class="btn btn-danger text-white" onclick="">Delete</a>
+
+                                                <a class="btn btn-danger text-white" href="{{ route('admin.roles.destroy', $role->id) }}"
+                                                onclick="event.preventDefault();
+                                                                document.getElementById('delete-form-{{ $role->id }}').submit();">
+                                                    Delete
+                                                </a>
+
+                                                <form id="delete-form-{{ $role->id }}" action="{{ route('admin.roles.destroy', $role->id) }}" method="POST" class="d-none">
+                                                    @method('DELETE')
+                                                    @csrf
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach
