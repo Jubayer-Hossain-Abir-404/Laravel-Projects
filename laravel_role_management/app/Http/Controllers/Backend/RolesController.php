@@ -111,6 +111,8 @@ class RolesController extends Controller
 //        $role = DB::table('roles')->where('name', $request->name)->first();
         $permissions = $request->input('permissions');
         if(!empty($permissions)){
+            $role->name = $request->name;
+            $role->save();
             $role->syncPermissions($permissions);
         }
 
