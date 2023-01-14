@@ -1,7 +1,7 @@
 @extends('backend.layouts.master')
 
 @section('title')
-    Role Create ~ Admin Panel
+    User Create ~ Admin Panel
 @endsection
 
 @section('styles')
@@ -16,21 +16,21 @@
     <div>
         <!-- page title area start -->
         <div class="page-title-area">
-            <div class="row align-items-center">
+            <User class="row align-items-center">
                 <div class="col-sm-6">
                     <div class="breadcrumbs-area clearfix">
-                        <h4 class="page-title pull-left">Role Create</h4>
+                        <h4 class="page-title pull-left">User Create</h4>
                         <ul class="breadcrumbs pull-left">
                             <li><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                            <li><a href="{{ route('admin.roles.index') }}">All Roles</a></li>
-                            <li><span>Create Role</span></li>
+                            <li><a href="{{ route('admin.users.index') }}">All Users</a></li>
+                            <li><span>Create User</span></li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-sm-6 clearfix">
                     @include('backend.layouts.partials.logout')
                 </div>
-            </div>
+            </User
         </div>
         <!-- page title area end -->
         <div class="main-content-inner">
@@ -44,51 +44,39 @@
 
                             <form action="{{route('admin.roles.store')}}" method="POST">
                                 @csrf
-                                <div class="form-group">
-                                    <label for="name">Role Name</label>
-                                    <input type="text" name="name" class="form-control" id="name"  placeholder="Enter a Role Name">
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="name">Permissions</label>
-                                        <div class="form-check">
-                                            <input type="checkbox" class="form-check-input"  id="checkPermissionAll" value="1" >
-                                            <label class="form-check-label" for="checkPermissionAll">All</label>
-                                        </div>
-                                </div>
-                                <hr>
-                                @php $i=1; @endphp
-                                @foreach($permission_groups as $group)
-                                    <div class="row">
-                                        <div class="col-3">
-                                            <div class="form-check">
-                                                <input type="checkbox" class="form-check-input"  id="{{ $i }}Management" value="{{ $group->name }}" onclick="checkPermissionByGroup('role-{{$i}}-management-checkbox', this)">
-                                                <label class="form-check-label" for="checkPermission">{{$group->name}}</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-9 role-{{$i}}-management-checkbox">
-                                            <div class="form-group">
-                                                @php
-                                                    $permissions = \App\Models\User::getPermissionByGroupName($group->name);
-                                                    $j=1;
-                                                @endphp
-                                                @foreach($permissions as $permission)
-                                                    <div class="form-check">
-                                                        <input type="checkbox" class="form-check-input" name="permissions[]" id="checkPermission{{ $permission->id }}" value="{{ $permission->name }}" onclick="checkSinglePermission('role-{{$i}}-management-checkbox', '{{ $i }}Management', {{count($permissions)}})">
-                                                        <label class="form-check-label" for="checkPermission{{ $permission->id }}">{{$permission->name}}</label>
-                                                    </div>
-                                                    @php
-                                                        $j++;
-                                                    @endphp
-                                                @endforeach
-                                                <br>
-                                            </div>
-                                        </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <label for="name">User Name</label>
+                                        <input type="text" name="name" class="form-control" id="name"  placeholder="Enter a Name">
                                     </div>
-                                    @php $i++; @endphp
-                                @endforeach
 
-                                <button type="submit" class="btn btn-primary mt-4 pr-4 pl-4">Save Role</button>
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <label for="email">User Email</label>
+                                        <input type="text" name="email" class="form-control" id="email"  placeholder="Enter Email">
+                                    </div>
+
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <label for="password">Password</label>
+                                        <input type="text" name="password" class="form-control" id="password"  placeholder="Password">
+                                    </div>
+
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <label for="password_confirmation">Confirm Password</label>
+                                        <input type="text" name="password_confirmation" class="form-control" id="password_confirmation"  placeholder="Confirm Password">
+                                    </div>
+
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <label for="password">Assign Roles</label>
+                                        <select name="roles[]" id="roles" class="select2" multiple>
+                                            @foreach ($roles as $role)
+                                                <option value="{{ $role->name }}">{{ $role->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                </div>
+                                
+                                <button type="submit" class="btn btn-primary mt-4 pr-4 pl-4">Save User</button>
                             </form>
                         </div>
                     </div>
@@ -98,8 +86,4 @@
             </div>
         </div>
     </div>
-@endsection
-
-@section('scripts')
-    @include('backend.pages.roles.partials.scripts')
 @endsection
