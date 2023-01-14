@@ -23,6 +23,16 @@
                             <li class="{{\Illuminate\Support\Facades\Route::is('admin.roles.create') ? 'active' : ''}}"><a href="{{route('admin.roles.create')}}">Create Role</a></li>
                         </ul>
                     </li>
+
+                    <li>
+                        <a href="javascript:void(0)" aria-expanded="true"><i class="ti-layout-sidebar-left"></i><span>
+                                        Users
+                                    </span></a>
+                        <ul class="collapse {{\Illuminate\Support\Facades\Route::is('admin.users.create') || \Illuminate\Support\Facades\Route::is('admin.users.index') || \Illuminate\Support\Facades\Route::is('admin.users.edit') || \Illuminate\Support\Facades\Route::is('admin.users.show') ? 'in' : ''}}">
+                            <li class="{{\Illuminate\Support\Facades\Route::is('admin.users.index') || \Illuminate\Support\Facades\Route::is('admin.users.edit') || \Illuminate\Support\Facades\Route::is('admin.users.show') ? 'active' : ''}}"><a href="{{route('admin.users.index')}}">All Users</a></li>
+                            <li class="{{\Illuminate\Support\Facades\Route::is('admin.users.create') ? 'active' : ''}}"><a href="{{route('admin.users.create')}}">Create User</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </nav>
         </div>
