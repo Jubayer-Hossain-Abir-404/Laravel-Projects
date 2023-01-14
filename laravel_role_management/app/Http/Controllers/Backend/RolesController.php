@@ -122,6 +122,11 @@ class RolesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        //Process Data
+        $role = Role::findById($id);
+        if(!is_null($role)){
+            $role->delete();
+        }
+        return back();
     }
 }
