@@ -58,6 +58,8 @@ class RolesController extends Controller
         if(!empty($permissions)){
             $role->syncPermissions($permissions);
         }
+
+        session()->flash('success', 'Role has been created !!');
         return back();
     }
 
@@ -98,7 +100,7 @@ class RolesController extends Controller
     {
         //        validation Data
         $request->validate([
-            'name' => 'required|max:100'
+            'name' => 'required|max:100|unique:roles,name,' . $id
         ], [
             'name.required' => 'Please give a role name'
         ]);
@@ -111,6 +113,8 @@ class RolesController extends Controller
         if(!empty($permissions)){
             $role->syncPermissions($permissions);
         }
+
+        session()->flash('success', 'Role has been updated !!');
         return back();
     }
 
@@ -127,6 +131,8 @@ class RolesController extends Controller
         if(!is_null($role)){
             $role->delete();
         }
+
+        session()->flash('success', 'Role has been deleted !!');
         return back();
     }
 }
