@@ -43,19 +43,12 @@ class UsersController extends Controller
     {
 //        validation Data
         $request->validate([
-            'name' => 'required|max:100|unique:roles'
-        ], [
-            'name.required' => 'Please give a role name'
+            'name' => 'required|max:50',
+            'email' => 'required|max:100|email|unique:users',
+            'password' => 'required|min:6|confirmed',
         ]);
 
-        //Process Data
-        $role = Role::create(['name' => $request->name]);
-
-//        $role = DB::table('roles')->where('name', $request->name)->first();
-        $permissions = $request->input('permissions');
-        if(!empty($permissions)){
-            $role->syncPermissions($permissions);
-        }
+        // create new user
 
         session()->flash('success', 'Role has been created !!');
         return back();

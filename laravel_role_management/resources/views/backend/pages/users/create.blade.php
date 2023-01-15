@@ -42,7 +42,7 @@
                             <h4 class="header-title">Create New Role</h4>
                             @include('backend.layouts.partials.messages')
 
-                            <form action="{{route('admin.roles.store')}}" method="POST">
+                            <form action="{{route('admin.users.store')}}" method="POST">
                                 @csrf
                                 <div class="form-row">
                                     <div class="form-group col-md-6 col-sm-12">
