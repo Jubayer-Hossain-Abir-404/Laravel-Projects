@@ -49,6 +49,12 @@ class UsersController extends Controller
         ]);
 
         // create new user
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = $request->password;
+
+        $user->roles = $request->name;
 
         session()->flash('success', 'Role has been created !!');
         return back();
