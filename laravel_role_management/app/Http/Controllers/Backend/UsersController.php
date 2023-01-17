@@ -55,9 +55,11 @@ class UsersController extends Controller
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
 
-        // $user->roles = $request->name;
-
         $user->save();
+
+        if($request->roles){
+            $user->assignRole($request->roles);
+        }
 
         session()->flash('success', 'User has been created !!');
         return back();
