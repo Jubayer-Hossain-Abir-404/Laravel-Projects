@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
@@ -52,11 +53,13 @@ class UsersController extends Controller
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
-        $user->password = $request->password;
+        $user->password = Hash::make($request->password);
 
-        $user->roles = $request->name;
+        // $user->roles = $request->name;
 
-        session()->flash('success', 'Role has been created !!');
+        $user->save();
+
+        session()->flash('success', 'User has been created !!');
         return back();
     }
 
