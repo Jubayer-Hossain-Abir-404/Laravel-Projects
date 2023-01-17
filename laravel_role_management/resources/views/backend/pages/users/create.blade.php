@@ -5,6 +5,7 @@
 @endsection
 
 @section('styles')
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <style>
         .form-check-label {
             text-transform: capitalize;
@@ -57,12 +58,12 @@
 
                                     <div class="form-group col-md-6 col-sm-12">
                                         <label for="password">Password</label>
-                                        <input type="text" name="password" class="form-control" id="password"  placeholder="Password">
+                                        <input type="password" name="password" class="form-control" id="password"  placeholder="Password">
                                     </div>
 
                                     <div class="form-group col-md-6 col-sm-12">
                                         <label for="password_confirmation">Confirm Password</label>
-                                        <input type="text" name="password_confirmation" class="form-control" id="password_confirmation"  placeholder="Confirm Password">
+                                        <input type="password" name="password_confirmation" class="form-control" id="password_confirmation"  placeholder="Confirm Password">
                                     </div>
 
                                     <div class="form-group col-md-6 col-sm-12">
@@ -86,4 +87,15 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('.select2').select2();
+        });
+    </script>
 @endsection

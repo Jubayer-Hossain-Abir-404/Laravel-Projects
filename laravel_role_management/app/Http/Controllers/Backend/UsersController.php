@@ -62,7 +62,7 @@ class UsersController extends Controller
         }
 
         session()->flash('success', 'User has been created !!');
-        return back();
+        return redirect()->route('admin.users.index');
     }
 
     /**
