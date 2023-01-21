@@ -62,7 +62,11 @@
                                             <td>{{ $user->name }}</td>
                                             <td>{{ $user->email }}</td>
                                             <td>
-                                                
+                                                @foreach($user->roles as $role)
+                                                    <span class="badge badge-info mr-1">
+                                                        {{$role->name}}
+                                                    </span>
+                                                @endforeach
                                             </td>
                                             <td>
                                                 <a class="btn btn-success text-white" href="{{ route('admin.users.edit', $user->id) }}">Edit</a>

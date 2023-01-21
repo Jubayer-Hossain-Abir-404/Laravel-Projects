@@ -134,7 +134,7 @@ class UsersController extends Controller
     public function destroy($id)
     {
         //Process Data
-        $user = User::findById($id);
+        $user = User::find($id);
         if(!is_null($user)){
             $user->delete();
         }

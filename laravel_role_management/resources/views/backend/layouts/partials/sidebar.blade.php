@@ -15,7 +15,7 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="javascript:void(0)" aria-expanded="true"><i class="ti-layout-sidebar-left"></i><span>
+                        <a href="javascript:void(0)" aria-expanded="true"><i class="fa fa-tasks"></i><span>
                                         Roles & Permissions
                                     </span></a>
                         <ul class="collapse {{\Illuminate\Support\Facades\Route::is('admin.roles.create') || \Illuminate\Support\Facades\Route::is('admin.roles.index') || \Illuminate\Support\Facades\Route::is('admin.roles.edit') || \Illuminate\Support\Facades\Route::is('admin.roles.show') ? 'in' : ''}}">
@@ -25,7 +25,7 @@
                     </li>
 
                     <li>
-                        <a href="javascript:void(0)" aria-expanded="true"><i class="ti-layout-sidebar-left"></i><span>
+                        <a href="javascript:void(0)" aria-expanded="true"><i class="fa fa-user"></i><span>
                                         Users
                                     </span></a>
                         <ul class="collapse {{\Illuminate\Support\Facades\Route::is('admin.users.create') || \Illuminate\Support\Facades\Route::is('admin.users.index') || \Illuminate\Support\Facades\Route::is('admin.users.edit') || \Illuminate\Support\Facades\Route::is('admin.users.show') ? 'in' : ''}}">
