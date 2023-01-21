@@ -84,7 +84,7 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        $user = User::findById($id);
+        $user = User::find($id);
         $roles = Role::all();
         return view('backend.pages.users.edit', compact('user','roles'));
     }
@@ -106,7 +106,7 @@ class UsersController extends Controller
         ]);
 
         //Process Data
-        $role = Role::findById($id);
+        $role = Role::find($id);
 
 //        $role = DB::table('roles')->where('name', $request->name)->first();
         $permissions = $request->input('permissions');

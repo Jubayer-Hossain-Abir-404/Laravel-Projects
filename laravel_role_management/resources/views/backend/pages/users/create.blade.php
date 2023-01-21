@@ -40,7 +40,7 @@
                 <div class="col-12 mt-5">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="header-title">Create New Role</h4>
+                            <h4 class="header-title">Create User</h4>
                             @include('backend.layouts.partials.messages')
 
                             <form action="{{route('admin.users.store')}}" method="POST">

@@ -20,11 +20,11 @@
             <User class="row align-items-center">
                 <div class="col-sm-6">
                     <div class="breadcrumbs-area clearfix">
-                        <h4 class="page-title pull-left">User Create</h4>
+                        <h4 class="page-title pull-left">User Edit</h4>
                         <ul class="breadcrumbs pull-left">
                             <li><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
                             <li><a href="{{ route('admin.users.index') }}">All Users</a></li>
-                            <li><span>Create User</span></li>
+                            <li><span>Edit User - {{ $user->name }}</span></li>
                         </ul>
                     </div>
                 </div>
@@ -40,20 +40,21 @@
                 <div class="col-12 mt-5">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="header-title">Create New Role</h4>
+                            <h4 class="header-title">Edit User - {{ $user->name }}</h4>
                             @include('backend.layouts.partials.messages')
 
-                            <form action="{{route('admin.users.store')}}" method="POST">
+                            <form action="{{route('admin.users.update', $user->id)}}" method="POST">
+                                @method('PUT')
                                 @csrf
                                 <div class="form-row">
                                     <div class="form-group col-md-6 col-sm-12">
                                         <label for="name">User Name</label>
-                                        <input type="text" name="name" class="form-control" id="name"  placeholder="Enter a Name">
+                                        <input type="text" name="name" class="form-control" id="name"  placeholder="Enter a Name" value="{{ $user->name }}">
                                     </div>
 
                                     <div class="form-group col-md-6 col-sm-12">
                                         <label for="email">User Email</label>
-                                        <input type="text" name="email" class="form-control" id="email"  placeholder="Enter Email">
+                                        <input type="text" name="email" class="form-control" id="email"  placeholder="Enter Email" value="{{ $user->email }}">
                                     </div>
 
                                     <div class="form-group col-md-6 col-sm-12">
