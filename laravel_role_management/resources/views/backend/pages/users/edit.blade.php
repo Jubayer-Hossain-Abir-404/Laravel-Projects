@@ -71,7 +71,7 @@
                                         <label for="roles">Assign Roles</label>
                                         <select name="roles[]" id="roles" class="select2" multiple>
                                             @foreach ($roles as $role)
-                                                <option value="{{ $role->name }}">{{ $role->name }}</option>
+                                                <option value="{{ $role->name }}" {{ $user->hasRole($role->name) ? 'selected' : '' }}>{{ $role->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
