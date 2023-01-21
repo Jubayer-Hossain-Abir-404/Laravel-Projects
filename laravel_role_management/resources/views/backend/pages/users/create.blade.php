@@ -68,7 +68,7 @@
 
                                     <div class="form-group col-md-6 col-sm-12">
                                         <label for="roles">Assign Roles</label>
-                                        <select name="roles[]" id="roles" class="select2" multiple>
+                                        <select name="roles[]" id="roles" class="select2 col-md-12 col-sm-6" multiple>
                                             @foreach ($roles as $role)
                                                 <option value="{{ $role->name }}">{{ $role->name }}</option>
                                             @endforeach
