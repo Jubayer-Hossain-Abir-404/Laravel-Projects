@@ -98,25 +98,30 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // edit user
+        $user = User::find($id);
         //        validation Data
         $request->validate([
-            'name' => 'required|max:100|unique:roles,name,' . $id
-        ], [
-            'name.required' => 'Please give a role name'
+            'name' => 'required|max:50',
+            'email' => 'required|max:100|email|unique:users,email,' . $id,
+            'password' => 'nullable|min:6|confirmed',
         ]);
 
-        //Process Data
-        $role = Role::find($id);
+        
+        $user->name = $request->name;
+        $user->email = $request->email;
+        if($request->password){
+            $user->password = Hash::make($request->password);
+        }
+        
 
-//        $role = DB::table('roles')->where('name', $request->name)->first();
-        $permissions = $request->input('permissions');
-        if(!empty($permissions)){
-            $role->name = $request->name;
-            $role->save();
-            $role->syncPermissions($permissions);
+        $user->save();
+        $user->roles()->detach();
+        if($request->roles){
+            $user->assignRole($request->roles);
         }
 
-        session()->flash('success', 'Role has been updated !!');
+        session()->flash('success', 'User has been updated !!');
         return back();
     }
 
