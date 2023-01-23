@@ -59,8 +59,25 @@ return [
     |
     */
 
+    // newly created status
+    'admin' => [
+        'driver' => 'session',
+        'provider' => 'admins',
+    ],
+
+    'admin_api' => [
+        'driver' => 'token',
+        'provider' => 'admins',
+        'hash' => false,
+    ],
+
     'providers' => [
         'users' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\User::class,
+        ],
+
+        'admins' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
