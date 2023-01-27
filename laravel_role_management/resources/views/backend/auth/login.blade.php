@@ -1,5 +1,9 @@
 @extends('backend.auth.auth_master')
 
+@section('auth_title')
+    Login | Admin Panel
+@endsection
+
 @section('auth-content')
     <!-- login area start -->
     <div class="login-area">

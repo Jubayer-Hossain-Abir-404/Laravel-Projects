@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -36,7 +37,24 @@ class LoginController extends Controller
     }
 
     public function login(Request $request){
-        return 1;
+        
+        //validate login data
+        $request->validate([
+            'email' => 'required|email|max:50',
+            'password' => 'required',
+        ]);
+
+        // attempt to login
+        if(Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password], $request->remember)){
+            //redirect to dashboard
+            session()->flash('login_success', 'Successfully Logged in !');
+            return redirect()->intended(route('admin.dashboard'));
+        }else{
+            //error
+            session()->flash('login_error', 'Invalid email and password');
+            return back();
+        }
+        
     }
 
 
