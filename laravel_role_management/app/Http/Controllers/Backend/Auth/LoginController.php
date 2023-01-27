@@ -40,7 +40,7 @@ class LoginController extends Controller
         
         //validate login data
         $request->validate([
-            'email' => 'required|email|max:50',
+            'email' => 'required|max:50',
             'password' => 'required',
         ]);
 
@@ -50,6 +50,12 @@ class LoginController extends Controller
             session()->flash('success', 'Successfully Logged in !');
             return redirect()->intended(route('admin.dashboard'));
         }else{
+            // Search using username
+            if(Auth::guard('admin')->attempt(['username' => $request->email, 'password' => $request->password], $request->remember)){
+                //redirect to dashboard
+                session()->flash('success', 'Successfully Logged in !');
+                return redirect()->intended(route('admin.dashboard'));
+            }
             //error
             session()->flash('error', 'Invalid email and password');
             return back();

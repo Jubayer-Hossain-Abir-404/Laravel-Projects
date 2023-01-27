@@ -4,8 +4,8 @@
         {{ Auth::guard('admin')->user()->name }}
          <i class="fa fa-angle-down"></i></h4>
     <div class="dropdown-menu">
-        <a class="dropdown-item" href="#">Message</a>
-        <a class="dropdown-item" href="#">Settings</a>
+        {{-- <a class="dropdown-item" href="#">Message</a>
+        <a class="dropdown-item" href="#">Settings</a> --}}
         <a class="dropdown-item" href="{{ route('admin.logout.submit') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('admin-logout-form').submit();">Log Out</a>

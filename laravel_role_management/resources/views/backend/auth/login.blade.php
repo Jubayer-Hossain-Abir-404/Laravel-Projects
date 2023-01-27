@@ -19,7 +19,7 @@
                         @include('backend.layouts.partials.messages')
                         <div class="form-gp">
                             <label for="exampleInputEmail1">Email address</label>
-                            <input type="email" id="exampleInputEmail1" name="email">
+                            <input type="text" id="exampleInputEmail1" name="email">
                             <i class="ti-email"></i>
                             <div class="text-danger"></div>
                             @error('email')
