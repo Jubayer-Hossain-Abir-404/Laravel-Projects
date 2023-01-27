@@ -47,11 +47,11 @@ class LoginController extends Controller
         // attempt to login
         if(Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password], $request->remember)){
             //redirect to dashboard
-            session()->flash('login_success', 'Successfully Logged in !');
+            session()->flash('success', 'Successfully Logged in !');
             return redirect()->intended(route('admin.dashboard'));
         }else{
             //error
-            session()->flash('login_error', 'Invalid email and password');
+            session()->flash('error', 'Invalid email and password');
             return back();
         }
         

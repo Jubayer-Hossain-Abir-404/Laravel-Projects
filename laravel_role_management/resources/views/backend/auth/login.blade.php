@@ -16,6 +16,7 @@
                         <p>Hello there, Sign in and start managing your Admin Template</p>
                     </div>
                     <div class="login-form-body">
+                        @include('backend.layouts.partials.messages')
                         <div class="form-gp">
                             <label for="exampleInputEmail1">Email address</label>
                             <input type="email" id="exampleInputEmail1" name="email">
