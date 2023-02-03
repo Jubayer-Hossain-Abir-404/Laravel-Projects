@@ -30,7 +30,8 @@ class AdminsController extends Controller
      */
     public function create()
     {
-        $roles = Role::all();
+        //$roles = Role::all();
+        $roles = Role::where('guard_name', 'admin')->get();
         return view('backend.pages.admins.create', compact('roles'));
     }
 
@@ -50,15 +51,15 @@ class AdminsController extends Controller
         ]);
 
         // create new Admin
-        $Admin = new Admin();
-        $Admin->name = $request->name;
-        $Admin->email = $request->email;
-        $Admin->password = Hash::make($request->password);
+        $admin = new Admin();
+        $admin->name = $request->name;
+        $admin->email = $request->email;
+        $admin->password = Hash::make($request->password);
 
-        $Admin->save();
+        $admin->save();
 
         if($request->roles){
-            $Admin->assignRole($request->roles);
+            $admin->assignRole($request->roles);
         }
 
         session()->flash('success', 'Admin has been created !!');
@@ -84,9 +85,10 @@ class AdminsController extends Controller
      */
     public function edit($id)
     {
-        $Admin = Admin::find($id);
-        $roles = Role::all();
-        return view('backend.pages.admins.edit', compact('Admin','roles'));
+        $admin = Admin::find($id);
+        // $roles = Role::all();
+        $roles = Role::where('guard_name', 'admin')->get();
+        return view('backend.pages.admins.edit', compact('admin','roles'));
     }
 
     /**
@@ -99,7 +101,7 @@ class AdminsController extends Controller
     public function update(Request $request, $id)
     {
         // edit Admin
-        $Admin = Admin::find($id);
+        $admin = Admin::find($id);
         //        validation Data
         $request->validate([
             'name' => 'required|max:50',
@@ -108,17 +110,17 @@ class AdminsController extends Controller
         ]);
 
         
-        $Admin->name = $request->name;
-        $Admin->email = $request->email;
+        $admin->name = $request->name;
+        $admin->email = $request->email;
         if($request->password){
-            $Admin->password = Hash::make($request->password);
+            $admin->password = Hash::make($request->password);
         }
         
 
-        $Admin->save();
-        $Admin->roles()->detach();
+        $admin->save();
+        $admin->roles()->detach();
         if($request->roles){
-            $Admin->assignRole($request->roles);
+            $admin->assignRole($request->roles);
         }
 
         session()->flash('success', 'Admin has been updated !!');

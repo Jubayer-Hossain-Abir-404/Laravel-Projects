@@ -1,7 +1,7 @@
 @extends('backend.layouts.master')
 
 @section('title')
-    User Create ~ Admin Panel
+    Admin Create ~ Admin Panel
 @endsection
 
 @section('styles')
@@ -17,21 +17,21 @@
     <div>
         <!-- page title area start -->
         <div class="page-title-area">
-            <User class="row align-items-center">
+            <div class="row align-items-center">
                 <div class="col-sm-6">
                     <div class="breadcrumbs-area clearfix">
-                        <h4 class="page-title pull-left">User Create</h4>
+                        <h4 class="page-title pull-left">Admin Create</h4>
                         <ul class="breadcrumbs pull-left">
                             <li><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                            <li><a href="{{ route('admin.users.index') }}">All Users</a></li>
-                            <li><span>Create User</span></li>
+                            <li><a href="{{ route('admin.admins.index') }}">All Admins</a></li>
+                            <li><span>Create Admin</span></li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-sm-6 clearfix">
                     @include('backend.layouts.partials.logout')
                 </div>
-            </User
+            </div>
         </div>
         <!-- page title area end -->
         <div class="main-content-inner">
@@ -40,19 +40,19 @@
                 <div class="col-12 mt-5">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="header-title">Create User</h4>
+                            <h4 class="header-title">Create Admin</h4>
                             @include('backend.layouts.partials.messages')
 
-                            <form action="{{route('admin.users.store')}}" method="POST">
+                            <form action="{{route('admin.admins.store')}}" method="POST">
                                 @csrf
                                 <div class="form-row">
                                     <div class="form-group col-md-6 col-sm-12">
-                                        <label for="name">User Name</label>
+                                        <label for="name">Admin Name</label>
                                         <input type="text" name="name" class="form-control" id="name"  placeholder="Enter a Name">
                                     </div>
 
                                     <div class="form-group col-md-6 col-sm-12">
-                                        <label for="email">User Email</label>
+                                        <label for="email">Admin Email</label>
                                         <input type="text" name="email" class="form-control" id="email"  placeholder="Enter Email">
                                     </div>
 
@@ -77,7 +77,7 @@
 
                                 </div>
                                 
-                                <button type="submit" class="btn btn-primary mt-4 pr-4 pl-4">Save User</button>
+                                <button type="submit" class="btn btn-primary mt-4 pr-4 pl-4">Save Admin</button>
                             </form>
                         </div>
                     </div>
