@@ -26,11 +26,11 @@
 
                     <li>
                         <a href="javascript:void(0)" aria-expanded="true"><i class="fa fa-user"></i><span>
-                                        Users
+                                        Admins
                                     </span></a>
-                        <ul class="collapse {{\Illuminate\Support\Facades\Route::is('admin.users.create') || \Illuminate\Support\Facades\Route::is('admin.users.index') || \Illuminate\Support\Facades\Route::is('admin.users.edit') || \Illuminate\Support\Facades\Route::is('admin.users.show') ? 'in' : ''}}">
-                            <li class="{{\Illuminate\Support\Facades\Route::is('admin.users.index') || \Illuminate\Support\Facades\Route::is('admin.users.edit') || \Illuminate\Support\Facades\Route::is('admin.users.show') ? 'active' : ''}}"><a href="{{route('admin.users.index')}}">All Users</a></li>
-                            <li class="{{\Illuminate\Support\Facades\Route::is('admin.users.create') ? 'active' : ''}}"><a href="{{route('admin.users.create')}}">Create User</a></li>
+                        <ul class="collapse {{\Illuminate\Support\Facades\Route::is('admin.admins.create') || \Illuminate\Support\Facades\Route::is('admin.admins.index') || \Illuminate\Support\Facades\Route::is('admin.admins.edit') || \Illuminate\Support\Facades\Route::is('admin.admins.show') ? 'in' : ''}}">
+                            <li class="{{\Illuminate\Support\Facades\Route::is('admin.admins.index') || \Illuminate\Support\Facades\Route::is('admin.admins.edit') || \Illuminate\Support\Facades\Route::is('admin.admins.show') ? 'active' : ''}}"><a href="{{route('admin.admins.index')}}">All Admins</a></li>
+                            <li class="{{\Illuminate\Support\Facades\Route::is('admin.admins.create') ? 'active' : ''}}"><a href="{{route('admin.admins.create')}}">Create Admin</a></li>
                         </ul>
                     </li>
                 </ul>
