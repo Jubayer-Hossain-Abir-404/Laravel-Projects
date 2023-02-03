@@ -75,7 +75,11 @@
                                             @endforeach
                                         </select>
                                     </div>
-
+                                    
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <label for="username">Admin Username</label>
+                                        <input type="text" class="form-control" id="username" name="username" placeholder="Enter Username" value="{{ $admin->username }}"/>
+                                    </div>
                                 </div>
                                 
                                 <button type="submit" class="btn btn-primary mt-4 pr-4 pl-4">Save Admin</button>
