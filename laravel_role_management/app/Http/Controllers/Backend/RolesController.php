@@ -52,7 +52,7 @@ class RolesController extends Controller
         ]);
 
         //Process Data
-        $role = Role::create(['name' => $request->name]);
+        $role = Role::create(['name' => $request->name, 'guard_name'=>'admin']);
 
 //        $role = DB::table('roles')->where('name', $request->name)->first();
         $permissions = $request->input('permissions');
@@ -107,7 +107,7 @@ class RolesController extends Controller
         ]);
 
         //Process Data
-        $role = Role::findById($id);
+        $role = Role::findById($id, 'admin');
 
 //        $role = DB::table('roles')->where('name', $request->name)->first();
         $permissions = $request->input('permissions');
@@ -130,7 +130,7 @@ class RolesController extends Controller
     public function destroy($id)
     {
         //Process Data
-        $role = Role::findById($id);
+        $role = Role::findById($id, 'admin');
         if(!is_null($role)){
             $role->delete();
         }
