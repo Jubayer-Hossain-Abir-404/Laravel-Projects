@@ -83,7 +83,7 @@ class RolesController extends Controller
      */
     public function edit($id)
     {
-        $role = Role::findById($id);
+        $role = Role::findById($id,'admin');
         $all_permissions = Permission::all();
         $permission_groups = User::getPermissionGroups();
 //        dd($permission_groups);
