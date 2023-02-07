@@ -18,7 +18,8 @@ class RolesController extends Controller
      */
     public function index()
     {
-        $roles = Role::all();
+        // $roles = Role::all();
+        $roles = Role::where('guard_name', 'admin')->get();
         return view('backend.pages.roles.index', compact('roles'));
     }
 
