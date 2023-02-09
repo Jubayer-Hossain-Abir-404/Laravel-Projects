@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
+use Illuminate\Support\Facades\Auth;
+
 class RolesController extends Controller
 {
     /**
@@ -16,11 +18,23 @@ class RolesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public $user;
+
+
+    public function __construct(){
+        $this->middleware(function ($request, $next) {
+            $this->user = Auth::guard('admin')->user();
+            return $next($request);
+        });
+    }
     public function index()
     {
         // $roles = Role::all();
         $roles = Role::where('guard_name', 'admin')->get();
         return view('backend.pages.roles.index', compact('roles'));
+        // Auth::getDefaultDriver();
+        // dd(Auth::guard('admin')->user()->id);
+
     }
 
     /**
