@@ -30,11 +30,16 @@ class RolesController extends Controller
     public function index()
     {
         // $roles = Role::all();
-        $roles = Role::where('guard_name', 'admin')->get();
-        return view('backend.pages.roles.index', compact('roles'));
+        // $roles = Role::where('guard_name', 'admin')->get();
+        // return view('backend.pages.roles.index', compact('roles'));
         // Auth::getDefaultDriver();
         // dd(Auth::guard('admin')->user()->id);
-
+        $test = $this->user->getAttributes();
+        $has_roles = DB::table('model_has_roles')
+            ->select('role_id')
+            ->where('model_id', $test['id'])
+            ->get();
+        dd($has_roles);
     }
 
     /**
