@@ -67,7 +67,10 @@
                                                 @endforeach
                                             </td>
                                             <td>
-                                                <a class="btn btn-success text-white" href="{{ route('admin.roles.edit', $role->id) }}">Edit</a>
+                                                @if (Auth::guard('admin')->user()->can('role.edit'))
+                                                    <a class="btn btn-success text-white" href="{{ route('admin.roles.edit', $role->id) }}">Edit</a>
+                                                @endif
+                                                
 
                                                 <a class="btn btn-danger text-white" href="{{ route('admin.roles.destroy', $role->id) }}"
                                                 onclick="event.preventDefault();
