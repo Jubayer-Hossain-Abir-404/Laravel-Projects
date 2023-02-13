@@ -40,7 +40,9 @@
                     <div class="card-body">
                         <h4 class="header-title float-left">Roles List</h4>
                         <p class="float-right mb-2">
-                            <a class="btn btn-primary text-white" href="{{ route('admin.roles.create') }}">Create New Role</a>
+                            @if (Auth::guard('admin')->user()->can('role.create'))
+                                <a class="btn btn-primary text-white" href="{{ route('admin.roles.create') }}">Create New Role</a>
+                            @endif
                         </p>
                         <div class="clearfix"></div>
                         <div class="data-tables">
@@ -71,17 +73,19 @@
                                                     <a class="btn btn-success text-white" href="{{ route('admin.roles.edit', $role->id) }}">Edit</a>
                                                 @endif
                                                 
+                                                
+                                                @if (Auth::guard('admin')->user()->can('role.delete'))
+                                                    <a class="btn btn-danger text-white" href="{{ route('admin.roles.destroy', $role->id) }}"
+                                                    onclick="event.preventDefault();
+                                                                    document.getElementById('delete-form-{{ $role->id }}').submit();">
+                                                        Delete
+                                                    </a>
 
-                                                <a class="btn btn-danger text-white" href="{{ route('admin.roles.destroy', $role->id) }}"
-                                                onclick="event.preventDefault();
-                                                                document.getElementById('delete-form-{{ $role->id }}').submit();">
-                                                    Delete
-                                                </a>
-
-                                                <form id="delete-form-{{ $role->id }}" action="{{ route('admin.roles.destroy', $role->id) }}" method="POST" class="d-none">
-                                                    @method('DELETE')
-                                                    @csrf
-                                                </form>
+                                                    <form id="delete-form-{{ $role->id }}" action="{{ route('admin.roles.destroy', $role->id) }}" method="POST" class="d-none">
+                                                        @method('DELETE')
+                                                        @csrf
+                                                    </form>
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach

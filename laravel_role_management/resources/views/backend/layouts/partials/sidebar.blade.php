@@ -1,3 +1,7 @@
+{{-- sidebar menu area right --}}
+@php 
+    $usr = Auth::guard('admin')->user();
+@endphp
 <div class="sidebar-menu">
     <div class="sidebar-header">
         <div class="logo">
@@ -24,15 +28,21 @@
                         </ul>
                     </li>
 
-                    <li>
-                        <a href="javascript:void(0)" aria-expanded="true"><i class="fa fa-user"></i><span>
-                                        Admins
-                                    </span></a>
-                        <ul class="collapse {{\Illuminate\Support\Facades\Route::is('admin.admins.create') || \Illuminate\Support\Facades\Route::is('admin.admins.index') || \Illuminate\Support\Facades\Route::is('admin.admins.edit') || \Illuminate\Support\Facades\Route::is('admin.admins.show') ? 'in' : ''}}">
-                            <li class="{{\Illuminate\Support\Facades\Route::is('admin.admins.index') || \Illuminate\Support\Facades\Route::is('admin.admins.edit') || \Illuminate\Support\Facades\Route::is('admin.admins.show') ? 'active' : ''}}"><a href="{{route('admin.admins.index')}}">All Admins</a></li>
-                            <li class="{{\Illuminate\Support\Facades\Route::is('admin.admins.create') ? 'active' : ''}}"><a href="{{route('admin.admins.create')}}">Create Admin</a></li>
-                        </ul>
-                    </li>
+                    @if ($usr->can('admin.view') || $usr->can('admin.create') || $usr->can('admin.edit') ||  $usr->can('admin.delete'))
+                        <li>
+                            <a href="javascript:void(0)" aria-expanded="true"><i class="fa fa-user"></i><span>
+                                            Admins
+                                        </span></a>
+                            <ul class="collapse {{\Illuminate\Support\Facades\Route::is('admin.admins.create') || \Illuminate\Support\Facades\Route::is('admin.admins.index') || \Illuminate\Support\Facades\Route::is('admin.admins.edit') || \Illuminate\Support\Facades\Route::is('admin.admins.show') ? 'in' : ''}}">
+                                @if ($usr->can('admin.view'))
+                                    <li class="{{\Illuminate\Support\Facades\Route::is('admin.admins.index') || \Illuminate\Support\Facades\Route::is('admin.admins.edit') || \Illuminate\Support\Facades\Route::is('admin.admins.show') ? 'active' : ''}}"><a href="{{route('admin.admins.index')}}">All Admins</a></li>
+                                @endif
+                                @if ($usr->can('admin.create'))
+                                    <li class="{{\Illuminate\Support\Facades\Route::is('admin.admins.create') ? 'active' : ''}}"><a href="{{route('admin.admins.create')}}">Create Admin</a></li>
+                                @endif
+                            </ul>
+                        </li>
+                    @endif
                 </ul>
             </nav>
         </div>
