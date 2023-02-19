@@ -32,21 +32,24 @@
                             <div class="col-md-6 mt-5 mb-3">
                                 <div class="card">
                                     <div class="seo-fact sbg1">
-                                        <div class="p-4 d-flex justify-content-between align-items-center">
-                                            <div class="seofct-icon"><i class="fa fa-user"></i> Roles</div>
-                                            <h2>{{ $total_roles }}</h2>
-                                        </div>
-                                        <canvas id="seolinechart1" height="50"></canvas>
+                                        <a href="{{ route('admin.roles.index') }}">
+                                            <div class="p-4 d-flex justify-content-between align-items-center">
+                                                <div class="seofct-icon"><i class="fa fa-users"></i> Roles</div>
+                                                <h2>{{ $total_roles }}</h2>
+                                            </div>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-6 mt-md-5 mb-3">
                                 <div class="card">
                                     <div class="seo-fact sbg2">
-                                        <div class="p-4 d-flex justify-content-between align-items-center">
-                                            <div class="seofct-icon"><i class="fa fa-user"></i> Admins</div>
-                                            <h2>{{ $total_admins }}</h2>
-                                        </div>
+                                        <a href="{{ route('admin.admins.index') }}">
+                                            <div class="p-4 d-flex justify-content-between align-items-center">
+                                                <div class="seofct-icon"><i class="fa fa-user"></i> Admins</div>
+                                                <h2>{{ $total_admins }}</h2>
+                                            </div>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
