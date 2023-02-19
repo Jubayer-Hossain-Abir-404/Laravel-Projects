@@ -33,7 +33,7 @@
                                 <div class="card">
                                     <div class="seo-fact sbg1">
                                         <div class="p-4 d-flex justify-content-between align-items-center">
-                                            <div class="seofct-icon"><i class="ti-thumb-up"></i> Roles</div>
+                                            <div class="seofct-icon"><i class="fa fa-user"></i> Roles</div>
                                             <h2>{{ $total_roles }}</h2>
                                         </div>
                                         <canvas id="seolinechart1" height="50"></canvas>
@@ -44,10 +44,9 @@
                                 <div class="card">
                                     <div class="seo-fact sbg2">
                                         <div class="p-4 d-flex justify-content-between align-items-center">
-                                            <div class="seofct-icon"><i class="ti-share"></i> Admins</div>
+                                            <div class="seofct-icon"><i class="fa fa-user"></i> Admins</div>
                                             <h2>{{ $total_admins }}</h2>
                                         </div>
-                                        <canvas id="seolinechart2" height="50"></canvas>
                                     </div>
                                 </div>
                             </div>
@@ -58,7 +57,6 @@
                                             <div class="seofct-icon">Permissions</div>
                                             <h2>{{ $total_permissions }}</h2>
                                         </div>
-                                        <canvas id="seolinechart3" height="60"></canvas>
                                     </div>
                                 </div>
                             </div>
