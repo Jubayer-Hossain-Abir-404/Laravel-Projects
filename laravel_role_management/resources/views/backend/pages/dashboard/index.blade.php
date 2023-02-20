@@ -47,7 +47,7 @@
                                         <a href="{{ route('admin.admins.index') }}">
                                             <div class="p-4 d-flex justify-content-between align-items-center">
                                                 <div class="seofct-icon"><i class="fa fa-user"></i> Admins</div>
-                                                <h2>{{ $total_admins }}</h2>
+                                                <h2 class="text-white">{{ $total_admins }}</h2>
                                             </div>
                                         </a>
                                     </div>
