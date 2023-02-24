@@ -1,5 +1,21 @@
 @extends('backend.layouts.master')
 @section('admin-content')
+<div class="page-title-area">
+    <div class="row align-items-center">
+        <div class="col-sm-6">
+            <div class="breadcrumbs-area clearfix">
+                <h4 class="page-title pull-left">Dashboard</h4>
+                <ul class="breadcrumbs pull-left">
+                    <li><a href="index.html">Home</a></li>
+                    <li><span>Dashboard</span></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-sm-6 clearfix">
+            @include('backend.layouts.partials.logout')
+        </div>
+    </div>
+</div>
     <!-- sales report area start -->
 <div class="main-content-inner">
         <div class="sales-report-area mt-5 mb-5">
@@ -397,5 +413,5 @@
             <!-- exchange area end -->
         </div>
         <!-- row area start-->
-    </div>
+</div>
 @endsection
