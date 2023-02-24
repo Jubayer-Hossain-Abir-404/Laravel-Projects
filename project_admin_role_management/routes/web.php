@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Backend\DashboardController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 
 /*
@@ -23,6 +24,6 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::prefix('admin')->group(function () {
+Route::group(['prefix' => 'admin'], function () {
     Route::get('/', [DashboardController::class,'index'])->name('admin.dashboard');
 });
