@@ -4,11 +4,12 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>srtdash - ICO Dashboard</title>
+    <title>@yield('title', 'Role Management')</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/png" href="{{ asset('backend/assets/images/icon/favicon.ico') }}">
     {{-- @yield('css-content') --}}
     @include('backend.layouts.partials.style')
+    @yield('style')
 </head>
 
 <body>
@@ -33,10 +34,9 @@
             {{-- @yield('header-content') --}}
             @include('backend.layouts.partials.header')
             <!-- header area end -->
-            <div class="main-content-inner">
-                @yield('admin-content')
+            
+            @yield('admin-content')
                 
-            </div>
         </div>
         <!-- main content area end -->
         <!-- footer area start-->
@@ -53,6 +53,7 @@
     
     {{-- @yield('script-section') --}}
     @include('backend.layouts.partials.scripts')
+    @yield('scripts')
 </body>
 
 </html>
