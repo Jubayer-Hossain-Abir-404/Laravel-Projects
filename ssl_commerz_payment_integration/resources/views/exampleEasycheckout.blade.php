@@ -167,7 +167,7 @@
                 <hr class="mb-4">
                 <button class="btn btn-primary btn-lg btn-block" id="sslczPayBtn"
                         token="if you have any token validation"
-                        postdata="your javascript arrays or objects which requires in backend"
+                        postdata=""
                         order="If you already have the transaction generated for current order"
                         endpoint="{{ url('/pay-via-ajax') }}"> Pay Now
                 </button>
