@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 class CategoryController extends Controller
 {
@@ -16,6 +17,12 @@ class CategoryController extends Controller
     public function index()
     {
         return view('category');
+    }
+
+    public function getCategoryList(){
+        $category =  DB::table('categories')->get();
+
+        return response()->json($category);
     }
 
     /**

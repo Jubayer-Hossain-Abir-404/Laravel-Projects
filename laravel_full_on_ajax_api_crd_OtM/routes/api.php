@@ -26,3 +26,5 @@ Route::post('/addAuthor', [AuthorController::class, 'store'])->name('addAuthor')
 Route::post('/addCategory', [CategoryController::class, 'store'])->name('addCategory');
 
 Route::post('/addPost', [PostController::class, 'store'])->name('addPost');
+
+Route::get('/get_category_list', [CategoryController::class, 'getCategoryList'])->name('getCategoryList');

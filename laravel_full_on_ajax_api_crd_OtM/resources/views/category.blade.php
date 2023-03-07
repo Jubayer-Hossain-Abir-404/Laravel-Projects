@@ -1,8 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-
-    {{--    author starts--}}
+    {{--    author starts --}}
     <div class="container">
         <h1 class="text-success text-center mt-5">Category</h1>
         <!-- Button trigger modal -->
@@ -26,9 +25,10 @@
                             @csrf
                             <div class="mb-3">
                                 <label for="categoryName" class="form-label">Name</label>
-                                <input type="text" class="form-control" id="categoryName" name="categoryName" placeholder="Category Name" value="">
+                                <input type="text" class="form-control" id="categoryName" name="categoryName"
+                                    placeholder="Category Name" value="">
                             </div>
-                            <div  id="categoryName_error"></div>
+                            <div id="categoryName_error"></div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -39,5 +39,24 @@
             </div>
         </div>
     </div>
+@endsection
 
+@section('script')
+    <script>
+        $(document).ready(function() {
+            $.ajax({
+                url: "api/get_category_list",
+                type: "GET",
+                dataType: 'JSON',
+                success: function(data) {
+                    console.log(data);
+                },
+
+                error: function(data) {
+                    let errors = data.responseJSON;
+                    console.log(errors);
+                }
+            })
+        });
+    </script>
 @endsection
