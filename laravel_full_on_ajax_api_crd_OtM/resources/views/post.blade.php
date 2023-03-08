@@ -122,7 +122,37 @@
         });
 
         function approveFunc(id) {
-            alert(id);
+            // console.log(id);
+            $.ajax({
+                url: "api/changeApprove",
+                method: "POST",
+                data: {
+                    post_id: id
+                },
+                dataType: 'JSON',
+                headers: {
+                    'X-CSRF-TOKEN': $('input[name="_token"]').val()
+                },
+                success: function(data) {
+                    console.log(data);
+                },
+
+                error: function(data) {
+                    let errors = data.responseJSON;
+                    // clearing error message
+                    $('[id]').each(function() {
+                        if (this.id.endsWith('_error')) {
+                            let error = "#" + this.id;
+                            clearErrorMessage(error);
+                        }
+                    });
+                    $("#postSuccessMessage").html('');
+                    $.each(errors, function(key, value) {
+                        $("#" + key + "_error").html('<div class="alert alert-danger">' + value[0] +
+                            '</div>');
+                    });
+                }
+            })
         }
 
         function populateDataTable(post_data) {
@@ -138,7 +168,7 @@
                 approve_button.classList.add('btn', 'btn-success');
 
                 approve_button.setAttribute("id", "approve" + data.sl);
-                approve_button.setAttribute('onclick', 'approveFunc("' + data.sl +'");');
+                approve_button.setAttribute('onclick', 'approveFunc("' + data.sl + '");');
 
                 let update_button = document.createElement("button");
                 update_button.innerHTML = 'Update';
@@ -161,7 +191,5 @@
                 ]);
             })
         }
-
-    
     </script>
 @endsection

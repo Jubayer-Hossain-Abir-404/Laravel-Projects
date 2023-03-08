@@ -38,6 +38,11 @@ class PostController extends Controller
         return response()->json($post);
     }
 
+    public function changeApprove(Request $request){
+        $id = $request->post_id;
+        return response()->json($id);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
