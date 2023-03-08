@@ -100,7 +100,9 @@
     <script>
         $(document).ready(function() {
             $('#postTable').DataTable({
-                order: [[0, 'desc']],
+                order: [
+                    [0, 'desc']
+                ],
             });
 
             $.ajax({
@@ -119,10 +121,14 @@
             })
         });
 
+        function approveFunc(id) {
+            alert(id);
+        }
+
         function populateDataTable(post_data) {
             // clear the table before populating it with more data
             $("#postTable").DataTable().clear();
-            post_data.forEach(function(data, key){
+            post_data.forEach(function(data, key) {
                 let post_img = document.createElement("img");
                 post_img.setAttribute('src', data.image);
                 post_img.style.cssText = "width:200px; height:100px;";
@@ -130,6 +136,9 @@
                 let approve_button = document.createElement("button");
                 approve_button.innerHTML = data.status;
                 approve_button.classList.add('btn', 'btn-success');
+
+                approve_button.setAttribute("id", "approve" + data.sl);
+                approve_button.setAttribute('onclick', 'approveFunc("' + data.sl +'");');
 
                 let update_button = document.createElement("button");
                 update_button.innerHTML = 'Update';
@@ -139,7 +148,7 @@
                 delete_button.innerHTML = 'Delete';
                 delete_button.classList.add('btn', 'btn-danger');
 
-                let action = update_button.outerHTML +  " " + delete_button.outerHTML;
+                let action = update_button.outerHTML + " " + delete_button.outerHTML;
 
                 $('#postTable').dataTable().fnAddData([
                     data.sl,
@@ -152,5 +161,7 @@
                 ]);
             })
         }
+
+    
     </script>
 @endsection
