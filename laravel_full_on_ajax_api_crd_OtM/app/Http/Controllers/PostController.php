@@ -18,13 +18,10 @@ class PostController extends Controller
      */
     public function index()
     {
-        $categories = Category::latest('id')->get();
-        $authors = Author::latest('id')->get();
+        // $categories = Category::latest('id')->get();
+        // $authors = Author::latest('id')->get();
 
-        return view('post', compact(
-            'categories',
-            'authors'
-        ));
+        return view('post');
     }
     
     public function getPost()
@@ -35,7 +32,15 @@ class PostController extends Controller
         ->leftJoin('categories as c', 'p.category_id', '=', 'c.id')
         ->reorder('p.id', 'desc')
         ->get();
-        return response()->json($post);
+
+        $categories = Category::latest('name')->get();
+        $authors = Author::latest('id')->get();
+
+        $postResult['post'] = $post;
+        $postResult['categories'] = $categories;
+        $postResult['authors'] = $authors;
+
+        return response()->json($postResult);
     }
 
     public function changeApprove(Request $request){

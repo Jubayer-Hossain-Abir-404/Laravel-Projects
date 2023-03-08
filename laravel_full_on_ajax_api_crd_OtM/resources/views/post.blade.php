@@ -40,10 +40,10 @@
                                 <label for="postType" class="form-label">Select Post Type</label>
                                 <select class="form-select" aria-label="Default select example" id="postType"
                                     name="postType">
-                                    <option value="" selected>Select Post Type</option>
-                                    @foreach ($categories as $category)
+                                    <option value="" >Select Post Type</option>
+                                    {{-- @foreach ($categories as $category)
                                         <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                    @endforeach
+                                    @endforeach --}}
                                 </select>
                             </div>
                             <div id="postType_error"></div>
@@ -52,10 +52,10 @@
                                 <label for="postAuthor" class="form-label">Select Post Author</label>
                                 <select class="form-select" aria-label="Default select example" id="postAuthor"
                                     name="postAuthor">
-                                    <option value="" selected>Select Post Author</option>
-                                    @foreach ($authors as $author)
+                                    <option value="" >Select Post Author</option>
+                                    {{-- @foreach ($authors as $author)
                                         <option value="{{ $author->id }}">{{ $author->name }}</option>
-                                    @endforeach
+                                    @endforeach --}}
                                 </select>
                             </div>
                             <div id="postAuthor_error"></div>
@@ -98,6 +98,19 @@
 
 @section('script')
     <script>
+        function populateCategoryDropdown(categories){
+            categories.forEach(function(category, key) {
+                $('#postType').append($('<option>').val(category.id).text(category.name));
+                    // .attr("selected","selected")
+            });
+        }
+
+        function populateAuthorDropdown(authors){
+            authors.forEach(function(author, key) {
+                $('#postAuthor').append($('<option>').val(author.id).text(author.name));
+                    // .attr("selected","selected")
+            });
+        }
         $(document).ready(function() {
             $('#postTable').DataTable({
                 order: [
@@ -110,8 +123,10 @@
                 type: "GET",
                 dataType: 'JSON',
                 success: function(data) {
-                    console.log(data);
-                    populateDataTable(data);
+                    // console.log(data.post);
+                    populateDataTable(data.post);
+                    populateCategoryDropdown(data.categories);
+                    populateAuthorDropdown(data.authors);
                 },
 
                 error: function(data) {
@@ -173,7 +188,7 @@
 
                 let update_button = document.createElement("button");
                 update_button.innerHTML = 'Update';
-                update_button.classList.add('btn', 'btn-warning');
+                update_button.classList.add('btn', 'btn-warning','mb-2');
 
                 let delete_button = document.createElement("button");
                 delete_button.innerHTML = 'Delete';
