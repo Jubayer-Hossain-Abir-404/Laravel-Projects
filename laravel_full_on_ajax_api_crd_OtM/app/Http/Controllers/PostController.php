@@ -40,7 +40,15 @@ class PostController extends Controller
 
     public function changeApprove(Request $request){
         $id = $request->post_id;
-        return response()->json($id);
+        $post = Post::find($id);
+        $post->approve = ($post->approve==1) ? 0 : 1;
+        // return response()->json($post);
+        if($post->update()){
+            return response()->json(array('message' => 'Post Approval Updated'));
+        }
+        else{
+            return response()->json(array('message' => 'Post Approval Update failed'));
+        }
     }
 
     /**

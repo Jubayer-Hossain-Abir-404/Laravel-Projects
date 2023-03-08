@@ -134,7 +134,8 @@
                     'X-CSRF-TOKEN': $('input[name="_token"]').val()
                 },
                 success: function(data) {
-                    console.log(data);
+                    // console.log(data);
+                    location.reload();
                 },
 
                 error: function(data) {
