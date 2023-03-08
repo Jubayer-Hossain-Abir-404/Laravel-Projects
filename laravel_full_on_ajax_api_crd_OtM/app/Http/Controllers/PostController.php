@@ -30,9 +30,9 @@ class PostController extends Controller
     public function getPost()
     {
         $post = DB::table('posts as p')
-        ->selectRaw('p.*, p.id as sl, c.name as categoryName, a.photo as authorPhoto')
+        ->selectRaw('p.*, p.id as sl, c.name as categoryName,
+        IF(p.approve=1, "Approved", "Disapproved") AS status')
         ->leftJoin('categories as c', 'p.category_id', '=', 'c.id')
-        ->leftJoin('authors as a', 'p.author_id', '=', 'a.id')
         ->reorder('p.id', 'desc')
         ->get();
         return response()->json($post);

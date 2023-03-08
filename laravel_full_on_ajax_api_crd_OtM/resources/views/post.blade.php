@@ -78,18 +78,21 @@
             </div>
         </div>
 
-        <div id="postTableDiv" class="mt-5">
+        <div id="postTableDiv" class="mt-5" style="overflow-x: auto;">
             <table id="postTable" class="table table-striped" style="width:100%">
                 <thead>
                     <tr>
                         <th>SL</th>
                         <th>Title</th>
                         <th>Post Image</th>
+                        <th>Author Name</th>
+                        <th>Post Category</th>
+                        <th>Post Status</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
             </table>
         </div>
-
     </div>
 @endsection
 
@@ -120,14 +123,32 @@
             // clear the table before populating it with more data
             $("#postTable").DataTable().clear();
             post_data.forEach(function(data, key){
-                console.log(data.image);
                 let post_img = document.createElement("img");
                 post_img.setAttribute('src', data.image);
-                post_img.style.cssText = "width:200px; height:100px;"
+                post_img.style.cssText = "width:200px; height:100px;";
+
+                let approve_button = document.createElement("button");
+                approve_button.innerHTML = data.status;
+                approve_button.classList.add('btn', 'btn-success');
+
+                let update_button = document.createElement("button");
+                update_button.innerHTML = 'Update';
+                update_button.classList.add('btn', 'btn-warning');
+
+                let delete_button = document.createElement("button");
+                delete_button.innerHTML = 'Delete';
+                delete_button.classList.add('btn', 'btn-danger');
+
+                let action = update_button.outerHTML +  " " + delete_button.outerHTML;
+
                 $('#postTable').dataTable().fnAddData([
                     data.sl,
                     data.title,
-                    post_img.outerHTML
+                    post_img.outerHTML,
+                    data.written_by,
+                    data.categoryName,
+                    approve_button.outerHTML,
+                    action
                 ]);
             })
         }
