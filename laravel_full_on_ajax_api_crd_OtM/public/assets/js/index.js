@@ -90,6 +90,7 @@ $(document).ready(function(){
             cache: false,
             processData: false,
             success: function(data){
+                // console.log(data);
                 $("#postSuccessMessage").html('<div class="mt-2 alert alert-success">'+ data.message +'</div>');
                 $("#postName").val('');
                 $("#postPhoto").val('');

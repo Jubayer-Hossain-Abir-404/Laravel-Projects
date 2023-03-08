@@ -30,9 +30,10 @@ class PostController extends Controller
     public function getPost()
     {
         $post = DB::table('posts as p')
-        ->selectRaw('p.*, c.name as categoryName, a.photo as authorPhoto')
+        ->selectRaw('p.*, p.id as sl, c.name as categoryName, a.photo as authorPhoto')
         ->leftJoin('categories as c', 'p.category_id', '=', 'c.id')
         ->leftJoin('authors as a', 'p.author_id', '=', 'a.id')
+        ->reorder('p.id', 'desc')
         ->get();
         return response()->json($post);
     }
@@ -70,12 +71,13 @@ class PostController extends Controller
         $file = $request->file('postPhoto');
 
         $file_name = rand(123456, 999999) . '.' . $file->getClientOriginalExtension();
-        $file_path = public_path('/post_files');
+        $file_path = public_path('post_files');
         $file->move($file_path, $file_name);
 
         $post = new Post();
         $post->title = $request->postName;
-        $post->image = $file_name;
+        $post->image = 'post_files/'.$file_name;
+
         $post->author_id = $request->postAuthor;
 //        query for fetching author name
         $author = Author::find($post->author_id);

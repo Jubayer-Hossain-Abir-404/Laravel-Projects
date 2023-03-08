@@ -78,19 +78,35 @@
             </div>
         </div>
 
-        <h1 class="text-success mt-5">Post List</h1>
+        <div id="postTableDiv" class="mt-5">
+            <table id="postTable" class="table table-striped" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>SL</th>
+                        <th>Title</th>
+                        <th>Post Image</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+
     </div>
 @endsection
 
 @section('script')
     <script>
         $(document).ready(function() {
+            $('#postTable').DataTable({
+                order: [[0, 'desc']],
+            });
+
             $.ajax({
                 url: "api/get_post",
                 type: "GET",
                 dataType: 'JSON',
                 success: function(data) {
                     console.log(data);
+                    populateDataTable(data);
                 },
 
                 error: function(data) {
@@ -99,5 +115,21 @@
                 }
             })
         });
+
+        function populateDataTable(post_data) {
+            // clear the table before populating it with more data
+            $("#postTable").DataTable().clear();
+            post_data.forEach(function(data, key){
+                console.log(data.image);
+                let post_img = document.createElement("img");
+                post_img.setAttribute('src', data.image);
+                post_img.style.cssText = "width:200px; height:100px;"
+                $('#postTable').dataTable().fnAddData([
+                    data.sl,
+                    data.title,
+                    post_img.outerHTML
+                ]);
+            })
+        }
     </script>
 @endsection
