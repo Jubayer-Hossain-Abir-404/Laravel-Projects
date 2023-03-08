@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <h1 class="text-success text-center mt-5">Create Post</h1>
+        <h1 class="text-success text-center mt-5">Post</h1>
 
         <!-- Button trigger modal -->
         <div class="d-flex align-items-end flex-column">
@@ -25,22 +25,24 @@
                             @csrf
                             <div class="mb-3">
                                 <label for="postName" class="form-label">Name</label>
-                                <input type="text" class="form-control" id="postName" name="postName" placeholder="Post Name" value="">
+                                <input type="text" class="form-control" id="postName" name="postName"
+                                    placeholder="Post Name" value="">
                             </div>
-                            <div  id="postName_error"></div>
+                            <div id="postName_error"></div>
 
                             <div class="mb-3">
                                 <label for="postPhoto" class="form-label">Image</label>
-                                <input type="file" class="form-control" name="postPhoto" id="postPhoto" >
+                                <input type="file" class="form-control" name="postPhoto" id="postPhoto">
                             </div>
                             <div id="postPhoto_error"></div>
 
                             <div class="mb-3">
                                 <label for="postType" class="form-label">Select Post Type</label>
-                                <select class="form-select" aria-label="Default select example" id="postType" name="postType">
+                                <select class="form-select" aria-label="Default select example" id="postType"
+                                    name="postType">
                                     <option value="" selected>Select Post Type</option>
-                                    @foreach($categories as $category)
-                                        <option value="{{$category->id}}">{{$category->name}}</option>
+                                    @foreach ($categories as $category)
+                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -48,17 +50,19 @@
 
                             <div class="mb-3">
                                 <label for="postAuthor" class="form-label">Select Post Author</label>
-                                <select class="form-select" aria-label="Default select example" id="postAuthor" name="postAuthor">
+                                <select class="form-select" aria-label="Default select example" id="postAuthor"
+                                    name="postAuthor">
                                     <option value="" selected>Select Post Author</option>
-                                    @foreach($authors as $author)
-                                        <option value="{{$author->id}}">{{$author->name}}</option>
+                                    @foreach ($authors as $author)
+                                        <option value="{{ $author->id }}">{{ $author->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
                             <div id="postAuthor_error"></div>
 
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="1" name="postApprove" id="postApprove">
+                                <input class="form-check-input" type="checkbox" value="1" name="postApprove"
+                                    id="postApprove">
                                 <label class="form-check-label" for="postApprove">
                                     Display Post
                                 </label>
@@ -73,5 +77,27 @@
                 </div>
             </div>
         </div>
+
+        <h1 class="text-success mt-5">Post List</h1>
     </div>
+@endsection
+
+@section('script')
+    <script>
+        $(document).ready(function() {
+            $.ajax({
+                url: "api/get_post",
+                type: "GET",
+                dataType: 'JSON',
+                success: function(data) {
+                    console.log(data);
+                },
+
+                error: function(data) {
+                    let errors = data.responseJSON;
+                    console.log(errors);
+                }
+            })
+        });
+    </script>
 @endsection

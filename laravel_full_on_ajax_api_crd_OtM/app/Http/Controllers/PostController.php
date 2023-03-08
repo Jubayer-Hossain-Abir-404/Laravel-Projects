@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 class PostController extends Controller
 {
@@ -24,6 +25,16 @@ class PostController extends Controller
             'categories',
             'authors'
         ));
+    }
+    
+    public function getPost()
+    {
+        $post = DB::table('posts as p')
+        ->selectRaw('p.*, c.name as categoryName, a.photo as authorPhoto')
+        ->leftJoin('categories as c', 'p.category_id', '=', 'c.id')
+        ->leftJoin('authors as a', 'p.author_id', '=', 'a.id')
+        ->get();
+        return response()->json($post);
     }
 
     /**
