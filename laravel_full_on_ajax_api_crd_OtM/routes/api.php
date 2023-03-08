@@ -32,3 +32,6 @@ Route::get('/get_category_list', [CategoryController::class, 'getCategoryList'])
 Route::get('/get_post', [PostController::class, 'getPost'])->name('getPost');
 
 Route::post('/changeApprove', [PostController::class, 'changeApprove'])->name('changeApprove');
+
+
+Route::get('/getPostEditData', [PostController::class, 'getPostEditData'])->name('getPostEditData');

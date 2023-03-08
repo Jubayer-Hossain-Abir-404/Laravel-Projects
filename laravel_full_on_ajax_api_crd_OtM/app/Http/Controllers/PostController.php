@@ -43,6 +43,12 @@ class PostController extends Controller
         return response()->json($postResult);
     }
 
+    public function getPostEditData(Request $request){
+        $id = $request->post_id;
+        $post = Post::find($id);
+        return response()->json($post);
+    }
+
     public function changeApprove(Request $request){
         $id = $request->post_id;
         $post = Post::find($id);

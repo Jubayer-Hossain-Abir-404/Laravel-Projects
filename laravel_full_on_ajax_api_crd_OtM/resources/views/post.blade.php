@@ -32,7 +32,7 @@
 
                             <div class="mb-3">
                                 <label for="postPhoto" class="form-label">Image</label>
-                                <input type="file" class="form-control" name="postPhoto" id="postPhoto">
+                                <input type="file" class="form-control" name="postPhoto" id="postPhoto" value="">
                             </div>
                             <div id="postPhoto_error"></div>
 
@@ -40,7 +40,7 @@
                                 <label for="postType" class="form-label">Select Post Type</label>
                                 <select class="form-select" aria-label="Default select example" id="postType"
                                     name="postType">
-                                    <option value="" >Select Post Type</option>
+                                    <option value="">Select Post Type</option>
                                     {{-- @foreach ($categories as $category)
                                         <option value="{{ $category->id }}">{{ $category->name }}</option>
                                     @endforeach --}}
@@ -52,7 +52,7 @@
                                 <label for="postAuthor" class="form-label">Select Post Author</label>
                                 <select class="form-select" aria-label="Default select example" id="postAuthor"
                                     name="postAuthor">
-                                    <option value="" >Select Post Author</option>
+                                    <option value="">Select Post Author</option>
                                     {{-- @foreach ($authors as $author)
                                         <option value="{{ $author->id }}">{{ $author->name }}</option>
                                     @endforeach --}}
@@ -98,17 +98,17 @@
 
 @section('script')
     <script>
-        function populateCategoryDropdown(categories){
+        function populateCategoryDropdown(categories) {
             categories.forEach(function(category, key) {
                 $('#postType').append($('<option>').val(category.id).text(category.name));
-                    // .attr("selected","selected")
+                // .attr("selected","selected")
             });
         }
 
-        function populateAuthorDropdown(authors){
+        function populateAuthorDropdown(authors) {
             authors.forEach(function(author, key) {
                 $('#postAuthor').append($('<option>').val(author.id).text(author.name));
-                    // .attr("selected","selected")
+                // .attr("selected","selected")
             });
         }
         $(document).ready(function() {
@@ -136,6 +136,37 @@
             })
         });
 
+        function setPostEditData(post_up_data){
+            $('#exampleModalLabel').text('Update Post');
+            $('#postName').val(post_up_data.title);
+            $("#postPhoto").attr("src",post_up_data.image);
+            var myModal = new bootstrap.Modal(document.getElementById('postModal'))
+            myModal.show();
+        }
+
+        function editFunc(id){
+            $.ajax({
+                url: "api/getPostEditData",
+                type: "GET",
+                data: {
+                    post_id: id
+                },
+                dataType: 'JSON',
+                headers: {
+                    'X-CSRF-TOKEN': $('input[name="_token"]').val()
+                },
+                success: function(data) {
+                    console.log(data);
+                    setPostEditData(data);
+                },
+
+                error: function(data) {
+                    let errors = data.responseJSON;
+                    console.log(errors);
+                }
+            })
+        }
+
         function approveFunc(id) {
             // console.log(id);
             $.ajax({
@@ -155,18 +186,8 @@
 
                 error: function(data) {
                     let errors = data.responseJSON;
+                    console.log(errors);
                     // clearing error message
-                    $('[id]').each(function() {
-                        if (this.id.endsWith('_error')) {
-                            let error = "#" + this.id;
-                            clearErrorMessage(error);
-                        }
-                    });
-                    $("#postSuccessMessage").html('');
-                    $.each(errors, function(key, value) {
-                        $("#" + key + "_error").html('<div class="alert alert-danger">' + value[0] +
-                            '</div>');
-                    });
                 }
             })
         }
@@ -188,7 +209,9 @@
 
                 let update_button = document.createElement("button");
                 update_button.innerHTML = 'Update';
-                update_button.classList.add('btn', 'btn-warning','mb-2');
+                update_button.classList.add('btn', 'btn-warning', 'mb-2');
+                update_button.setAttribute("id", "edit" + data.sl);
+                update_button.setAttribute('onclick', 'editFunc("' + data.sl + '");');
 
                 let delete_button = document.createElement("button");
                 delete_button.innerHTML = 'Delete';
