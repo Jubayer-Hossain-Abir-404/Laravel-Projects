@@ -6,7 +6,8 @@
 
         <!-- Button trigger modal -->
         <div class="d-flex align-items-end flex-column">
-            <button type="button" class="btn btn-primary mt-5" data-bs-toggle="modal" data-bs-target="#postModal">
+            <button type="button" onclick=getCategoryAuthor(); class="btn btn-primary mt-5" data-bs-toggle="modal"
+                data-bs-target="#postModal">
                 Create Post
             </button>
         </div>
@@ -100,10 +101,16 @@
 
 @section('script')
     <script>
-        function populateCategoryDropdown(categories) {
+        function populateCategoryDropdown(categories, category_id = null) {
+            var dropdown = $('#postType');
+
+            // exclude the empty value option and remove the rest
+            dropdown.find('option:not(:first-child)').remove();
+
             categories.forEach(function(category, key) {
-                $('#postType').append($('<option>').val(category.id).text(category.name));
-                // .attr("selected","selected")
+                category.id == category_id ? $('#postType').append($('<option>').val(category.id).text(category
+                    .name).attr("selected", "selected")) : $('#postType').append($('<option>').val(category.id)
+                    .text(category.name));
             });
         }
 
@@ -112,6 +119,24 @@
                 $('#postAuthor').append($('<option>').val(author.id).text(author.name));
                 // .attr("selected","selected")
             });
+        }
+
+        function getCategoryAuthor(category_id = null, author_id = null) {
+            $.ajax({
+                url: "api/getCategoryAuthor",
+                type: "GET",
+                dataType: 'JSON',
+                success: function(data) {
+                    // console.log(data.post);
+                    populateCategoryDropdown(data.categories, category_id);
+                    populateAuthorDropdown(data.authors, author_id);
+                },
+
+                error: function(data) {
+                    let errors = data.responseJSON;
+                    console.log(errors);
+                }
+            })
         }
 
         function callPostApi() {
@@ -128,9 +153,7 @@
                 dataType: 'JSON',
                 success: function(data) {
                     // console.log(data.post);
-                    populateDataTable(data.post);
-                    populateCategoryDropdown(data.categories);
-                    populateAuthorDropdown(data.authors);
+                    populateDataTable(data);
                 },
 
                 error: function(data) {
@@ -148,12 +171,14 @@
             $('#hidden_post_id').val(post_up_data.id);
             $('#postName').val(post_up_data.title);
 
+            $('#updatePhotoPreview').empty();
             let post_img = document.createElement("img");
             post_img.setAttribute('src', post_up_data.image);
             post_img.style.cssText = "width:120px; height:70px; margin-bottom:10px;";
             document.getElementById('updatePhotoPreview').append(post_img);
 
-            
+            getCategoryAuthor(post_up_data.category_id, post_up_data.author_id);
+
 
             var myModal = new bootstrap.Modal(document.getElementById('postModal'))
             myModal.show();

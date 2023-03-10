@@ -23,6 +23,16 @@ class PostController extends Controller
 
         return view('post');
     }
+
+    public function getCategoryAuthor(){
+        $categories = Category::latest('name')->get();
+        $authors = Author::latest('id')->get();
+
+        $postResult['categories'] = $categories;
+        $postResult['authors'] = $authors;
+
+        return response()->json($postResult);
+    }
     
     public function getPost()
     {
@@ -33,14 +43,11 @@ class PostController extends Controller
         ->reorder('p.id', 'desc')
         ->get();
 
-        $categories = Category::latest('name')->get();
-        $authors = Author::latest('id')->get();
+        
 
-        $postResult['post'] = $post;
-        $postResult['categories'] = $categories;
-        $postResult['authors'] = $authors;
+        // $postResult['post'] = $post;
 
-        return response()->json($postResult);
+        return response()->json($post);
     }
 
     public function getPostEditData(Request $request){
