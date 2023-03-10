@@ -23,6 +23,7 @@
                     <div class="modal-body">
                         <form method="post" id="postForm" enctype="multipart/form-data">
                             @csrf
+                            <input type="hidden" id="hidden_post_id" name="hidden_post_id" value="">
                             <div class="mb-3">
                                 <label for="postName" class="form-label">Name</label>
                                 <input type="text" class="form-control" id="postName" name="postName"
@@ -34,6 +35,7 @@
                                 <label for="postPhoto" class="form-label">Image</label>
                                 <input type="file" class="form-control" name="postPhoto" id="postPhoto" value="">
                             </div>
+                            <div id="updatePhotoPreview"></div>
                             <div id="postPhoto_error"></div>
 
                             <div class="mb-3">
@@ -112,7 +114,7 @@
             });
         }
 
-        function callPostApi(){
+        function callPostApi() {
             $('#postTable').DataTable({
                 order: [
                     [0, 'desc']
@@ -141,15 +143,23 @@
             callPostApi();
         });
 
-        function setPostEditData(post_up_data){
+        function setPostEditData(post_up_data) {
             $('#exampleModalLabel').text('Update Post');
+            $('#hidden_post_id').val(post_up_data.id);
             $('#postName').val(post_up_data.title);
-            $("#postPhoto").attr("src",post_up_data.image);
+
+            let post_img = document.createElement("img");
+            post_img.setAttribute('src', post_up_data.image);
+            post_img.style.cssText = "width:120px; height:70px; margin-bottom:10px;";
+            document.getElementById('updatePhotoPreview').append(post_img);
+
+            
+
             var myModal = new bootstrap.Modal(document.getElementById('postModal'))
             myModal.show();
         }
 
-        function editFunc(id){
+        function editFunc(id) {
             $.ajax({
                 url: "api/getPostEditData",
                 type: "GET",
