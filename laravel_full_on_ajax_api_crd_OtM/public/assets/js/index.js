@@ -104,6 +104,7 @@ $(document).ready(function(){
                         clearErrorMessage(error);
                     }
                 });
+                callPostApi();
             },
 
             error: function (data){

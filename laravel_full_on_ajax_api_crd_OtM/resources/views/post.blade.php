@@ -111,11 +111,13 @@
                 // .attr("selected","selected")
             });
         }
-        $(document).ready(function() {
+
+        function callPostApi(){
             $('#postTable').DataTable({
                 order: [
                     [0, 'desc']
                 ],
+                destroy: true
             });
 
             $.ajax({
@@ -134,6 +136,9 @@
                     console.log(errors);
                 }
             })
+        }
+        $(document).ready(function() {
+            callPostApi();
         });
 
         function setPostEditData(post_up_data){
