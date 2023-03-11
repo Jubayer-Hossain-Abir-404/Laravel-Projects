@@ -44,9 +44,6 @@
                                 <select class="form-select" aria-label="Default select example" id="postType"
                                     name="postType">
                                     <option value="">Select Post Type</option>
-                                    {{-- @foreach ($categories as $category)
-                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                    @endforeach --}}
                                 </select>
                             </div>
                             <div id="postType_error"></div>
@@ -56,9 +53,6 @@
                                 <select class="form-select" aria-label="Default select example" id="postAuthor"
                                     name="postAuthor">
                                     <option value="">Select Post Author</option>
-                                    {{-- @foreach ($authors as $author)
-                                        <option value="{{ $author->id }}">{{ $author->name }}</option>
-                                    @endforeach --}}
                                 </select>
                             </div>
                             <div id="postAuthor_error"></div>
@@ -227,7 +221,8 @@
                 },
                 success: function(data) {
                     // console.log(data);
-                    location.reload();
+                    // location.reload();
+                    callPostApi();
                 },
 
                 error: function(data) {
