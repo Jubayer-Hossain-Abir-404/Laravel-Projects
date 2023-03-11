@@ -210,8 +210,20 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $id = $request->post_id;
+        $post = Post::find($id);
+
+        // to delete file from folder
+        $file_name = $post->image;
+        $file_path = public_path($file_name);
+        unlink($file_path);
+
+        if ($post->delete()) {
+            return response()->json(array('message' => 'Post has been deleted'));
+        } else {
+            return response()->json(array('message' => 'Failed to delete post'));
+        }
     }
 }

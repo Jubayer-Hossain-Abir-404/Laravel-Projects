@@ -238,7 +238,7 @@
                     clearErrorMessage(error);
                 }
             });
-            if(update_token==null){
+            if (update_token == null) {
                 $("#postSuccessMessage").html('');
             }
             $('#exampleModalLabel').text('Update Post');
@@ -276,7 +276,7 @@
                 },
                 success: function(data) {
                     console.log(data);
-                    update_token == null ? setPostEditData(data) : setPostEditData(data, update_token);;
+                    update_token == null ? setPostEditData(data) : setPostEditData(data, update_token);
                 },
 
                 error: function(data) {
@@ -312,6 +312,34 @@
             })
         }
 
+        function deleteFunc(id) {
+            let confirmAction = confirm("Are you sure to delete this post?");
+            if (confirmAction) {
+                $.ajax({
+                    url: "api/deletePost",
+                    type: "GET",
+                    data: {
+                        post_id: id
+                    },
+                    dataType: 'JSON',
+                    headers: {
+                        'X-CSRF-TOKEN': $('input[name="_token"]').val()
+                    },
+                    success: function(data) {
+                        alert(data.message);
+                        callPostApi();
+                    },
+
+                    error: function(data) {
+                        let errors = data.responseJSON;
+                        console.log(errors);
+                    }
+                })
+            } else {
+                alert("Delete canceled");
+            }
+        }
+
         function populateDataTable(post_data) {
             // clear the table before populating it with more data
             $("#postTable").DataTable().clear();
@@ -336,6 +364,8 @@
                 let delete_button = document.createElement("button");
                 delete_button.innerHTML = 'Delete';
                 delete_button.classList.add('btn', 'btn-danger');
+                delete_button.setAttribute("id", "delete" + data.sl);
+                delete_button.setAttribute('onclick', 'deleteFunc("' + data.sl + '");');
 
                 let action = update_button.outerHTML + " " + delete_button.outerHTML;
 

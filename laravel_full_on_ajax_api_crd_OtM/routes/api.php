@@ -39,3 +39,5 @@ Route::get('/getPostEditData', [PostController::class, 'getPostEditData'])->name
 Route::get('/getCategoryAuthor', [PostController::class, 'getCategoryAuthor'])->name('getCategoryAuthor');
 
 Route::post('/updatePost', [PostController::class, 'updatePost'])->name('updatePost');
+
+Route::get('/deletePost', [PostController::class, 'destroy'])->name('deletePost');
