@@ -174,6 +174,7 @@
             $('#exampleModalLabel').text('Update Post');
             $('#hidden_post_id').val(post_up_data.id);
             $('#postName').val(post_up_data.title);
+            $('#postSave').val('Update');
 
             $('#updatePhotoPreview').empty();
             let post_img = document.createElement("img");
@@ -183,8 +184,7 @@
 
             getCategoryAuthor(post_up_data.category_id, post_up_data.author_id);
 
-
-
+            post_up_data.approve==1 ? $('#postApprove').prop('checked', true): $('#postApprove').prop('checked', false); 
 
             var myModal = new bootstrap.Modal(document.getElementById('postModal'))
             myModal.show();
