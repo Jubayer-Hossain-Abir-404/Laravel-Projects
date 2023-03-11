@@ -101,12 +101,14 @@
 
 @section('script')
     <script>
-        function populateCategoryDropdown(categories, category_id = null) {
-            var dropdown = $('#postType');
-
+        function cleanDropdown(id) {
+            var dropdown = $(id);
             // exclude the empty value option and remove the rest
             dropdown.find('option:not(:first-child)').remove();
+        }
 
+        function populateCategoryDropdown(categories, category_id = null) {
+            cleanDropdown('#postType');
             categories.forEach(function(category, key) {
                 category.id == category_id ? $('#postType').append($('<option>').val(category.id).text(category
                     .name).attr("selected", "selected")) : $('#postType').append($('<option>').val(category.id)
@@ -114,10 +116,12 @@
             });
         }
 
-        function populateAuthorDropdown(authors) {
+        function populateAuthorDropdown(authors, author_id = null) {
+            cleanDropdown('#postAuthor');
             authors.forEach(function(author, key) {
-                $('#postAuthor').append($('<option>').val(author.id).text(author.name));
-                // .attr("selected","selected")
+                author.id == author_id ? $('#postAuthor').append($('<option>').val(author.id).text(author.name)
+                    .attr("selected", "selected")) : $('#postAuthor').append($('<option>').val(author.id).text(
+                    author.name));
             });
         }
 
@@ -178,6 +182,8 @@
             document.getElementById('updatePhotoPreview').append(post_img);
 
             getCategoryAuthor(post_up_data.category_id, post_up_data.author_id);
+
+
 
 
             var myModal = new bootstrap.Modal(document.getElementById('postModal'))
