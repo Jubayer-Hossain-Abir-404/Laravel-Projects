@@ -69,6 +69,7 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <input type="submit" name="postSave" id="postSave" class="btn btn-primary" value="Save">
+                        <input type="submit" style="display:none;" name="postUpdate" id="postUpdate" class="btn btn-primary" value="Update">
                     </div>
                     </form>
                 </div>
@@ -120,11 +121,16 @@
         }
 
         function getCategoryAuthor(category_id = null, author_id = null) {
-            $('#exampleModalLabel').text('Create Post');
-            $('#hidden_post_id').val('');
-            $('#postName').val('');
-            $('#postApprove').prop('checked', false)
-            $('#postSave').show();
+            if (category_id == null && author_id == null) {
+                $('#exampleModalLabel').text('Create Post');
+                $('#hidden_post_id').val('');
+                $('#postName').val('');
+                $('#postApprove').prop('checked', false);
+                $('#updatePhotoPreview').empty();
+                $('#postSave').show();
+                $('#postUpdate').hide();
+            }
+
             $.ajax({
                 url: "api/getCategoryAuthor",
                 type: "GET",
@@ -174,6 +180,7 @@
             $('#hidden_post_id').val(post_up_data.id);
             $('#postName').val(post_up_data.title);
             $('#postSave').hide();
+            $('#postUpdate').show();
 
             $('#updatePhotoPreview').empty();
             let post_img = document.createElement("img");
@@ -183,7 +190,7 @@
 
             getCategoryAuthor(post_up_data.category_id, post_up_data.author_id);
 
-            post_up_data.approve==1 ? $('#postApprove').prop('checked', true): $('#postApprove').prop('checked', false); 
+            post_up_data.approve == 1 ? $('#postApprove').prop('checked', true) : $('#postApprove').prop('checked', false);
 
             var myModal = new bootstrap.Modal(document.getElementById('postModal'))
             myModal.show();
