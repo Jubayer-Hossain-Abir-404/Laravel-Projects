@@ -120,6 +120,11 @@
         }
 
         function getCategoryAuthor(category_id = null, author_id = null) {
+            $('#exampleModalLabel').text('Create Post');
+            $('#hidden_post_id').val('');
+            $('#postName').val('');
+            $('#postApprove').prop('checked', false)
+            $('#postSave').show();
             $.ajax({
                 url: "api/getCategoryAuthor",
                 type: "GET",
@@ -168,7 +173,7 @@
             $('#exampleModalLabel').text('Update Post');
             $('#hidden_post_id').val(post_up_data.id);
             $('#postName').val(post_up_data.title);
-            $('#postSave').val('Update');
+            $('#postSave').hide();
 
             $('#updatePhotoPreview').empty();
             let post_img = document.createElement("img");
