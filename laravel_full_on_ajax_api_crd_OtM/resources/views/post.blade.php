@@ -69,7 +69,8 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <input type="submit" name="postSave" id="postSave" class="btn btn-primary" value="Save">
-                        <input type="submit" style="display:none;" name="postUpdate" id="postUpdate" class="btn btn-primary" value="Update">
+                        <button onclick="updatePostForm();" style="display:none;" name="postUpdate" id="postUpdate"
+                            type="button" class="btn btn-primary">Update</button>
                     </div>
                     </form>
                 </div>
@@ -175,7 +176,70 @@
             callPostApi();
         });
 
+        function updatePostForm() {
+            const form = document.getElementById("postForm");
+            const formData = new FormData(form);
+            // to acces the form data in console
+            // const formDataString = JSON.stringify(Object.fromEntries(formData));
+            // alert(formDataString);
+
+            // update post form
+
+            $.ajax({
+                url: "http://127.0.0.1:8000/api/addPost",
+                method: "POST",
+                data: new FormData(this),
+                dataType: 'JSON',
+                headers: {
+                    'X-CSRF-TOKEN': $('input[name="_token"]').val()
+                },
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function(data) {
+                    // console.log(data);
+                    $("#postSuccessMessage").html('<div class="mt-2 alert alert-success">' + data.message +
+                        '</div>');
+                    $("#postName").val('');
+                    $("#postPhoto").val('');
+                    $("#postType").val('');
+                    $("#postAuthor").val('');
+                    $('#postApprove').prop('checked', false);
+
+                    $('[id]').each(function() {
+                        if (this.id.endsWith('_error')) {
+                            let error = "#" + this.id;
+                            clearErrorMessage(error);
+                        }
+                    });
+                    callPostApi();
+                },
+
+                error: function(data) {
+                    let errors = data.responseJSON;
+                    // clearing error message
+                    $('[id]').each(function() {
+                        if (this.id.endsWith('_error')) {
+                            let error = "#" + this.id;
+                            clearErrorMessage(error);
+                        }
+                    });
+                    $("#postSuccessMessage").html('');
+                    $.each(errors, function(key, value) {
+                        $("#" + key + "_error").html('<div class="alert alert-danger">' + value[0] +
+                            '</div>');
+                    });
+                }
+            })
+        }
+
         function setPostEditData(post_up_data) {
+            $('[id]').each(function() {
+                if (this.id.endsWith('_error')) {
+                    let error = "#" + this.id;
+                    clearErrorMessage(error);
+                }
+            });
             $('#exampleModalLabel').text('Update Post');
             $('#hidden_post_id').val(post_up_data.id);
             $('#postName').val(post_up_data.title);
