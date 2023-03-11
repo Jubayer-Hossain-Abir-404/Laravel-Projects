@@ -37,3 +37,5 @@ Route::post('/changeApprove', [PostController::class, 'changeApprove'])->name('c
 Route::get('/getPostEditData', [PostController::class, 'getPostEditData'])->name('getPostEditData');
 
 Route::get('/getCategoryAuthor', [PostController::class, 'getCategoryAuthor'])->name('getCategoryAuthor');
+
+Route::post('/updatePost', [PostController::class, 'updatePost'])->name('updatePost');

@@ -178,7 +178,7 @@
 
         function updatePostForm() {
             const form = document.getElementById("postForm");
-            const formData = new FormData(form);
+            // const formData = new FormData(form);
             // to acces the form data in console
             // const formDataString = JSON.stringify(Object.fromEntries(formData));
             // alert(formDataString);
@@ -186,9 +186,9 @@
             // update post form
 
             $.ajax({
-                url: "http://127.0.0.1:8000/api/addPost",
+                url: "http://127.0.0.1:8000/api/updatePost",
                 method: "POST",
-                data: new FormData(this),
+                data: new FormData(form),
                 dataType: 'JSON',
                 headers: {
                     'X-CSRF-TOKEN': $('input[name="_token"]').val()
@@ -200,11 +200,9 @@
                     // console.log(data);
                     $("#postSuccessMessage").html('<div class="mt-2 alert alert-success">' + data.message +
                         '</div>');
-                    $("#postName").val('');
-                    $("#postPhoto").val('');
-                    $("#postType").val('');
-                    $("#postAuthor").val('');
-                    $('#postApprove').prop('checked', false);
+
+                    // to show the updated data 
+                    editFunc($('#hidden_post_id').val(), '1');
 
                     $('[id]').each(function() {
                         if (this.id.endsWith('_error')) {
@@ -233,13 +231,16 @@
             })
         }
 
-        function setPostEditData(post_up_data) {
+        function setPostEditData(post_up_data, update_token = null) {
             $('[id]').each(function() {
                 if (this.id.endsWith('_error')) {
                     let error = "#" + this.id;
                     clearErrorMessage(error);
                 }
             });
+            if(update_token==null){
+                $("#postSuccessMessage").html('');
+            }
             $('#exampleModalLabel').text('Update Post');
             $('#hidden_post_id').val(post_up_data.id);
             $('#postName').val(post_up_data.title);
@@ -256,11 +257,13 @@
 
             post_up_data.approve == 1 ? $('#postApprove').prop('checked', true) : $('#postApprove').prop('checked', false);
 
-            var myModal = new bootstrap.Modal(document.getElementById('postModal'))
-            myModal.show();
+            if (update_token == null) {
+                var myModal = new bootstrap.Modal(document.getElementById('postModal'))
+                myModal.show();
+            }
         }
 
-        function editFunc(id) {
+        function editFunc(id, update_token = null) {
             $.ajax({
                 url: "api/getPostEditData",
                 type: "GET",
@@ -273,7 +276,7 @@
                 },
                 success: function(data) {
                     console.log(data);
-                    setPostEditData(data);
+                    update_token == null ? setPostEditData(data) : setPostEditData(data, update_token);;
                 },
 
                 error: function(data) {

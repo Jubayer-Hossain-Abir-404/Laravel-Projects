@@ -24,7 +24,8 @@ class PostController extends Controller
         return view('post');
     }
 
-    public function getCategoryAuthor(){
+    public function getCategoryAuthor()
+    {
         $categories = Category::latest('name')->get();
         $authors = Author::latest('id')->get();
 
@@ -33,38 +34,39 @@ class PostController extends Controller
 
         return response()->json($postResult);
     }
-    
+
     public function getPost()
     {
         $post = DB::table('posts as p')
-        ->selectRaw('p.*, p.id as sl, c.name as categoryName,
+            ->selectRaw('p.*, p.id as sl, c.name as categoryName,
         IF(p.approve=1, "Approved", "Disapproved") AS status')
-        ->leftJoin('categories as c', 'p.category_id', '=', 'c.id')
-        ->reorder('p.id', 'desc')
-        ->get();
+            ->leftJoin('categories as c', 'p.category_id', '=', 'c.id')
+            ->reorder('p.id', 'desc')
+            ->get();
 
-        
+
 
         // $postResult['post'] = $post;
 
         return response()->json($post);
     }
 
-    public function getPostEditData(Request $request){
+    public function getPostEditData(Request $request)
+    {
         $id = $request->post_id;
         $post = Post::find($id);
         return response()->json($post);
     }
 
-    public function changeApprove(Request $request){
+    public function changeApprove(Request $request)
+    {
         $id = $request->post_id;
         $post = Post::find($id);
-        $post->approve = ($post->approve==1) ? 0 : 1;
+        $post->approve = ($post->approve == 1) ? 0 : 1;
         // return response()->json($post);
-        if($post->update()){
+        if ($post->update()) {
             return response()->json(array('message' => 'Post Approval Updated'));
-        }
-        else{
+        } else {
             return response()->json(array('message' => 'Post Approval Update failed'));
         }
     }
@@ -76,7 +78,6 @@ class PostController extends Controller
      */
     public function create()
     {
-
     }
 
     /**
@@ -87,15 +88,15 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(),[
+        $validator = Validator::make($request->all(), [
             'postName' => 'required|max:255',
             'postPhoto' => 'required',
             'postType' => 'required',
             'postAuthor' => 'required'
         ]);
 
-        if($validator->fails()){
-            return response()->json($validator->errors(),400);
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 400);
         }
 
 
@@ -107,23 +108,65 @@ class PostController extends Controller
 
         $post = new Post();
         $post->title = $request->postName;
-        $post->image = 'post_files/'.$file_name;
+        $post->image = 'post_files/' . $file_name;
 
         $post->author_id = $request->postAuthor;
-//        query for fetching author name
+        //        query for fetching author name
         $author = Author::find($post->author_id);
         $post->written_by = $author->name;
         $post->category_id = $request->postType;
-//        checking if postApprove has data
-        if($request->has('postApprove')) {
+        //        checking if postApprove has data
+        if ($request->has('postApprove')) {
             $post->approve = $request->postApprove;
         }
 
-        if($post->save()){
+        if ($post->save()) {
             return response()->json(array('message' => 'New Post has been created'));
+        } else {
+            return response()->json(array('message' => 'Failed to create a new post'));
+        }
+    }
+
+    public function updatePost(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'postName' => 'required|max:255',
+            'postType' => 'required',
+            'postAuthor' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 400);
+        }
+
+        $id = $request->hidden_post_id;
+        $post = Post::find($id);
+
+        if ($request->hasFile('postPhoto')) {
+            $file = $request->file('postPhoto');
+            $file_name = rand(123456, 999999) . '.' . $file->getClientOriginalExtension();
+            $file_path = public_path('post_files');
+            $file->move($file_path, $file_name);
+            $post->image = 'post_files/' . $file_name;
+        }
+        $post->title = $request->postName;
+        $post->author_id = $request->postAuthor;
+        //        query for fetching author name
+        $author = Author::find($post->author_id);
+        $post->written_by = $author->name;
+        $post->category_id = $request->postType;
+        //        checking if postApprove has data
+        if ($request->has('postApprove')) {
+            $post->approve = $request->postApprove;
         }
         else{
-            return response()->json(array('message' => 'Failed to create a new post'));
+            $post->approve = 0; 
+        }
+
+        if ($post->update()) {
+            return response()->json(array('message' => 'Post has been updated'));
+        } else {
+            return response()->json(array('message' => 'Failed to update post'));
         }
     }
 
