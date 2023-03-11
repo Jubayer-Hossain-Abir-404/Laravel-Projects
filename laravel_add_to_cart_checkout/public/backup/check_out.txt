@@ -1,0 +1,42 @@
+Route::post('/cart/checkout', 'CartController@checkout');
+
+public function checkout(Request $request)
+{
+    if (Auth::check()) {
+        // Get the cart from the session
+        $cart = session()->get('cart');
+
+        // Process the checkout and clear the cart
+        // ...
+
+        session()->forget('cart');
+
+        return response()->json(['message' => 'Checkout successful']);
+    } else {
+        return response()->json(['error' => 'You must be signed in to checkout']);
+    }
+}
+
+<button onclick="checkoutItems()">Checkout</button>
+
+function checkoutItems() {
+    if ({{ Auth::check() ? 'true' : 'false' }}) {
+        const csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+        $.ajax({
+            type: 'POST',
+            url: '/cart/checkout',
+            data: {
+                _token: csrfToken
+            },
+            success: function (data) {
+                console.log(data.message);
+            },
+            error: function (xhr, status, error) {
+                console.error(error);
+            }
+        });
+    } else {
+        alert('You must be signed in to checkout');
+    }
+}

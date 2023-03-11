@@ -1,0 +1,47 @@
+Route::post('/cart/add', 'CartController@addItem');
+
+public function addItem(Request $request)
+{
+    $itemId = $request->input('item_id');
+    $itemName = $request->input('item_name');
+    $itemPrice = $request->input('item_price');
+    $itemQuantity = $request->input('item_quantity');
+
+    // Add item to cart using Laravel's session helper
+    $cart = session()->get('cart', []);
+    $cart[$itemId] = [
+        'name' => $itemName,
+        'price' => $itemPrice,
+        'quantity' => $itemQuantity
+    ];
+    session()->put('cart', $cart);
+
+    return response()->json(['message' => 'Item added to cart']);
+}
+
+<button onclick="addItemToCart()">Add to Cart</button>
+
+function addItemToCart() {
+    const itemId = document.getElementById('item-id').value;
+    const itemName = document.getElementById('item-name').value;
+    const itemPrice = document.getElementById('item-price').value;
+    const itemQuantity = document.getElementById('item-quantity').value;
+
+    fetch('/cart/add', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            item_id: itemId,
+            item_name: itemName,
+            item_price: itemPrice,
+            item_quantity: itemQuantity
+        })
+    })
+    .then(response => response.json())
+    .then(data => console.log(data.message))
+    .catch(error => console.error(error));
+}
+
+
