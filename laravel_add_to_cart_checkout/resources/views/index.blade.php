@@ -9,58 +9,70 @@
                         <div class="card-header py-3">
                             <h5 class="mb-0">Cart</h5>
                         </div>
-                        <div class="card-body">
-                            <!-- Single item -->
-                            @foreach ($products as $key => $product)
-                                <div class="row">
-
-                                    <div class="col-lg-5 col-md-6 mb-4 mb-lg-0">
-                                        <!-- Data -->
-                                        <p><strong>{{ $product->item_name }}</strong></p>
-                                        <button type="button" class="btn btn-primary btn-sm me-1 mb-2"
-                                            data-mdb-toggle="tooltip" title="Remove item">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                        <button type="button" class="btn btn-danger btn-sm mb-2" data-mdb-toggle="tooltip"
-                                            title="Move to the wish list">
-                                            <i class="fas fa-heart"></i>
-                                        </button>
-                                        <!-- Data -->
-                                    </div>
-
-                                    <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
-                                        <!-- Quantity -->
-                                        <div class="d-flex mb-4" style="max-width: 300px">
-                                            <button class="btn btn-primary px-3 me-2"
-                                                onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-                                                <i class="fas fa-minus"></i>
-                                            </button>
-
-                                            <div class="form-outline">
-                                                <input id="form1" min="0" name="quantity" value="1"
-                                                    type="number" class="form-control" />
-                                                <label class="form-label" for="form1">Quantity</label>
-                                            </div>
-
-                                            <button class="btn btn-primary px-3 ms-2"
-                                                onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-                                                <i class="fas fa-plus"></i>
-                                            </button>
-                                        </div>
-                                        <!-- Quantity -->
-
-                                        <!-- Price -->
-                                        <p class="text-start text-md-center">
-                                            <strong>{{ $product->item_price }}</strong>
-                                        </p>
-                                        <!-- Price -->
-                                    </div>
-                                </div>
+                            @csrf
+                            <div class="card-body">
                                 <!-- Single item -->
+                                @foreach ($products as $key => $product)
+                                    <div class="row">
 
-                                <hr class="my-4" />
-                            @endforeach
-                        </div>
+                                        <div class="col-lg-5 col-md-6 mb-4 mb-lg-0">
+                                            <!-- Data -->
+                                            <input type="hidden" id="item-name{{ $product->id }}"
+                                                value="{{ $product->item_name }}">
+                                            <p><strong>{{ $product->item_name }}</strong></p>
+                                            <button onclick="removeItem({{ $product->id }})" type="button" class="btn btn-primary btn-sm me-1 mb-2"
+                                                data-mdb-toggle="tooltip" title="Remove item">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                            <button  type="button" class="btn btn-danger btn-sm mb-2"
+                                                data-mdb-toggle="tooltip" title="Move to the wish list">
+                                                <i class="fas fa-heart"></i>
+                                            </button>
+                                            <button  type="button" onclick="addItemToCart({{ $product->id }})"
+                                                class="btn btn-primary btn-sm mb-2">
+                                                Add to Cart
+                                            </button>
+                                            <!-- Data -->
+                                        </div>
+
+                                        <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+                                            <!-- Quantity -->
+                                            <div class="d-flex mb-4" style="max-width: 300px">
+                                                <button class="btn btn-primary px-3 me-2"
+                                                    onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
+                                                    <i class="fas fa-minus"></i>
+                                                </button>
+
+                                                <div class="form-outline">
+                                                    <input min="0" name="quantity"
+                                                        id="item-quantity{{ $product->id }}" value="1" type="number"
+                                                        class="form-control" />
+                                                    <label class="form-label" for="form1">Quantity</label>
+                                                </div>
+
+                                                <button class="btn btn-primary px-3 ms-2"
+                                                    onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
+                                                    <i class="fas fa-plus"></i>
+                                                </button>
+                                            </div>
+                                            <!-- Quantity -->
+
+                                            <!-- Price -->
+                                            <p class="text-start text-md-center">
+                                                <input type="hidden" id="item-price{{ $product->id }}"
+                                                    value="{{ $product->item_price }}">
+                                                <strong>{{ $product->item_price }}</strong>
+                                            </p>
+                                            <!-- Price -->
+                                        </div>
+                                    </div>
+                                    <!-- Single item -->
+
+                                    <hr class="my-4" />
+                                @endforeach
+                            </div>
+                        </form>
+
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -100,4 +112,54 @@
             </div>
         </div>
     </section>
+@endsection
+
+@section('script')
+    <script>
+        function addItemToCart(id) {
+            const itemId = id;
+            const itemName = $('#item-name' + id).val();
+            const itemPrice = $('#item-price' + id).val();
+            const itemQuantity = $('#item-quantity' + id).val();
+
+            console.log(itemId, itemName, itemPrice, itemQuantity);
+
+            $.ajax({
+                type: 'GET',
+                url: '/cart/add',
+                data: {
+                    item_id: itemId,
+                    item_name: itemName,
+                    item_price: itemPrice,
+                    item_quantity: itemQuantity
+                },
+                success: function(data) {
+                    console.log(data);
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                }
+            });
+        }
+
+        function removeItem(id){
+            const itemId = id;
+
+            console.log(itemId);
+
+            $.ajax({
+                type: 'GET',
+                url: '/cart/remove',
+                data: {
+                    item_id: itemId
+                },
+                success: function(data) {
+                    console.log(data);
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                }
+            });
+        }
+    </script>
 @endsection
