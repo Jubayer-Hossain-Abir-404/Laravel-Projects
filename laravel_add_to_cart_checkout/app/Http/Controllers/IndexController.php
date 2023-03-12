@@ -8,6 +8,11 @@ class IndexController extends Controller
 {
     public function index(){
         $products = Product::latest('id')->get();
-        return view('index', compact('products'));
+        $send_cart = session()->get('cart');
+        $price=0;
+        foreach($send_cart as $cart){
+            $price += (float) $cart['price'] * (float) $cart['quantity']; 
+        }
+        return view('index', compact('products', 'price'));
     }
 }
