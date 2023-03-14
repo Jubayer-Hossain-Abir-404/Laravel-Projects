@@ -85,7 +85,7 @@
                                 <li
                                     class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
                                     Products
-                                    <span>${{ $price }}</span>
+                                    <span id="totalPrice">${{ $price }}</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center px-0">
                                     Shipping
@@ -135,6 +135,7 @@
                 },
                 success: function(data) {
                     console.log(data);
+                    location.reload();
                 },
                 error: function(xhr, status, error) {
                     console.error(error);
@@ -155,6 +156,7 @@
                 },
                 success: function(data) {
                     console.log(data);
+                    location.reload();
                 },
                 error: function(xhr, status, error) {
                     console.error(error);
