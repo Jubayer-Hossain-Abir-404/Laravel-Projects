@@ -1,0 +1,52 @@
+Laravel uses the bcrypt password hashing algorithm by default, and it's recommended to use this algorithm for secure password hashing. The SHA1 algorithm is not considered a secure method for password hashing, as it can be easily cracked using modern computing resources.
+
+If you have hashed the password using the SHA1 algorithm outside of Laravel, you won't be able to use Laravel's default authentication system to log in. Laravel's authentication system expects passwords to be hashed using the bcrypt algorithm, and it won't be able to compare the plain text password with the hashed password generated using the SHA1 algorithm.
+
+If you still want to use the SHA1 algorithm to hash passwords, you can create a custom password hash driver in Laravel to handle the SHA1 hashing. Here's an example of how to create a custom hash driver:
+
+Create a new class that extends the Illuminate\Hashing\AbstractHasher class:
+
+
+use Illuminate\Hashing\AbstractHasher;
+
+class Sha1Hasher extends AbstractHasher
+{
+    public function make($value, array $options = [])
+    {
+        return sha1($value);
+    }
+
+    public function check($value, $hashedValue, array $options = [])
+    {
+        return $hashedValue === sha1($value);
+    }
+}
+
+
+Register the new hash driver in the config/hashing.php file:
+
+'guards' => [
+    // ...
+
+    'sha1' => [
+        'driver' => 'sha1',
+    ],
+],
+
+'hash' => [
+    // ...
+
+    'sha1' => [
+        'driver' => 'sha1',
+    ],
+],
+
+
+Use the new hash driver when authenticating the user:
+
+
+if (Auth::guard('web')->attempt(['email' => $email, 'password' => $password], true, true)) {
+    // Authentication passed...
+}
+
+Note that using the SHA1 algorithm for password hashing is not recommended for security reasons. It's much better to use the bcrypt algorithm or another secure algorithm for password hashing.
