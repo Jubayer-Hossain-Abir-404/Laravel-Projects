@@ -28,3 +28,5 @@ Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::get('/register', [LoginController::class, 'registerPage'])->name('register');
 
 Route::post('/register/submit', [LoginController::class, 'submitRegister'])->name('submitRegister');
+
+Route::post('/login/submit', [LoginController::class, 'submitLogin'])->name('submitLogin');

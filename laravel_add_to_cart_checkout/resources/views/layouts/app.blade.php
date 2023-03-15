@@ -25,7 +25,13 @@
                     </li>
                 </ul>
                 <div class="d-flex">
-                    <a href="{{ route('login') }}" >Login</a>
+                    @if (!Auth::check())
+                        <a href="{{ route('login') }}" >Login</a>
+                    @endif
+                    @if (Auth::check())
+                        <a href="" >Logout</a>
+                    @endif
+                    
                 </div>
             </div>
         </div>

@@ -30,9 +30,19 @@ class LoginController extends Controller
             'name' => request('name'),
             'email' => request('email'),
             'phone_number' => request('phone_number'),
-            'password' => sha1(request('password')),
+            'password' => Hash::make(request('password')),
         ]);
 
         return redirect()->route('login');
+    }
+
+    public function submitLogin(Request $request){
+        $email = $request->email;
+        $password = $request->password;
+        
+        if(!auth()->attempt(['email' => $email, 'password' => $password], request()->remember)){
+            return back()->with('status', $email." ".$password);
+        }
+        return redirect()->route('home');
     }
 }
