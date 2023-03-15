@@ -9,68 +9,68 @@
                         <div class="card-header py-3">
                             <h5 class="mb-0">Cart</h5>
                         </div>
-                            @csrf
-                            <div class="card-body">
-                                <!-- Single item -->
-                                @foreach ($products as $key => $product)
-                                    <div class="row">
+                        @csrf
+                        <div class="card-body">
+                            <!-- Single item -->
+                            @foreach ($products as $key => $product)
+                                <div class="row">
 
-                                        <div class="col-lg-5 col-md-6 mb-4 mb-lg-0">
-                                            <!-- Data -->
-                                            <input type="hidden" id="item-name{{ $product->id }}"
-                                                value="{{ $product->item_name }}">
-                                            <p><strong>{{ $product->item_name }}</strong></p>
-                                            <button onclick="removeItem({{ $product->id }})" type="button" class="btn btn-primary btn-sm me-1 mb-2"
-                                                data-mdb-toggle="tooltip" title="Remove item">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                            <button  type="button" class="btn btn-danger btn-sm mb-2"
-                                                data-mdb-toggle="tooltip" title="Move to the wish list">
-                                                <i class="fas fa-heart"></i>
-                                            </button>
-                                            <button  type="button" onclick="addItemToCart({{ $product->id }})"
-                                                class="btn btn-primary btn-sm mb-2">
-                                                Add to Cart
-                                            </button>
-                                            <!-- Data -->
-                                        </div>
-
-                                        <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
-                                            <!-- Quantity -->
-                                            <div class="d-flex mb-4" style="max-width: 300px">
-                                                <button class="btn btn-primary px-3 me-2"
-                                                    onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-                                                    <i class="fas fa-minus"></i>
-                                                </button>
-
-                                                <div class="form-outline">
-                                                    <input min="0" name="quantity"
-                                                        id="item-quantity{{ $product->id }}" value="1" type="number"
-                                                        class="form-control" />
-                                                    <label class="form-label" for="form1">Quantity</label>
-                                                </div>
-
-                                                <button class="btn btn-primary px-3 ms-2"
-                                                    onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-                                                    <i class="fas fa-plus"></i>
-                                                </button>
-                                            </div>
-                                            <!-- Quantity -->
-
-                                            <!-- Price -->
-                                            <p class="text-start text-md-center">
-                                                <input type="hidden" id="item-price{{ $product->id }}"
-                                                    value="{{ $product->item_price }}">
-                                                <strong>{{ $product->item_price }}</strong>
-                                            </p>
-                                            <!-- Price -->
-                                        </div>
+                                    <div class="col-lg-5 col-md-6 mb-4 mb-lg-0">
+                                        <!-- Data -->
+                                        <input type="hidden" id="item-name{{ $product->id }}"
+                                            value="{{ $product->item_name }}">
+                                        <p><strong>{{ $product->item_name }}</strong></p>
+                                        <button onclick="removeItem({{ $product->id }})" type="button"
+                                            class="btn btn-primary btn-sm me-1 mb-2" data-mdb-toggle="tooltip"
+                                            title="Remove item">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-danger btn-sm mb-2" data-mdb-toggle="tooltip"
+                                            title="Move to the wish list">
+                                            <i class="fas fa-heart"></i>
+                                        </button>
+                                        <button type="button" onclick="addItemToCart({{ $product->id }})"
+                                            class="btn btn-primary btn-sm mb-2">
+                                            Add to Cart
+                                        </button>
+                                        <!-- Data -->
                                     </div>
-                                    <!-- Single item -->
 
-                                    <hr class="my-4" />
-                                @endforeach
-                            </div>
+                                    <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+                                        <!-- Quantity -->
+                                        <div class="d-flex mb-4" style="max-width: 300px">
+                                            <button class="btn btn-primary px-3 me-2"
+                                                onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
+                                                <i class="fas fa-minus"></i>
+                                            </button>
+
+                                            <div class="form-outline">
+                                                <input min="0" name="quantity" id="item-quantity{{ $product->id }}"
+                                                    value="1" type="number" class="form-control" />
+                                                <label class="form-label" for="form1">Quantity</label>
+                                            </div>
+
+                                            <button class="btn btn-primary px-3 ms-2"
+                                                onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
+                                                <i class="fas fa-plus"></i>
+                                            </button>
+                                        </div>
+                                        <!-- Quantity -->
+
+                                        <!-- Price -->
+                                        <p class="text-start text-md-center">
+                                            <input type="hidden" id="item-price{{ $product->id }}"
+                                                value="{{ $product->item_price }}">
+                                            <strong>{{ $product->item_price }}</strong>
+                                        </p>
+                                        <!-- Price -->
+                                    </div>
+                                </div>
+                                <!-- Single item -->
+
+                                <hr class="my-4" />
+                            @endforeach
+                        </div>
                         </form>
 
                     </div>
@@ -103,7 +103,7 @@
                                 </li>
                             </ul>
 
-                            <button type="button" class="btn btn-primary btn-lg btn-block">
+                            <button type="button" onclick="checkoutItems()" class="btn btn-primary btn-lg btn-block">
                                 Go to checkout
                             </button>
                         </div>
@@ -143,7 +143,7 @@
             });
         }
 
-        function removeItem(id){
+        function removeItem(id) {
             const itemId = id;
 
             console.log(itemId);
@@ -162,6 +162,28 @@
                     console.error(error);
                 }
             });
+        }
+
+        function checkoutItems() {
+            if ({{ Auth::check() ? 'true' : 'false' }}) {
+                const csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/cart/checkout',
+                    data: {
+                        _token: csrfToken
+                    },
+                    success: function(data) {
+                        console.log(data.message);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+            } else {
+                alert('You must be signed in to checkout');
+            }
         }
     </script>
 @endsection

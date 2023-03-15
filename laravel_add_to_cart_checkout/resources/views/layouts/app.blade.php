@@ -25,7 +25,7 @@
                     </li>
                 </ul>
                 <div class="d-flex">
-                    Login
+                    <a href="{{ route('login') }}" >Login</a>
                 </div>
             </div>
         </div>
