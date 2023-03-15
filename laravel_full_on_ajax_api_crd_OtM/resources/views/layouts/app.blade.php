@@ -30,7 +30,11 @@
                     </li>
                 </ul>
                 <div class="d-flex">
-                    Log
+                    @if (!Auth::check())
+                        <a href="{{ route('login') }}" >Login</a>
+                    @else
+                        <a href="" >Logout</a>
+                    @endif
                 </div>
             </div>
         </div>
