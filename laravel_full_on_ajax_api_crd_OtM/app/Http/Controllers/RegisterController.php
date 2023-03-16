@@ -46,7 +46,9 @@ class RegisterController extends Controller
 
         if (!auth()->attempt(['úser_name' => $user_name, 'password' => $password], request()->remember)) {
             return back()->with('status', $user_name . " " . $password);
+            // return response()->json(array('message' => 'Login Failed'));
         }
+        // return response()->json(array('message' => 'Login Done'));
         return redirect()->route('home');
     }
 

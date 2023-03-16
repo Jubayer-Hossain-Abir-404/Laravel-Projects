@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\RegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,3 +42,8 @@ Route::get('/getCategoryAuthor', [PostController::class, 'getCategoryAuthor'])->
 Route::post('/updatePost', [PostController::class, 'updatePost'])->name('updatePost');
 
 Route::get('/deletePost', [PostController::class, 'destroy'])->name('deletePost');
+
+
+// logiin
+
+// Route::post('/login/submit', [RegisterController::class, 'submitLogin'])->name('submitLogin');
