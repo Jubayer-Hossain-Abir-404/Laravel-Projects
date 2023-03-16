@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use app\Models\User;
+use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller
@@ -32,7 +32,7 @@ class RegisterController extends Controller
         User::create([
             'name' => request('name'),
             'email' => request('email'),
-            'phone_number' => request('phone_number'),
+            'úser_name' => request('úser_name'),
             'password' => Hash::make(request('password')),
         ]);
 
@@ -41,12 +41,18 @@ class RegisterController extends Controller
 
     public function submitLogin(Request $request)
     {
-        $email = $request->email;
+        $user_name = $request->úser_name;
         $password = $request->password;
 
-        if (!auth()->attempt(['email' => $email, 'password' => $password], request()->remember)) {
-            return back()->with('status', $email . " " . $password);
+        if (!auth()->attempt(['úser_name' => $user_name, 'password' => $password], request()->remember)) {
+            return back()->with('status', $user_name . " " . $password);
         }
+        return redirect()->route('home');
+    }
+
+    public function logout(){
+        auth()->logout();
+
         return redirect()->route('home');
     }
 }

@@ -33,7 +33,7 @@
                     @if (!Auth::check())
                         <a href="{{ route('login') }}" >Login</a>
                     @else
-                        <a href="" >Logout</a>
+                        <a href="{{ route('logout') }}" >Logout</a>
                     @endif
                 </div>
             </div>

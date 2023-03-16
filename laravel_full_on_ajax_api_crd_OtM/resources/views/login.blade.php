@@ -11,8 +11,8 @@
                     <!-- Email input -->
                     @csrf
                     <div class="form-outline mb-4">
-                        <input type="text" id="form2Example1" name="email" class="form-control" />
-                        <label class="form-label" for="form2Example1">Email address</label>
+                        <input type="text" id="form2Example1" name="úser_name" class="form-control" />
+                        <label class="form-label" for="form2Example1">Login ID</label>
                     </div>
 
                     <!-- Password input -->
@@ -26,7 +26,7 @@
                         <div class="col d-flex justify-content-center">
                             <!-- Checkbox -->
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="remember" value="" id="form2Example31"
+                                <input class="form-check-input" value="1" type="checkbox" name="remember" value="" id="form2Example31"
                                      />
                                 <label class="form-check-label" for="form2Example31"> Remember me </label>
                             </div>

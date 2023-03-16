@@ -31,10 +31,10 @@
                                         </div>
 
                                         <div class="d-flex flex-row align-items-center mb-4">
-                                            <i class="fas fa-phone fa-lg me-3 fa-fw"></i>
+                                            <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                                             <div class="form-outline flex-fill mb-0">
-                                                <input type="number" id="phone_number" name="phone_number" class="form-control" />
-                                                <label class="form-label" for="phone_number" >Your Phone</label>
+                                                <input type="text" id="úser_name" name="úser_name" class="form-control" />
+                                                <label class="form-label" for="úser_name" >User Name</label>
                                             </div>
                                         </div>
 

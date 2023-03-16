@@ -35,3 +35,5 @@ Route::get('/register', [RegisterController::class, 'registerPage'])->name('regi
 Route::post('/register/submit', [RegisterController::class, 'submitRegister'])->name('submitRegister');
 
 Route::post('/login/submit', [RegisterController::class, 'submitLogin'])->name('submitLogin');
+
+Route::get('/logout', [RegisterController::class, 'logout'])->name('logout');
