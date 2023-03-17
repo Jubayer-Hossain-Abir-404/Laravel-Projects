@@ -8,7 +8,17 @@ use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller
 {
-    public function registerPage(){
+    public function rules()
+    {
+        return [
+            'name' => 'required|max:255',
+            'username' => 'required|max:255',
+            'email' => 'required|email:rfc,dns',
+            'password' => 'required|confirmed',
+        ];
+    }
+    public function registerPage()
+    {
         return view('register');
     }
 
@@ -42,13 +52,15 @@ class RegisterController extends Controller
     public function submitLogin(Request $request)
     {
         $request->validate([
-            'úser_name' => 'required',
+            'login' => 'required',
             'password' => 'required',
         ]);
-        $user_name = $request->úser_name;
+        $user_name = $request->login;
         $password = $request->password;
 
-        if (!auth()->attempt(['úser_name' => $user_name, 'password' => $password], request()->remember)) {
+        $fieldType = filter_var($request->login, FILTER_VALIDATE_EMAIL) ? 'email' : 'úser_name';
+
+        if (!auth()->attempt([$fieldType => $user_name, 'password' => $password], request()->remember)) {
             return back()->with('status', $user_name . " " . $password);
             // return response()->json(array('message' => 'Login Failed'));
         }
@@ -56,7 +68,8 @@ class RegisterController extends Controller
         return redirect()->route('home');
     }
 
-    public function logout(){
+    public function logout()
+    {
         auth()->logout();
 
         return redirect()->route('home');

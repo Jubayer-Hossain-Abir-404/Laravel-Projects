@@ -11,17 +11,17 @@
                     <!-- Email input -->
                     @csrf
                     <div class="form-outline mb-4">
-                        <input type="text" id="form2Example1" name="úser_name" class="form-control" />
-                        <label class="form-label" for="form2Example1">Login ID</label>
+                        <input type="text" id="form2Example1" name="login" class="form-control" />
+                        <label class="form-label" for="form2Example1">User Name/Email</label>
                     </div>
 
-                    @error('úser_name')
-                                <span class="" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                        @enderror
+                    @error('login')
+                        <span class="" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
 
-                    
+
 
                     <!-- Password input -->
                     <div class="form-outline mb-4">
@@ -30,9 +30,9 @@
                     </div>
 
                     @error('password')
-                                <span class="" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
+                        <span class="" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
                     @enderror
 
                     <!-- 2 column grid layout for inline styling -->
