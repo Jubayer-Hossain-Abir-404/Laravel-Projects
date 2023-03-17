@@ -44,6 +44,7 @@ Route::post('/updatePost', [PostController::class, 'updatePost'])->name('updateP
 Route::get('/deletePost', [PostController::class, 'destroy'])->name('deletePost');
 
 
+
 // logiin
 
 // Route::post('/login/submit', [RegisterController::class, 'submitLogin'])->name('submitLogin');

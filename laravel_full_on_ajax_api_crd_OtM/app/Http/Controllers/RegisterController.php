@@ -8,15 +8,20 @@ use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller
 {
-    public function rules()
-    {
-        return [
-            'name' => 'required|max:255',
-            'username' => 'required|max:255',
-            'email' => 'required|email:rfc,dns',
-            'password' => 'required|confirmed',
-        ];
+    public function __construct(){
+        $this->middleware('guest')->except('logout');
     }
+    // public function rules()
+    // {
+    //     return [
+    //         'name' => 'required|max:255',
+    //         'username' => 'required|max:255',
+    //         'email' => 'required|email:rfc,dns',
+    //         'password' => 'required|confirmed',
+    //     ];
+    // }
+
+    
     public function registerPage()
     {
         return view('register');

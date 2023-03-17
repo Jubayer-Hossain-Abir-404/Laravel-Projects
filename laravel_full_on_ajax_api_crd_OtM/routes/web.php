@@ -18,22 +18,26 @@ use App\Http\Controllers\RegisterController;
 |
 */
 
+Route::middleware(['auth'])->group(function () {
+    Route::get('author', [AuthorController::class, 'index'])->name('author');
+
+    Route::get('post', [PostController::class, 'index'])->name('post');
+
+    Route::get('category', [CategoryController::class, 'index'])->name('category');
+
+    Route::get('/logout', [RegisterController::class, 'logout'])->name('logout');
+});
+
 Route::get('/', [IndexController::class, 'index'])->name('home');
 
-Route::get('author', [AuthorController::class, 'index'])->name('author');
-
-Route::get('post', [PostController::class, 'index'])->name('post');
-
-Route::get('category', [CategoryController::class, 'index'])->name('category');
-
-
 //this is for login
-Route::get('/login', [RegisterController::class, 'loginPage'])->name('login');
 
-Route::get('/register', [RegisterController::class, 'registerPage'])->name('register');
+Route::middleware(['guest'])->group(function () {
+    Route::get('/login', [RegisterController::class, 'loginPage'])->name('login');
 
-Route::post('/register/submit', [RegisterController::class, 'submitRegister'])->name('submitRegister');
+    Route::get('/register', [RegisterController::class, 'registerPage'])->name('register');
 
-Route::post('/login/submit', [RegisterController::class, 'submitLogin'])->name('submitLogin');
+    Route::post('/register/submit', [RegisterController::class, 'submitRegister'])->name('submitRegister');
 
-Route::get('/logout', [RegisterController::class, 'logout'])->name('logout');
+    Route::post('/login/submit', [RegisterController::class, 'submitLogin'])->name('submitLogin');
+});
