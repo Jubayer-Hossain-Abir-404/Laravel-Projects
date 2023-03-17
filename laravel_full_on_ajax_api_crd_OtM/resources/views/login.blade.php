@@ -15,11 +15,25 @@
                         <label class="form-label" for="form2Example1">Login ID</label>
                     </div>
 
+                    @error('úser_name')
+                                <span class="" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                        @enderror
+
+                    
+
                     <!-- Password input -->
                     <div class="form-outline mb-4">
                         <input type="password" id="form2Example2" name="password" class="form-control" />
                         <label class="form-label" for="form2Example2">Password</label>
                     </div>
+
+                    @error('password')
+                                <span class="" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                    @enderror
 
                     <!-- 2 column grid layout for inline styling -->
                     <div class="row mb-4">

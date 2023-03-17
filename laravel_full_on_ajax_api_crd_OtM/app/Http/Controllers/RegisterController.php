@@ -41,6 +41,10 @@ class RegisterController extends Controller
 
     public function submitLogin(Request $request)
     {
+        $request->validate([
+            'úser_name' => 'required',
+            'password' => 'required',
+        ]);
         $user_name = $request->úser_name;
         $password = $request->password;
 
