@@ -135,7 +135,7 @@
                 },
                 success: function(data) {
                     console.log(data);
-                    // location.reload();
+                    location.reload();
                 },
                 error: function(xhr, status, error) {
                     console.error(error);
