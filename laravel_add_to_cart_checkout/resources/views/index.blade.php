@@ -135,7 +135,7 @@
                 },
                 success: function(data) {
                     console.log(data);
-                    location.reload();
+                    // location.reload();
                 },
                 error: function(xhr, status, error) {
                     console.error(error);
@@ -169,7 +169,7 @@
                 const csrfToken = $('meta[name="csrf-token"]').attr('content');
 
                 $.ajax({
-                    type: 'POST',
+                    method: 'POST',
                     url: '/cart/checkout',
                     data: {
                         _token: csrfToken
@@ -179,6 +179,7 @@
                     },
                     success: function(data) {
                         console.log(data);
+                        alert(data.message);
                     },
                     error: function(xhr, status, error) {
                         console.error(error);

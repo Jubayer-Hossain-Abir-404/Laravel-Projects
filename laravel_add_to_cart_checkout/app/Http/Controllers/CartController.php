@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
+use App\Models\Orders;
 
 class CartController extends Controller
 {
@@ -51,8 +54,42 @@ class CartController extends Controller
     }
 
     public function checkout(Request $request){
-        $send_cart = session()->get('cart');
+        $cart_items = session()->get('cart');
+        if (!session()->has('cart')) {
+            return response()->json(array('message'=> 'No item is added inside the cart'));
+        }
+        $total_items = count($cart_items);
 
-        return response()->json($send_cart);
+        $user_id = auth()->user()->id;
+        
+        
+        $max_order_id = DB::table('orders')
+                ->selectRaw('IF(MAX(user_order_sl) IS NULL, 1, MAX(user_order_sl)+1) as max_order')
+                ->where('user_id', '=', $user_id)
+                ->first();
+        $time= Carbon::now();
+        $flag =0;
+        foreach($cart_items as $key => $cart){
+            $order = new Orders();
+            $order->product_id = $key;
+            $order->product_quantity = $cart['quantity'];
+            $order->product_price = (int) $order->product_quantity * (float) $cart['price'];
+            $order->user_order_sl =  $max_order_id->max_order;
+            $order->order_id = $time->year.'-'.$user_id.'-'.$max_order_id->max_order;
+            $order->user_id = $user_id;
+            $order->save();
+            $flag++;
+        }
+
+        
+        if($flag== $total_items){
+            $request->session()->forget('cart');
+            return response()->json(array('message'=> 'All the items added'));
+        }
+        else{
+            return response()->json(array('message'=> 'Failed'));
+        }
+
+        
     }
 }
