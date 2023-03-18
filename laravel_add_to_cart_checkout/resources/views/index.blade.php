@@ -175,7 +175,7 @@
                         _token: csrfToken
                     },
                     success: function(data) {
-                        console.log(data.message);
+                        console.log(data);
                     },
                     error: function(xhr, status, error) {
                         console.error(error);

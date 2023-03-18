@@ -21,6 +21,8 @@ Route::get('/cart/add', [CartController::class, 'addItem'])->name('addItem');
 
 Route::get('/cart/remove', [CartController::class, 'removeCartItem'])->name('removeCartItem');
 
+Route::post('/cart/checkout', [CartController::class, 'checkout'])->name('checkout');
+
 
 //this is for login
 Route::get('/login', [LoginController::class, 'index'])->name('login');

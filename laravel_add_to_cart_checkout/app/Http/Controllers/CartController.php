@@ -49,4 +49,10 @@ class CartController extends Controller
             return response()->json($send_cart);
         } 
     }
+
+    public function checkout(Request $request){
+        $send_cart = session()->get('cart');
+
+        return response()->json($send_cart);
+    }
 }
