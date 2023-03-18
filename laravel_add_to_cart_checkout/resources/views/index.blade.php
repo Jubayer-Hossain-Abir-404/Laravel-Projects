@@ -174,6 +174,9 @@
                     data: {
                         _token: csrfToken
                     },
+                    headers: {
+                        'X-CSRF-TOKEN': $('input[name="_token"]').val()
+                    },
                     success: function(data) {
                         console.log(data);
                     },

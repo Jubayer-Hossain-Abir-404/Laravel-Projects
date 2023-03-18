@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -43,6 +44,12 @@ class LoginController extends Controller
         if(!auth()->attempt(['email' => $email, 'password' => $password], request()->remember)){
             return back()->with('status', $email." ".$password);
         }
+        return redirect()->route('home');
+    }
+
+    public function logout(){
+        Auth::logout();
+
         return redirect()->route('home');
     }
 }

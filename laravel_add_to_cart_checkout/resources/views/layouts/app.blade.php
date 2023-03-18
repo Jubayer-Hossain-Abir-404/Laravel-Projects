@@ -29,7 +29,7 @@
                         <a href="{{ route('login') }}" >Login</a>
                     @endif
                     @if (Auth::check())
-                        <a href="" >Logout</a>
+                        <a href="{{ route('logout') }}" >Logout</a>
                     @endif
                     
                 </div>
