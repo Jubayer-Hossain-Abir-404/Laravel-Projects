@@ -8,6 +8,7 @@ use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -20,8 +21,13 @@ class PostController extends Controller
     {
         // $categories = Category::latest('id')->get();
         // $authors = Author::latest('id')->get();
-
-        return view('post');
+        if(Auth::check()){
+            return view('post');
+        }
+        else{
+           abort(403, 'You are not authorized to be in this page'); 
+        }
+        
     }
 
     public function getCategoryAuthor()
@@ -60,14 +66,19 @@ class PostController extends Controller
 
     public function changeApprove(Request $request)
     {
-        $id = $request->post_id;
-        $post = Post::find($id);
-        $post->approve = ($post->approve == 1) ? 0 : 1;
-        // return response()->json($post);
-        if ($post->update()) {
-            return response()->json(array('message' => 'Post Approval Updated'));
+        if (Auth::check()) {
+            $id = $request->post_id;
+            $post = Post::find($id);
+            $post->approve = ($post->approve == 1) ? 0 : 1;
+            // return response()->json($post);
+            if ($post->update()) {
+                return response()->json(array('message' => 'Post Approval Updated'));
+            } else {
+                return response()->json(array('message' => 'Post Approval Update failed'));
+            }
         } else {
-            return response()->json(array('message' => 'Post Approval Update failed'));
+            // abort(403, 'You are not authorized to do this action');
+            return response()->json(['error' => 'You are not authorized to do this action'], 403);
         }
     }
 
@@ -158,9 +169,8 @@ class PostController extends Controller
         //        checking if postApprove has data
         if ($request->has('postApprove')) {
             $post->approve = $request->postApprove;
-        }
-        else{
-            $post->approve = 0; 
+        } else {
+            $post->approve = 0;
         }
 
         if ($post->update()) {

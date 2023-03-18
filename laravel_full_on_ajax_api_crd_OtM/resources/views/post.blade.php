@@ -307,6 +307,7 @@
                 error: function(data) {
                     let errors = data.responseJSON;
                     console.log(errors);
+                    alert(errors.error);
                     // clearing error message
                 }
             })
