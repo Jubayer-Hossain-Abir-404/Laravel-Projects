@@ -23,6 +23,11 @@
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="">Check Out</a>
                     </li>
+                    @if (Auth::check())
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{{ route('profile') }}">Profile</a>
+                        </li>
+                    @endif
                 </ul>
                 <div class="d-flex">
                     @if (!Auth::check())

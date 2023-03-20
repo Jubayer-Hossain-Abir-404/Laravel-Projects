@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ProfileController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -34,3 +35,5 @@ Route::post('/register/submit', [LoginController::class, 'submitRegister'])->nam
 Route::post('/login/submit', [LoginController::class, 'submitLogin'])->name('submitLogin');
 
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+
+Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
