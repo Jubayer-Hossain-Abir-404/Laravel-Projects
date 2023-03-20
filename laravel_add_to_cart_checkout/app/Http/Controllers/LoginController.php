@@ -22,9 +22,9 @@ class LoginController extends Controller
         $request->validate([
 
             'name' => 'required|max:255',
-            'username' => 'required|max:255',
+            'phone_number' => 'required',
             'email' => 'required|email:rfc,dns|unique:users',
-            'password' => 'required|confirmed',
+            'password' => 'required',
         ]);
 
         User::create([

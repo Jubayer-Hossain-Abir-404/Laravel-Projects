@@ -12,40 +12,53 @@
 
                                     <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign up</p>
 
-                                    <form method="post" action="{{ route('submitRegister') }}" class="mx-1 mx-md-4" enctype="multipart/form-data">
+                                    <form method="post" action="{{ route('submitRegister') }}" class="mx-1 mx-md-4"
+                                        enctype="multipart/form-data">
                                         @csrf
                                         <div class="d-flex flex-row align-items-center mb-4">
                                             <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                                             <div class="form-outline flex-fill mb-0">
                                                 <input type="text" id="name" name="name" class="form-control" />
-                                                <label class="form-label" for="name" id="name" >Your Name</label>
+                                                <label class="form-label" for="name" id="name">Your Name</label>
                                             </div>
                                         </div>
+                                        @error('name')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
 
                                         <div class="d-flex flex-row align-items-center mb-4">
                                             <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                                             <div class="form-outline flex-fill mb-0">
                                                 <input type="email" id="email" name="email" class="form-control" />
-                                                <label class="form-label"  for="email">Your Email</label>
+                                                <label class="form-label" for="email">Your Email</label>
                                             </div>
                                         </div>
+                                        @error('email')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
 
                                         <div class="d-flex flex-row align-items-center mb-4">
                                             <i class="fas fa-phone fa-lg me-3 fa-fw"></i>
                                             <div class="form-outline flex-fill mb-0">
-                                                <input type="number" id="phone_number" name="phone_number" class="form-control" />
-                                                <label class="form-label" for="phone_number" >Your Phone</label>
+                                                <input type="number" id="phone_number" name="phone_number"
+                                                    class="form-control" />
+                                                <label class="form-label" for="phone_number">Your Phone</label>
                                             </div>
                                         </div>
-
+                                        @error('phone_number')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
                                         <div class="d-flex flex-row align-items-center mb-4">
                                             <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
                                             <div class="form-outline flex-fill mb-0">
-                                                <input type="password" id="password" name="password" class="form-control" />
-                                                <label class="form-label"  for="password">Password</label>
+                                                <input type="password" id="password" name="password"
+                                                    class="form-control" />
+                                                <label class="form-label" for="password">Password</label>
                                             </div>
                                         </div>
-
+                                        @error('password')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
 
 
 
