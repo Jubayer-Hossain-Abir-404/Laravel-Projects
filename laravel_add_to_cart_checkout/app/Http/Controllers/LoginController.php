@@ -19,13 +19,13 @@ class LoginController extends Controller
     }
 
     public function submitRegister(Request $request){
-        // $request->validate([
+        $request->validate([
 
-        //     'name' => 'required|max:255',
-        //     'username' => 'required|max:255',
-        //     'email' => 'required|email:rfc,dns',
-        //     'password' => 'required|confirmed',
-        // ]);
+            'name' => 'required|max:255',
+            'username' => 'required|max:255',
+            'email' => 'required|email:rfc,dns|unique:users',
+            'password' => 'required|confirmed',
+        ]);
 
         User::create([
             'name' => request('name'),
