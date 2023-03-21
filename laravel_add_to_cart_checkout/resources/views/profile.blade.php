@@ -12,9 +12,10 @@
 
                                     <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign up</p>
 
-                                    <form method="post" action="{{ route('submitRegister') }}" class="mx-1 mx-md-4"
+                                    <form method="post" action="{{ route('submitProfile') }}" class="mx-1 mx-md-4"
                                         enctype="multipart/form-data">
                                         @csrf
+                                        <input type="hidden" name="hidden_id" id="hidden_id" value="{{ auth()->user()->id }}">
                                         <div class="d-flex flex-row align-items-center mb-4">
                                             <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                                             <div class="form-outline flex-fill mb-0">

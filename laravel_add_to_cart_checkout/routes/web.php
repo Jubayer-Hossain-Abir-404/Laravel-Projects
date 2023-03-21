@@ -37,3 +37,5 @@ Route::post('/login/submit', [LoginController::class, 'submitLogin'])->name('sub
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+
+Route::post('/profile/submit', [ProfileController::class, 'profileUpdate'])->name('submitProfile');
