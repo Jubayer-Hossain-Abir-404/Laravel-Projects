@@ -2,9 +2,7 @@
 
 @section('css')
     <style>
-        a {
-            color: #BE206B !important;
-        }
+
 
         a.btn.btn-lg.btn-block,
         .btn-info {
@@ -51,8 +49,9 @@
                                     <option value="1">Active</option>
                                 </select>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group mt-3">
                                 <button type="submit" class="btn btn btn-secondary">save</button>
+                            </div>
                         </form>
                     </div>
                 </div>

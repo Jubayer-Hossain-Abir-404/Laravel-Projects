@@ -35,6 +35,11 @@
                             <a class="nav-link active" aria-current="page" href="{{ route('timer.create') }}">Create Timer</a>
                         </li>
                     @endif
+                    @if (Auth::check())
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{{ route('timer.view') }}">View Timer</a>
+                        </li>
+                    @endif
                 </ul>
                 <div class="d-flex">
                     @if (!Auth::check())

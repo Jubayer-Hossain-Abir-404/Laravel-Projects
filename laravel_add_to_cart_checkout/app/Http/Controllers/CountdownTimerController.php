@@ -14,7 +14,7 @@ class CountdownTimerController extends Controller
     public function update(Request $request)
     {
         $timer_id ='1';
-        $timer = CountdownTimer::firstOrNew($timer_id);
+        $timer = CountdownTimer::findOrNew($timer_id);
         $timer->launch_date = $request->date_time;
         $timer->status = $request->timer_status;
         $timer->save();
