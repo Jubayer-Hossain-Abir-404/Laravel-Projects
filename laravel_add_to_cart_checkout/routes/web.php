@@ -5,6 +5,7 @@ use App\Http\Controllers\IndexController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CountdownTimerController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -39,3 +40,8 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
 
 Route::post('/profile/submit', [ProfileController::class, 'profileUpdate'])->name('submitProfile');
+
+
+Route::get('/create-timer', [CountdownTimerController::class, 'create'])->name('timer.create');
+Route::post('/update-timer', [CountdownTimerController::class, 'update'])->name('timer.update');
+Route::get('/view-timer', [CountdownTimerController::class, 'view'])->name('timer.view');
