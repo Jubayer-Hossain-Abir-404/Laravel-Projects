@@ -1,0 +1,45 @@
+var table = $('#postTable').DataTable({
+  order: [[0, 'desc']],
+  destroy: true,
+  paging: true,
+  pagingType: 'full_numbers',
+  pageLength: 10,
+  ajax: {
+    url: 'your-api-endpoint',
+    type: 'GET',
+    dataSrc: 'data'
+  },
+  columns: [
+    { data: 'id' },
+    { data: 'title' },
+    { data: 'body' },
+    { data: 'created_at' },
+    { data: 'updated_at' },
+    {
+      data: null,
+      render: function(data, type, row) {
+        return '<button onclick="editRow(' + row.id + ')">Edit</button>' +
+               '<button onclick="deleteRow(' + row.id + ')">Delete</button>';
+      }
+    }
+  ]
+});
+
+function editRow(id) {
+  // Edit row code here
+}
+
+function deleteRow(id) {
+  // Delete row code here
+  $.ajax({
+    url: 'your-delete-api-endpoint/' + id,
+    type: 'DELETE',
+    success: function(response) {
+      // Reload the table data after the delete operation is complete
+      table.ajax.reload();
+    },
+    error: function(xhr, status, error) {
+      console.error(error);
+    }
+  });
+}
