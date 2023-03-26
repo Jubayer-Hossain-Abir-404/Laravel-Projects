@@ -65,16 +65,22 @@ class RegisterController extends Controller
 
         $fieldType = filter_var($request->login, FILTER_VALIDATE_EMAIL) ? 'email' : 'úser_name';
 
-        if (!auth()->attempt([$fieldType => $user_name, 'password' => $password], request()->remember)) {
-            return back()->with('status', $user_name . " " . $password);
+        if (auth()->attempt([$fieldType => $user_name, 'password' => $password], request()->remember)) {
+            $token = auth()->user()->createToken('ajaxApiORM')->plainTextToken;
+            session()->put('token', $token);
+            return redirect()->route('home');
             // return response()->json(array('message' => 'Login Failed'));
         }
+        else{
+            return back();
+        }
         // return response()->json(array('message' => 'Login Done'));
-        return redirect()->route('home');
+        
     }
 
     public function logout()
     {
+        auth()->user()->tokens()->delete();
         auth()->logout();
 
         return redirect()->route('home');

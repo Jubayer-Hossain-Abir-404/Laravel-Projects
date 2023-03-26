@@ -76,7 +76,10 @@
                 </div>
             </div>
         </div>
-
+        @php 
+            $token = session()->get('token');
+            echo $token."------";
+        @endphp
         <div id="postTableDiv" class="mt-5" style="overflow-x: auto;">
             <table id="postTable" class="table table-striped" style="width:100%">
                 <thead>
@@ -150,13 +153,16 @@
         }
 
         function callPostApi() {
+            let token = '{{ session()->get('token') }}';
+            console.log(token);
             $('#postTable').DataTable({
                 order: [
                     [0, 'desc']
                 ],
                 destroy: true
             });
-
+            
+            
             $.ajax({
                 url: "api/get_post",
                 type: "GET",
