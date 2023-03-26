@@ -167,6 +167,9 @@
                 url: "api/get_post",
                 type: "GET",
                 dataType: 'JSON',
+                headers: {
+                    'Authorization': 'Bearer '+ token
+                },
                 success: function(data) {
                     // console.log(data.post);
                     populateDataTable(data);
