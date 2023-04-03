@@ -48,7 +48,7 @@
 
                         <div class="col">
                             <!-- Simple link -->
-                            <a href="#!">Forgot password?</a>
+                            <a href="{{ route('forget.password.get') }}">Forgot password?</a>
                         </div>
                     </div>
 
