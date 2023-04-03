@@ -63,9 +63,9 @@ class RegisterController extends Controller
         $user_name = $request->login;
         $password = $request->password;
 
-        $fieldType = filter_var($request->login, FILTER_VALIDATE_EMAIL) ? 'email' : 'úser_name';
+        // $fieldType = filter_var($request->login, FILTER_VALIDATE_EMAIL) ? 'email' : 'úser_name';
 
-        if (!auth()->attempt([$fieldType => $user_name, 'password' => $password], request()->remember)) {
+        if (!auth()->attempt(['email' => $user_name, 'password' => $password], request()->remember)) {
             return back()->with('status', $user_name . " " . $password);
             // return response()->json(array('message' => 'Login Failed'));
         }
