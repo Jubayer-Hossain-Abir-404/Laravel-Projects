@@ -76,10 +76,10 @@
                 </div>
             </div>
         </div>
-        @php 
+        {{-- @php 
             $token = session()->get('token');
             echo $token."------";
-        @endphp
+        @endphp --}}
         <div id="postTableDiv" class="mt-5" style="overflow-x: auto;">
             <table id="postTable" class="table table-striped" style="width:100%">
                 <thead>

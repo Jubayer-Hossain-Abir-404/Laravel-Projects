@@ -230,7 +230,7 @@ class PostController extends Controller
         $file_path = public_path($file_name);
         unlink($file_path);
 
-        if ($post->delete()) {
+        if ($post->forceDelete()) {
             return response()->json(array('message' => 'Post has been deleted'));
         } else {
             return response()->json(array('message' => 'Failed to delete post'));
