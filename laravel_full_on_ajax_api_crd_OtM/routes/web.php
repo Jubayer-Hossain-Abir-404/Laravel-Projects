@@ -30,6 +30,8 @@ Route::middleware(['auth'])->group(function () {
 
 Route::get('/', [IndexController::class, 'index'])->name('home');
 
+Route::get('/checkbox', [IndexController::class, 'checkbox'])->name('checkbox');
+
 //this is for login
 
 Route::middleware(['guest'])->group(function () {

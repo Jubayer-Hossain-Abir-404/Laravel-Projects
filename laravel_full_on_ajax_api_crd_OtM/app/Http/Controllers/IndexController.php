@@ -16,6 +16,11 @@ class IndexController extends Controller
         return view('index');
     }
 
+    public function checkbox(){
+        $value =['1','2'];
+        return view('checkbox', compact('value'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
