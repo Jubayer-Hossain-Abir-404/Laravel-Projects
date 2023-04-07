@@ -5,11 +5,14 @@
         <h1 class="text-success text-center mt-5">Post</h1>
 
         <!-- Button trigger modal -->
-        <div class="d-flex align-items-end flex-column">
+        <div class="d-flex justify-content-between">
             <button type="button" onclick=getCategoryAuthor(); class="btn btn-primary mt-5" data-bs-toggle="modal"
                 data-bs-target="#postModal">
                 Create Post
             </button>
+            <a href="{{ route('post.bin') }}" class="btn btn-secondary mt-5">
+                Bin
+            </a>
         </div>
 
         <!-- Modal -->
@@ -323,10 +326,10 @@
         }
 
         function deleteFunc(id) {
-            let confirmAction = confirm("Are you sure to delete this post?");
+            let confirmAction = confirm("Are you sure to move this post to bin?");
             if (confirmAction) {
                 $.ajax({
-                    url: "api/deletePost",
+                    url: "{{ route('softDelete') }}",
                     type: "GET",
                     data: {
                         post_id: id
@@ -346,7 +349,7 @@
                     }
                 })
             } else {
-                alert("Delete canceled");
+                alert("Moving to bin cancelled");
             }
         }
 
@@ -367,13 +370,13 @@
 
                 let update_button = document.createElement("button");
                 update_button.innerHTML = 'Update';
-                update_button.classList.add('btn', 'btn-warning', 'mb-2');
+                update_button.classList.add('btn', 'btn-primary', 'mb-2');
                 update_button.setAttribute("id", "edit" + data.sl);
                 update_button.setAttribute('onclick', 'editFunc("' + data.sl + '");');
 
                 let delete_button = document.createElement("button");
-                delete_button.innerHTML = 'Delete';
-                delete_button.classList.add('btn', 'btn-danger');
+                delete_button.innerHTML = 'Soft Delete';
+                delete_button.classList.add('btn', 'btn-warning');
                 delete_button.setAttribute("id", "delete" + data.sl);
                 delete_button.setAttribute('onclick', 'deleteFunc("' + data.sl + '");');
 

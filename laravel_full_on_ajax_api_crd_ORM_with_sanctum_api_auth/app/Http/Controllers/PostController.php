@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use URL;
 
 class PostController extends Controller
 {
@@ -30,6 +31,16 @@ class PostController extends Controller
         
     }
 
+    public function bin()
+    {
+        if(Auth::check()){
+            return view('postBin');
+        }
+        else{
+           abort(403, 'You are not authorized to be in this page'); 
+        }
+    }
+
     public function getCategoryAuthor()
     {
         $categories = Category::latest('name')->get();
@@ -47,12 +58,23 @@ class PostController extends Controller
             ->selectRaw('p.*, p.id as sl, c.name as categoryName,
         IF(p.approve=1, "Approved", "Disapproved") AS status')
             ->leftJoin('categories as c', 'p.category_id', '=', 'c.id')
+            ->whereNull('p.deleted_at')
             ->reorder('p.id', 'desc')
             ->get();
 
+        return response()->json($post);
+    }
 
-
-        // $postResult['post'] = $post;
+    public function getBinPost()
+    {
+        $base_url = URL::to("/");
+        $base_url = $base_url."/";
+        $post = DB::table('posts as p')
+            ->selectRaw("CONCAT('$base_url', p.image) as image, p.title, p.written_by, p.id as sl, c.name as categoryName")
+            ->leftJoin("categories as c", "p.category_id", "=", "c.id")
+            ->whereNotNull('p.deleted_at')
+            ->reorder("p.id", "desc")
+            ->get();
 
         return response()->json($post);
     }
@@ -234,6 +256,19 @@ class PostController extends Controller
             return response()->json(array('message' => 'Post has been deleted'));
         } else {
             return response()->json(array('message' => 'Failed to delete post'));
+        }
+    }
+
+    public function softDelete(Request $request)
+    {
+        $id = $request->post_id;
+        $post = Post::find($id);
+
+
+        if ($post->delete()) {
+            return response()->json(array('message' => 'Post has been moved to bin'));
+        } else {
+            return response()->json(array('message' => 'Failed to move the post to bin'));
         }
     }
 }

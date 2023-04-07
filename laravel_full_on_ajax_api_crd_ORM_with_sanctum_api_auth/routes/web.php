@@ -23,6 +23,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('post', [PostController::class, 'index'])->name('post');
 
+    Route::get('post/bin', [PostController::class, 'bin'])->name('post.bin');
+
     Route::get('category', [CategoryController::class, 'index'])->name('category');
 
     Route::get('/logout', [RegisterController::class, 'logout'])->name('logout');

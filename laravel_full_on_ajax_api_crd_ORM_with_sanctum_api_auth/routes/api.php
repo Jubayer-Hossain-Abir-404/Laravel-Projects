@@ -43,9 +43,12 @@ Route::post('/updatePost', [PostController::class, 'updatePost'])->name('updateP
 
 Route::get('/deletePost', [PostController::class, 'destroy'])->name('deletePost');
 
+Route::get('/softDelete', [PostController::class, 'softDelete'])->name('softDelete');
+
 
 Route::group(['middleware'=> ['auth:sanctum']], function () {
     Route::get('/get_post', [PostController::class, 'getPost'])->name('getPost');
+    Route::get('/getBinPost', [PostController::class, 'getBinPost'])->name('getBinPost');
 });
 
 
