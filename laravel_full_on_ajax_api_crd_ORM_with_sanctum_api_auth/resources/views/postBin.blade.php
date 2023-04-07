@@ -74,7 +74,6 @@
                 if (allCheck.checked) {
                     oTable.$("input[type='checkbox']").prop('checked', true);
                 } else {
-                    console.log("allCheck.checked else");
                     oTable.$("input[type='checkbox']").prop('checked', false);
                 }
 
@@ -82,6 +81,17 @@
 
             callPostApi();
         });
+
+        function restoreFunc(id=null) {
+            let selectedCheckBox = [];
+            $("input:checkbox[name=singlePostCheck]:checked").each(function() {
+                selectedCheckBox.push($(this).val());
+            });
+            console.log(selectedCheckBox.length);
+            // if(selectedCheckBox.length==0){
+
+            // }
+        }
 
         function permanentDeleteFunc(id) {
             let confirmAction = confirm("Are you sure to move this post to bin?");
@@ -121,21 +131,15 @@
             let currentCheck = oTable.$("input[type='checkbox']:checked").length;
             let allCheck = document.getElementById("all");
             if (allCheck.checked) {
-                console.log("allCheck.checked");
-                if (currentCheck-1 == totalList) {
-                    console.log("currentCheck-1 == totalList");
-                    allCheck.checked =true;
+                if (currentCheck - 1 == totalList) {
+                    allCheck.checked = true;
                 } else {
-                    console.log("currentCheck-1 == totalList else");
                     allCheck.checked = false;
                 }
-            }
-            else{
+            } else {
                 if (currentCheck == totalList) {
-                    console.log("currentCheck == totalList");
-                    allCheck.checked =true;
+                    allCheck.checked = true;
                 } else {
-                    console.log("currentCheck == totalList else");
                     allCheck.checked = false;
                 }
             }
@@ -168,7 +172,8 @@
 
                 const checkBoxAttributes = {
                     type: 'checkbox',
-                    value: 1,
+                    value: data.sl,
+                    name: 'singlePostCheck',
                     id: 'check' + data.sl,
                     onClick: 'singleCheck("' + post_data.length + '")'
                 };
