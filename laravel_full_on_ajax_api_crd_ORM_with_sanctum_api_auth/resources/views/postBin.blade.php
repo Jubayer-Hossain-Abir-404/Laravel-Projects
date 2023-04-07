@@ -6,7 +6,7 @@
 
         <div class="mt-5">
             <input type="checkbox" value="1" id="all">
-            <label>All</label>
+            <label for="all">All</label>
         </div>
         <!-- Button trigger modal -->
         <div class="d-flex justify-content-between">
@@ -42,13 +42,6 @@
         function callPostApi() {
             let token = '{{ session()->get('token') }}';
             // console.log(token);
-            $('#postBinTable').DataTable({
-                order: [
-                    [0, 'desc']
-                ],
-                destroy: true
-            });
-
 
             $.ajax({
                 url: "{{ route('getBinPost') }}",
@@ -67,7 +60,26 @@
                 }
             })
         }
+
         $(document).ready(function() {
+            oTable = $('#postBinTable').DataTable({
+                order: [
+                    [0, 'desc']
+                ],
+                destroy: true
+            });
+
+            $("#all").on("change", function() {
+                let allCheck = document.getElementById("all");
+                if (allCheck.checked) {
+                    oTable.$("input[type='checkbox']").prop('checked', true);
+                } else {
+                    console.log("allCheck.checked else");
+                    oTable.$("input[type='checkbox']").prop('checked', false);
+                }
+
+            });
+
             callPostApi();
         });
 
@@ -105,11 +117,36 @@
             });
         }
 
+        function singleCheck(totalList) {
+            let currentCheck = oTable.$("input[type='checkbox']:checked").length;
+            let allCheck = document.getElementById("all");
+            if (allCheck.checked) {
+                console.log("allCheck.checked");
+                if (currentCheck-1 == totalList) {
+                    console.log("currentCheck-1 == totalList");
+                    allCheck.checked =true;
+                } else {
+                    console.log("currentCheck-1 == totalList else");
+                    allCheck.checked = false;
+                }
+            }
+            else{
+                if (currentCheck == totalList) {
+                    console.log("currentCheck == totalList");
+                    allCheck.checked =true;
+                } else {
+                    console.log("currentCheck == totalList else");
+                    allCheck.checked = false;
+                }
+            }
+
+        }
+
 
         function populateDataTable(post_data) {
             // clear the table before populating it with more data
             $("#postBinTable").DataTable().clear();
-            console.log(post_data);
+            // console.log(post_data.length);
             post_data.forEach(function(data, key) {
                 let post_img = document.createElement("img");
                 post_img.setAttribute('src', data.image);
@@ -133,6 +170,7 @@
                     type: 'checkbox',
                     value: 1,
                     id: 'check' + data.sl,
+                    onClick: 'singleCheck("' + post_data.length + '")'
                 };
 
                 let checkbox = document.createElement("input");
