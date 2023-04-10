@@ -51,6 +51,10 @@ Route::group(['middleware'=> ['auth:sanctum']], function () {
     Route::get('/getBinPost', [PostController::class, 'getBinPost'])->name('getBinPost');
 });
 
+// soft delete
+
+Route::post('/restorePost', [PostController::class, 'restorePost'])->name('restorePost');
+
 
 
 // logiin

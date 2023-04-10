@@ -271,4 +271,10 @@ class PostController extends Controller
             return response()->json(array('message' => 'Failed to move the post to bin'));
         }
     }
+
+    public function restorePost(Request $request){
+        $id = $request->post_id;
+
+        return response()->json(array('message' => $id));
+    }
 }

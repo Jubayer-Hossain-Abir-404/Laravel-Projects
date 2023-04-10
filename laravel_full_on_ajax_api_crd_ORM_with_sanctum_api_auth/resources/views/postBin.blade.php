@@ -82,7 +82,7 @@
             callPostApi();
         });
 
-        function restoreFunc(id=null) {
+        function restoreAllFunc() {
             let selectedCheckBox = [];
             $("input:checkbox[name=singlePostCheck]:checked").each(function() {
                 selectedCheckBox.push($(this).val());
@@ -93,12 +93,12 @@
             // }
         }
 
-        function permanentDeleteFunc(id) {
-            let confirmAction = confirm("Are you sure to move this post to bin?");
+        function restoreFunc(id) {
+            let confirmAction = confirm("Are you sure to restore this post?");
             if (confirmAction) {
                 $.ajax({
-                    url: "{{ route('softDelete') }}",
-                    type: "GET",
+                    url: "{{ route('restorePost') }}",
+                    method: "POST",
                     data: {
                         post_id: id
                     },
@@ -106,6 +106,38 @@
                     headers: {
                         'X-CSRF-TOKEN': $('input[name="_token"]').val()
                     },
+                    success: function(data) {
+                        alert(data);
+                        console.log(data);
+                        callPostApi();
+                    },
+
+                    error: function(data) {
+                        let errors = data.responseJSON;
+                        console.log(errors);
+                    }
+                })
+            } else {
+                alert("Restoring Post cancelled");
+            }
+        }
+
+        function permanentDeleteFunc(id) {
+            let confirmAction = confirm("Are you sure to move this post to bin?");
+            if (confirmAction) {
+                $.ajax({
+                    url: "{{ route('softDelete') }}",
+                    method: "POST",
+                    data: {
+                        post_id: id
+                    },
+                    dataType: 'JSON',
+                    headers: {
+                        'X-CSRF-TOKEN': $('input[name="_token"]').val()
+                    },
+                    contentType: false,
+                    cache: false,
+                    processData: false,
                     success: function(data) {
                         alert(data.message);
                         callPostApi();
