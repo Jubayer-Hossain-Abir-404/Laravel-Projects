@@ -55,6 +55,8 @@ Route::group(['middleware'=> ['auth:sanctum']], function () {
 
 Route::post('/restorePost', [PostController::class, 'restorePost'])->name('restorePost');
 
+Route::post('/restoreMultiplePost', [PostController::class, 'restoreMultiplePost'])->name('restoreMultiplePost');
+
 
 
 // logiin

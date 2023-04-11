@@ -11,7 +11,7 @@
         <!-- Button trigger modal -->
         <div class="d-flex justify-content-between">
             <div class="mt-2">
-                <button type="button" class="btn btn-warning">Restore</button>
+                <button type="button" class="btn btn-warning" onclick="restoreAllFunc();">Restore</button>
                 <button type="button" class="btn btn-danger">Permanent Delete</button>
             </div>
             <a href="{{ route('post') }}" type="button" class="btn btn-primary mt-2">
@@ -84,13 +84,38 @@
 
         function restoreAllFunc() {
             let selectedCheckBox = [];
-            $("input:checkbox[name=singlePostCheck]:checked").each(function() {
+            oTable.$("input:checkbox[name=singlePostCheck]:checked").each(function() {
                 selectedCheckBox.push($(this).val());
             });
-            console.log(selectedCheckBox.length);
-            // if(selectedCheckBox.length==0){
+            if (selectedCheckBox.length == 0) {
+                alert("Please use the checkbox to select a post");
+            } else {
+                let confirmAction = confirm("Are you sure to restore all this post?");
+                if (confirmAction) {
+                    $.ajax({
+                        url: "{{ route('restoreMultiplePost') }}",
+                        method: "POST",
+                        data: {
+                            post_id: selectedCheckBox
+                        },
+                        dataType: 'JSON',
+                        headers: {
+                            'X-CSRF-TOKEN': $('input[name="_token"]').val()
+                        },
+                        success: function(data) {
+                            alert(data.message);
+                            callPostApi();
+                        },
 
-            // }
+                        error: function(data) {
+                            let errors = data.responseJSON;
+                            console.log(errors);
+                        }
+                    })
+                } else {
+                    alert("Restoring Post cancelled");
+                }
+            }
         }
 
         function restoreFunc(id) {

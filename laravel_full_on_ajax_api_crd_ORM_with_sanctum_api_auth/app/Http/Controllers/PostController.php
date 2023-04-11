@@ -282,4 +282,20 @@ class PostController extends Controller
             return response()->json(array('message' => 'Post failed to be restored'));
         }
     }
+
+    public function restoreMultiplePost(Request $request){
+        $ids = $request->post_id;
+        $count=0;
+        foreach($ids as $key => $id){
+            $post = Post::withTrashed()->where('id', $id)->restore();
+            if($post){
+                $count++;
+            }
+        }
+        if($count = count($ids)){
+            return response()->json(array('message' => 'The selected Posts have been restored'));
+        } else{
+            return response()->json(array('message' => 'The selected Posts failed to be restored'));
+        }
+    }
 }
