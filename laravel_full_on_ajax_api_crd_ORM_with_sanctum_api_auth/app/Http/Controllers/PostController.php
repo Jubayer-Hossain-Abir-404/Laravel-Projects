@@ -274,7 +274,12 @@ class PostController extends Controller
 
     public function restorePost(Request $request){
         $id = $request->post_id;
+        $post = Post::withTrashed()->where('id', $id)->restore();
 
-        return response()->json(array('message' => $id));
+        if($post){
+            return response()->json(array('message' => 'Post has been restored'));
+        } else{
+            return response()->json(array('message' => 'Post failed to be restored'));
+        }
     }
 }

@@ -107,8 +107,7 @@
                         'X-CSRF-TOKEN': $('input[name="_token"]').val()
                     },
                     success: function(data) {
-                        alert(data);
-                        console.log(data);
+                        alert(data.message);
                         callPostApi();
                     },
 
