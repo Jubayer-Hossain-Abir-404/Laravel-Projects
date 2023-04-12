@@ -205,7 +205,9 @@
 
         function populateDataTable(post_data) {
             // clear the table before populating it with more data
-            $("#postBinTable").DataTable().clear();
+            // $("#postBinTable").DataTable().clear();
+            $('#postBinTable').DataTable().rows().remove().draw();
+ 
             // console.log(post_data.length);
             post_data.forEach(function(data, key) {
                 let post_img = document.createElement("img");
