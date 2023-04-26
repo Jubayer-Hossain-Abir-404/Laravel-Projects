@@ -8,6 +8,7 @@
     <title>Corona Admin</title>
     <!-- plugins:css -->
     @include('admin.style')
+    @yield('style-content')
     <!-- End layout styles -->
     <link rel="shortcut icon" href="assets/images/favicon.png" />
 </head>
