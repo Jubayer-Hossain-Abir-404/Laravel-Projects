@@ -17,7 +17,13 @@
 @endsection
 
 @section('admin-content')
+    @if(session()->has('message'))
+        <div class="alert alert-success">
+            <button type="button" class="close" data-dismiss="alert">X</button>
+            {{ session()->get('message') }}
+        </div>
 
+    @endif
     <div class="div_center">
         <h2 class="h2Font">Add Category</h2>
 
