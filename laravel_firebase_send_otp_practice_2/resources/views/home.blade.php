@@ -94,6 +94,11 @@
             });
         }
 
+        function timedOut() {
+            hideMessage(['#error', '#phoneNumberSuccess', '#verificationError', '#verifySuccess']);
+            showMessage('#error', "Time Out");
+        }
+
 
         function sendCode() {
             const number = $('#number').val();
@@ -114,6 +119,7 @@
                     }).catch((error) => {
                         // Error; SMS not sent
                         // ...
+                        setTimeout(timedOut, 120000);
                         hideMessage(['#error', '#phoneNumberSuccess', '#verificationError', '#verifySuccess']);
                         showMessage('#error', error.message);
                         // console.log(error);
