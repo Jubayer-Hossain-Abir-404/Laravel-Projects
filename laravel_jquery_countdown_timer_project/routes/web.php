@@ -22,3 +22,5 @@ use App\Http\Controllers\TimeController;
 Route::get('/', [TimeController::class, 'view'])->name('view');
 
 Route::get('/create/time', [TimeController::class, 'create'])->name('create');
+
+Route::post('store/time', [TimeController::class, 'store'])->name('time.store');
