@@ -9,7 +9,8 @@ use App\Models\CountdownTimer;
 class TimeController extends Controller
 {
     public function view(){
-        return view('view');
+        $countdown_timer = CountdownTimer::first();
+        return view('view', compact('countdown_timer'));
     }
 
     public function create(){
@@ -23,7 +24,7 @@ class TimeController extends Controller
 
         $countdown_timer->status = $request->status;
         if($countdown_timer->save()){
-            return back()->with('success', 'Time created Successfully');
+            return back()->with('success', 'Time save Successfull');
         }else{
             return back()->with('error', 'Timer save failed');
         }
