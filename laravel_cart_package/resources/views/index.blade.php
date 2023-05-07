@@ -52,7 +52,7 @@
                                         title="Move to the wish list">
                                         <i class="fas fa-heart"></i>
                                     </button>
-                                    <button onclick="addToCart()" type="button" class="btn btn-success btn-sm mb-2" data-mdb-toggle="tooltip"
+                                    <button onclick="addToCart(1, 'Blue Denim Shirt', '#form1', '17.99', 'blue', 'M')" type="button" class="btn btn-success btn-sm mb-2" data-mdb-toggle="tooltip"
                                         title="Move to the wish list">
                                         Add to Cart
                                     </button>
@@ -110,7 +110,7 @@
                                     <!-- Data -->
                                     <p><strong>Red hoodie</strong></p>
                                     <p>Color: red</p>
-                                    <p>Size: M</p>
+                                    <p>Size: L</p>
 
                                     <button type="button" class="btn btn-primary btn-sm me-1 mb-2"
                                         data-mdb-toggle="tooltip" title="Remove item">
@@ -119,6 +119,10 @@
                                     <button type="button" class="btn btn-danger btn-sm mb-2" data-mdb-toggle="tooltip"
                                         title="Move to the wish list">
                                         <i class="fas fa-heart"></i>
+                                    </button>
+                                    <button onclick="addToCart(2, 'Red Hoodie', '#form2', '18.99', 'red', 'L')" type="button" class="btn btn-success btn-sm mb-2" data-mdb-toggle="tooltip"
+                                        title="Move to the wish list">
+                                        Add to Cart
                                     </button>
                                     <!-- Data -->
                                 </div>
@@ -132,7 +136,7 @@
                                         </button>
 
                                         <div class="form-outline">
-                                            <input id="form1" min="0" name="quantity" value="1"
+                                            <input id="form2" min="0" name="quantity" value="1"
                                                 type="number" class="form-control" />
                                             <label class="form-label" for="form1">Quantity</label>
                                         </div>
@@ -146,7 +150,7 @@
 
                                     <!-- Price -->
                                     <p class="text-start text-md-center">
-                                        <strong>$17.99</strong>
+                                        <strong>$18.99</strong>
                                     </p>
                                     <!-- Price -->
                                 </div>
@@ -217,10 +221,18 @@
 @section('script')
 
     <script>
-        function addToCart(){
+        function addToCart(id, product_name, quantity_id, price, color, size){
             $.ajax({
                 url: "{{ route('addCart') }}",
                 type: "GET",
+                data: {
+                    id: id,
+                    product_name: product_name,
+                    quantity: $(quantity_id).val(),
+                    price: price,
+                    color: color,
+                    size: size
+                },
                 dataType: 'JSON',
                 headers: {
                     'X-CSRF-TOKEN': $('input[name="_token"]').val()
