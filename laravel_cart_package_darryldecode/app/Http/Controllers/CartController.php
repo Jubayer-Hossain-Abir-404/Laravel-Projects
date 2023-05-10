@@ -6,7 +6,8 @@ class CartController extends Controller
     public function cartList()
     {
         $cartItems = \Cart::getContent();
-        return view('cart', compact('cartItems'));
+        $header = 'Cart';
+        return view('cart', compact('cartItems', 'header'));
     }
     public function addToCart(Request $request)
     {
@@ -19,8 +20,9 @@ class CartController extends Controller
                 'image' => $request->image,
             )
         ]);
+        $header = 'Cart';
         session()->flash('success', 'Product is Added to Cart Successfully !');
-        return redirect()->route('cart.list');
+        return redirect()->route('cart.list')->with( [ 'header' => $header ] );
     }
     public function updateCart(Request $request)
     {
@@ -33,19 +35,22 @@ class CartController extends Controller
                 ],
             ]
         );
+        $header = 'Cart';
         session()->flash('success', 'Item Cart is Updated Successfully !');
-        return redirect()->route('cart.list');
+        return redirect()->route('cart.list')->with( [ 'header' => $header ] );
     }
     public function removeCart(Request $request)
     {
         \Cart::remove($request->id);
+        $header = 'Cart';
         session()->flash('success', 'Item Cart Remove Successfully !');
-        return redirect()->route('cart.list');
+        return redirect()->route('cart.list')->with( [ 'header' => $header ] );
     }
     public function clearAllCart()
     {
         \Cart::clear();
+        $header = 'Cart';
         session()->flash('success', 'All Item Cart Clear Successfully !');
-        return redirect()->route('cart.list');
+        return redirect()->route('cart.list')->with( [ 'header' => $header ] );
     }
 }

@@ -1,4 +1,9 @@
 <x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Cart List') }}
+        </h2>
+    </x-slot>
     <main class="my-8">
         <div class="container px-6 mx-auto">
             <div class="flex justify-center my-6">
