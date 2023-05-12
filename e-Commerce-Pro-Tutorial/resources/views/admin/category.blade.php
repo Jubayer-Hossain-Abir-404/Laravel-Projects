@@ -13,6 +13,14 @@
         .input_color{
             color: black;
         }
+
+        .center{
+            margin: auto;
+            width: 50%;
+            text-align: center;
+            margin-top:30px;
+            border: 3px solid white;
+        }
     </style>
 @endsection
 
@@ -35,6 +43,18 @@
             <input type="submit" class="btn btn-primary" name="submit" value="Add Category">
         </form>
     </div>
+
+    <table class="center">
+        <tr>
+            <td>Category Name</td>
+            <td>Action</td>
+        </tr>
+
+        <tr>
+            <td>Toys</td>
+            <td><a href="" class="btn btn-danger">Delete</a></td>
+        </tr>
+    </table>
 
 
 @endsection
