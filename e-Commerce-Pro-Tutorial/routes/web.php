@@ -37,3 +37,6 @@ Route::post('/add_category', [AdminController::class, 'add_category'])->name('ad
 
 
 Route::get('/delete_category/{id}', [AdminController::class, 'delete_category'])->name('delete_category');
+
+
+Route::get('/add_product', [AdminController::class, 'add_product'])->name('add_product');

@@ -30,4 +30,8 @@ class AdminController extends Controller
 
         return redirect()->back()->with('message', 'Category Deleted Successfully');
     }
+
+    public function add_product(){
+        return view('admin.add_product');
+    }
 }
