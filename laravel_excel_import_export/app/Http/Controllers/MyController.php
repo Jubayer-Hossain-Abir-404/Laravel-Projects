@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 // use Maatwebsite\Excel\Excel;
 use App\Imports\UsersImport;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\UsersExport;
 
 class MyController extends Controller
 {
@@ -17,10 +18,10 @@ class MyController extends Controller
     /**
      * @return \Illuminate\Support\Collection
      */
-    // public function export()
-    // {
-    //     return Excel::download(new UsersExport, 'users.xlsx');
-    // }
+    public function export()
+    {
+        return Excel::download(new UsersExport, 'users.xlsx');
+    }
 
     /**
      * @return \Illuminate\Support\Collection
