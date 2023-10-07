@@ -35,6 +35,7 @@
                         <th>ID</th>
                         <th>Short Link</th>
                         <th>Link</th>
+                        <th>Click Count</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -43,6 +44,7 @@
                             <td>{{ $row->id }}</td>
                             <td><a href="{{ route('shorten.link', $row->code) }}" target="_blank">{{ route('shorten.link', $row->code) }}</a></td>
                             <td>{{ $row->link }}</td>
+                            <td>{{ $row->click_count }}</td>
                         </tr>
                     @endforeach
                 </tbody>

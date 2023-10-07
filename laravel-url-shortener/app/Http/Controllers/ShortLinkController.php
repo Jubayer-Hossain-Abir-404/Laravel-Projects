@@ -36,6 +36,10 @@ class ShortLinkController extends Controller
     {
         $find = ShortLink::where('code', $code)->first();
 
+        $find->click_count =  $find->click_count + 1;
+
+        $find->update();
+
         return redirect($find->link);
     }
 }
